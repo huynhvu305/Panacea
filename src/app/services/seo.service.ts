@@ -19,7 +19,7 @@ export class SEOService {
   private defaultTitle = 'Panacea - A medicine from the stars';
   private defaultDescription = 'Không gian trị liệu và chữa lành tâm hồn - Panacea cung cấp các dịch vụ thiền, yoga, tư vấn tâm lý và nhiều hoạt động chữa lành khác.';
   private defaultKeywords = 'Panacea, trị liệu, chữa lành, thiền, yoga, tư vấn tâm lý, không gian thư giãn';
-  private defaultImage = '/assets/images/ogimg.webp';
+  private defaultImage = 'https://panaceawebsite.vercel.app/assets/images/ogimg.webp';
 
   constructor(
     private titleService: Title,
@@ -53,7 +53,10 @@ export class SEOService {
 
     const ogTitle = data.title || this.defaultTitle;
     const ogDescription = data.description || this.defaultDescription;
-    const ogImage = data.image || this.defaultImage;
+    let ogImage = data.image || this.defaultImage;
+    if (ogImage && ogImage.startsWith('/')) {
+      ogImage = window.location.origin + ogImage;
+    }
     const ogUrl = data.url || window.location.href;
 
     this.updateOrCreateMetaTag('property', 'og:title', ogTitle);
