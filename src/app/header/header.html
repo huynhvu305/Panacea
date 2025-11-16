@@ -2,7 +2,7 @@
 <div class="scrolling-banner">
   <div class="scrolling-wrapper">
     <div class="scrolling-text">
-      <span>Chào mừng bạn đến với PANACEA – a medicine from the starts</span>
+      <span>Chào mừng bạn đến với PANACEA – A medicine from the starts</span>
     </div>
   </div>
 </div>
@@ -74,7 +74,8 @@
         <div class="menu" role="menu" *ngIf="isAboutDropdownOpen">
           <a routerLink="/about/about-us" role="menuitem" aria-label="Về Panacea" (click)="closeAboutDropdown()">Về
             Panacea</a>
-          <a routerLink="/about/panacea-story" role="menuitem" aria-label="Cốt truyện Panacea" (click)="closeAboutDropdown()">Cốt
+          <a routerLink="/about/panacea-story" role="menuitem" aria-label="Cốt truyện Panacea"
+            (click)="closeAboutDropdown()">Cốt
             truyện Panacea</a>
         </div>
       </div>
@@ -90,7 +91,8 @@
           <i class="bi bi-chevron-down dropdown-icon" aria-hidden="true"></i>
         </span>
         <div class="menu" role="menu" *ngIf="isMoreDropdownOpen">
-          <a routerLink="/about/about-us" role="menuitem" aria-label="Về chúng tôi" (click)="closeMoreDropdown()">Về chúng
+          <a routerLink="/about/about-us" role="menuitem" aria-label="Về chúng tôi" (click)="closeMoreDropdown()">Về
+            chúng
             tôi</a>
         </div>
       </div>
@@ -182,7 +184,7 @@
     [attr.aria-hidden]="!isOpen" (click)="$event.stopPropagation()">
     <div class="drawer-header">
       <a class="drawer-logo" routerLink="/" (click)="closeMenu()" aria-label="Panacea - Trang chủ">
-        <img src="../../assets/images/SUBLOGO.webp" alt="Panacea Logo - Không gian trị liệu và chữa lành tâm hồn" 
+        <img src="../../assets/images/SUBLOGO.webp" alt="Panacea Logo - Không gian trị liệu và chữa lành tâm hồn"
           title="Panacea Logo - Không gian trị liệu và chữa lành tâm hồn" />
         <span>Panacea</span>
       </a>

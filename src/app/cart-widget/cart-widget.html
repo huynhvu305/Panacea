@@ -35,8 +35,8 @@
                         <span class="price">{{ group.totalPrice | currency:'VND' }}</span>
                     </div>
 
-                    <button class="btn-remove" (click)="removeGroupFromCart(group)">
-                        <i class="bi bi-x-lg"></i>
+                    <button class="btn-remove" (click)="removeGroupFromCart(group)" aria-label="Xóa phòng khỏi giỏ hàng">
+                        <i class="bi bi-x-lg" aria-hidden="true"></i>
                     </button>
                 </div>
                 

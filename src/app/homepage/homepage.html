@@ -37,37 +37,39 @@
           <div class="sb-search-field sb-price-range">
             <div class="sb-price-controls">
               <div class="sb-control sb-price-left">
-                <i class="bi bi-cash-coin"></i>
-                <input type="text" class="sb-input" placeholder="Từ" [(ngModel)]="selectedMinPrice"
+                <i class="bi bi-cash-coin" aria-hidden="true"></i>
+                <label for="price-min" class="sr-only">Giá tối thiểu</label>
+                <input type="text" id="price-min" class="sb-input" placeholder="Từ" [(ngModel)]="selectedMinPrice"
                   (input)="onPriceInput($event, 'min')" (blur)="onPriceBlur($event, 'min')"
-                  (keydown)="onPriceKeyDown($event, 'min')" />
+                  (keydown)="onPriceKeyDown($event, 'min')" aria-label="Giá tối thiểu" />
               </div>
-              <span class="sb-price-separator">–</span>
+              <span class="sb-price-separator" aria-hidden="true">–</span>
               <div class="sb-control sb-price-right">
-                <input type="text" class="sb-input" placeholder="Đến" [(ngModel)]="selectedMaxPrice"
+                <label for="price-max" class="sr-only">Giá tối đa</label>
+                <input type="text" id="price-max" class="sb-input" placeholder="Đến" [(ngModel)]="selectedMaxPrice"
                   (input)="onPriceInput($event, 'max')" (blur)="onPriceBlur($event, 'max')"
-                  (keydown)="onPriceKeyDown($event, 'max')" />
+                  (keydown)="onPriceKeyDown($event, 'max')" aria-label="Giá tối đa" />
               </div>
             </div>
           </div>
         </div>
 
         <div class="sb-search-field-wrapper">
-          <label class="sb-search-label">Ngày</label>
+          <label class="sb-search-label" for="date-input">Ngày</label>
           <div class="sb-search-field">
             <div class="sb-control">
-              <i class="bi bi-calendar3 calendar-icon" (click)="openDatePicker()" title="Chọn ngày"></i>
-              <input type="date" #dateInput class="sb-input" [(ngModel)]="date" id="date-input" />
+              <i class="bi bi-calendar3 calendar-icon" (click)="openDatePicker()" title="Chọn ngày" aria-label="Chọn ngày"></i>
+              <input type="date" #dateInput class="sb-input" [(ngModel)]="date" id="date-input" aria-label="Chọn ngày đặt phòng" />
             </div>
           </div>
         </div>
 
         <div class="sb-search-field-wrapper">
-          <label class="sb-search-label">Sức chứa</label>
+          <label class="sb-search-label" for="guest-count">Sức chứa</label>
           <div class="sb-search-field">
             <div class="sb-control">
-              <i class="bi bi-people"></i>
-              <select class="sb-select" [(ngModel)]="guestCountFilter">
+              <i class="bi bi-people" aria-hidden="true"></i>
+              <select id="guest-count" class="sb-select" [(ngModel)]="guestCountFilter" aria-label="Sức chứa phòng">
                 <option value="">Tất cả</option>
                 <option value="2">1-2 người</option>
                 <option value="5">3-5 người</option>
@@ -78,7 +80,7 @@
         </div>
 
         <div class="sb-search-button-wrapper">
-          <button class="sb-search" (click)="onSearch()">
+          <button class="sb-search" (click)="onSearch()" aria-label="Tìm kiếm phòng">
             <i class="bi bi-search"></i>
           </button>
         </div>

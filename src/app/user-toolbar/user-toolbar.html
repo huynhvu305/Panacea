@@ -1,8 +1,8 @@
 <!-- Thanh toolbar trôi nổi -->
 <div class="sidebar-container">
     <!-- Nút menu cho mobile -->
-    <button class="menu-toggle d-lg-none" (click)="toggleSidebar()">
-        <i class="bi bi-list"></i>
+    <button class="menu-toggle d-lg-none" (click)="toggleSidebar()" aria-label="Mở menu người dùng" [attr.aria-expanded]="sidebarOpen">
+        <i class="bi bi-list" aria-hidden="true"></i>
     </button>
 
     <!-- SIDEBAR CHÍNH -->
