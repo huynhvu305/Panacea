@@ -6,8 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "clean": "rimraf dist .angular",
-    "optimize-poster": "node scripts/optimize-poster.js"
+    "clean": "rimraf dist .angular"
   },
   "prettier": {
     "printWidth": 100,

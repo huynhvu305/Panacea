@@ -200,8 +200,6 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
 
   // ========== HOME VIDEO ==========
   videoSrc = 'assets/video/panacea.webm';
-  // ✅ Tối ưu: Ảnh poster đã được resize từ 3556x2000px (129.07 KB) xuống 1920x1080px (69.33 KB)
-  // Tiết kiệm: 59.74 KB (46.3%) - Giảm đáng kể thời gian tải trang
   videoPoster = 'assets/images/BACKGROUND-poster.webp';
 
   // ========== SEARCH BAR ==========
