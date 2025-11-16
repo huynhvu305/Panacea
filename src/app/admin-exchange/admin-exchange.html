@@ -1,0 +1,430 @@
+<div class="admin-wrapper container-fluid p-4">
+    <div class="row">
+        <!-- SIDEBAR -->
+        <div class="col-lg-2 col-md-3 mb-4">
+            <div class="admin-sidebar">
+                <h3 class="sidebar-title">Admin Panel</h3>
+                <nav class="admin-nav">
+                    <a routerLink="/admin-dashboard" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-speedometer2"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a routerLink="/admin-users" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-people"></i>
+                        <span>Quản lý Users</span>
+                    </a>
+                    <a routerLink="/admin-bookings" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-calendar-check"></i>
+                        <span>Quản lý Bookings</span>
+                    </a>
+                    <a routerLink="/admin-rooms" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-door-open"></i>
+                        <span>Quản lý Rooms</span>
+                    </a>
+                    <a routerLink="/admin-services" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-gear"></i>
+                        <span>Quản lý Services</span>
+                    </a>
+                    <a routerLink="/admin-exchange" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-gift"></i>
+                        <span>Quản lý Exchange</span>
+                    </a>
+                    <a routerLink="/admin-reviews" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-star"></i>
+                        <span>Quản lý Reviews</span>
+                    </a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button (click)="logout()" class="logout-btn">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Đăng xuất</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="col-lg-10 col-md-9">
+            <div class="admin-content">
+                <div class="page-header">
+                    <h1 class="page-title">Quản lý Exchange</h1>
+                    <div class="search-bar">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Tìm kiếm..." 
+                            [(ngModel)]="searchTerm" (input)="onSearch()" />
+                    </div>
+                </div>
+
+                <!-- TABS -->
+                <div class="tabs-container">
+                    <button type="button" class="tab-button" [class.active]="activeTab === 'voucher'"
+                        (click)="setTab('voucher')">
+                        <i class="bi bi-ticket-perforated"></i>
+                        <span>Vouchers</span>
+                    </button>
+                    <button type="button" class="tab-button" [class.active]="activeTab === 'item'"
+                        (click)="setTab('item')">
+                        <i class="bi bi-box-seam"></i>
+                        <span>Items</span>
+                    </button>
+                </div>
+
+                <!-- VOUCHER TAB -->
+                @if (activeTab === 'voucher') {
+                    <div class="table-container">
+                        <table class="exchange-table">
+                            <thead>
+                                <tr>
+                                    <th>Mã Voucher</th>
+                                    <th>Loại</th>
+                                    <th>Điểm yêu cầu</th>
+                                    <th>Giảm giá</th>
+                                    <th>Trạng thái</th>
+                                    <th class="text-center">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (paginatedVouchers.length === 0) {
+                                    <tr>
+                                        <td colspan="6" class="text-center text-muted py-4">
+                                            Không tìm thấy voucher nào
+                                        </td>
+                                    </tr>
+                                }
+                                @for (voucher of paginatedVouchers; track voucher.code) {
+                                    <tr>
+                                        <td><strong>{{ voucher.code }}</strong></td>
+                                        <td>{{ voucher.type }}</td>
+                                        <td>{{ voucher.pointsRequired }} điểm</td>
+                                        <td>
+                                            @if (voucher.discountType === 'percent') {
+                                                {{ voucher.discountValue }}%
+                                            } @else {
+                                                {{ formatCurrency(voucher.discountValue || 0) }}
+                                            }
+                                        </td>
+                                        <td>
+                                            <span class="status-badge" [class.active]="voucher.status === 'Còn hiệu lực'">
+                                                {{ voucher.status || 'Còn hiệu lực' }}
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="action-buttons">
+                                                <button class="btn-view" (click)="viewVoucher(voucher)" 
+                                                    title="Xem chi tiết">
+                                                    <i class="bi bi-eye"></i>
+                                                </button>
+                                                <button class="btn-edit" (click)="editVoucherDetails(voucher)" 
+                                                    title="Chỉnh sửa">
+                                                    <i class="bi bi-pencil"></i>
+                                                </button>
+                                                <button class="btn-delete" (click)="deleteVoucher(voucher)" 
+                                                    title="Xóa">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- VOUCHER PAGINATION -->
+                    @if (totalVoucherPages > 1) {
+                        <div class="pagination-container">
+                            <button class="pagination-btn" [disabled]="currentVoucherPage === 0"
+                                (click)="goToVoucherPage(currentVoucherPage - 1)">
+                                <i class="bi bi-chevron-left"></i>
+                            </button>
+                            @for (page of getVoucherPageNumbers(); track page) {
+                                <button class="pagination-btn" [class.active]="currentVoucherPage === page"
+                                    (click)="goToVoucherPage(page)">
+                                    {{ page + 1 }}
+                                </button>
+                            }
+                            <button class="pagination-btn" [disabled]="currentVoucherPage >= totalVoucherPages - 1"
+                                (click)="goToVoucherPage(currentVoucherPage + 1)">
+                                <i class="bi bi-chevron-right"></i>
+                            </button>
+                        </div>
+                    }
+                }
+
+                <!-- ITEM TAB -->
+                @if (activeTab === 'item') {
+                    <div class="table-container">
+                        <table class="exchange-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên Item</th>
+                                    <th>Điểm yêu cầu</th>
+                                    <th>Tồn kho</th>
+                                    <th class="text-center">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (paginatedItems.length === 0) {
+                                    <tr>
+                                        <td colspan="5" class="text-center text-muted py-4">
+                                            Không tìm thấy item nào
+                                        </td>
+                                    </tr>
+                                }
+                                @for (item of paginatedItems; track item.id) {
+                                    <tr>
+                                        <td><strong>{{ item.id }}</strong></td>
+                                        <td>{{ item.name }}</td>
+                                        <td>{{ item.pointsRequired }} điểm</td>
+                                        <td>
+                                            <span class="stock-badge" [class.low-stock]="item.stock < 10">
+                                                {{ item.stock }}
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="action-buttons">
+                                                <button class="btn-view" (click)="viewItem(item)" 
+                                                    title="Xem chi tiết">
+                                                    <i class="bi bi-eye"></i>
+                                                </button>
+                                                <button class="btn-edit" (click)="editItemDetails(item)" 
+                                                    title="Chỉnh sửa">
+                                                    <i class="bi bi-pencil"></i>
+                                                </button>
+                                                <button class="btn-delete" (click)="deleteItem(item)" 
+                                                    title="Xóa">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- ITEM PAGINATION -->
+                    @if (totalItemPages > 1) {
+                        <div class="pagination-container">
+                            <button class="pagination-btn" [disabled]="currentItemPage === 0"
+                                (click)="goToItemPage(currentItemPage - 1)">
+                                <i class="bi bi-chevron-left"></i>
+                            </button>
+                            @for (page of getItemPageNumbers(); track page) {
+                                <button class="pagination-btn" [class.active]="currentItemPage === page"
+                                    (click)="goToItemPage(page)">
+                                    {{ page + 1 }}
+                                </button>
+                            }
+                            <button class="pagination-btn" [disabled]="currentItemPage >= totalItemPages - 1"
+                                (click)="goToItemPage(currentItemPage + 1)">
+                                <i class="bi bi-chevron-right"></i>
+                            </button>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- VOUCHER VIEW MODAL -->
+@if (showVoucherModal && selectedVoucher) {
+    <div class="modal-overlay" (click)="closeVoucherModal()">
+        <div class="modal-container" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <h4>Chi tiết Voucher</h4>
+                <button class="btn-close" (click)="closeVoucherModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="info-row">
+                    <span>Mã Voucher:</span>
+                    <p><strong>{{ selectedVoucher.code }}</strong></p>
+                </div>
+                <div class="info-row">
+                    <span>Loại:</span>
+                    <p>{{ selectedVoucher.type }}</p>
+                </div>
+                <div class="info-row">
+                    <span>Điểm yêu cầu:</span>
+                    <p>{{ selectedVoucher.pointsRequired }} điểm</p>
+                </div>
+                <div class="info-row">
+                    <span>Giảm giá:</span>
+                    <p>
+                        @if (selectedVoucher.discountType === 'percent') {
+                            {{ selectedVoucher.discountValue }}%
+                        } @else {
+                            {{ formatCurrency(selectedVoucher.discountValue || 0) }}
+                        }
+                    </p>
+                </div>
+                <div class="info-row">
+                    <span>Mô tả:</span>
+                    <p>{{ selectedVoucher.description || 'N/A' }}</p>
+                </div>
+                <div class="info-row">
+                    <span>Đơn tối thiểu:</span>
+                    <p>{{ selectedVoucher.minTransaction || 'N/A' }}</p>
+                </div>
+                <div class="info-row">
+                    <span>Hình thức thanh toán:</span>
+                    <p>{{ selectedVoucher.payment || 'N/A' }}</p>
+                </div>
+                <div class="info-row">
+                    <span>Loại người dùng:</span>
+                    <p>{{ selectedVoucher.userType || 'N/A' }}</p>
+                </div>
+                <div class="info-row">
+                    <span>Ngày bắt đầu:</span>
+                    <p>{{ selectedVoucher.startDate || 'N/A' }}</p>
+                </div>
+                <div class="info-row">
+                    <span>Ngày kết thúc:</span>
+                    <p>{{ selectedVoucher.endDate || 'N/A' }}</p>
+                </div>
+                <div class="info-row">
+                    <span>Trạng thái:</span>
+                    <p>
+                        <span class="status-badge" [class.active]="selectedVoucher.status === 'Còn hiệu lực'">
+                            {{ selectedVoucher.status || 'Còn hiệu lực' }}
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cancel" (click)="closeVoucherModal()">Đóng</button>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- ITEM VIEW MODAL -->
+@if (showItemModal && selectedItem) {
+    <div class="modal-overlay" (click)="closeItemModal()">
+        <div class="modal-container" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <h4>Chi tiết Item</h4>
+                <button class="btn-close" (click)="closeItemModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="info-row">
+                    <span>ID:</span>
+                    <p><strong>{{ selectedItem.id }}</strong></p>
+                </div>
+                <div class="info-row">
+                    <span>Tên:</span>
+                    <p>{{ selectedItem.name }}</p>
+                </div>
+                <div class="info-row">
+                    <span>Điểm yêu cầu:</span>
+                    <p>{{ selectedItem.pointsRequired }} điểm</p>
+                </div>
+                <div class="info-row">
+                    <span>Tồn kho:</span>
+                    <p>
+                        <span class="stock-badge" [class.low-stock]="selectedItem.stock < 10">
+                            {{ selectedItem.stock }}
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cancel" (click)="closeItemModal()">Đóng</button>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- VOUCHER EDIT MODAL -->
+@if (showEditVoucherModal && editVoucher) {
+    <div class="modal-overlay" (click)="closeEditVoucherModal()">
+        <div class="modal-container" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <h4>Chỉnh sửa Voucher</h4>
+                <button class="btn-close" (click)="closeEditVoucherModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Mã Voucher:</label>
+                    <input type="text" class="form-control" [(ngModel)]="editVoucher.code" readonly />
+                </div>
+                <div class="form-group">
+                    <label>Loại:</label>
+                    <input type="text" class="form-control" [(ngModel)]="editVoucher.type" />
+                </div>
+                <div class="form-group">
+                    <label>Điểm yêu cầu:</label>
+                    <input type="number" class="form-control" [(ngModel)]="editVoucher.pointsRequired" />
+                </div>
+                <div class="form-group">
+                    <label>Loại giảm giá:</label>
+                    <select class="form-control" [(ngModel)]="editVoucher.discountType">
+                        <option value="percent">Phần trăm (%)</option>
+                        <option value="fixed">Số tiền cố định</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Giá trị giảm:</label>
+                    <input type="number" class="form-control" [(ngModel)]="editVoucher.discountValue" />
+                </div>
+                <div class="form-group">
+                    <label>Mô tả:</label>
+                    <textarea class="form-control" [(ngModel)]="editVoucher.description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Đơn tối thiểu:</label>
+                    <input type="text" class="form-control" [(ngModel)]="editVoucher.minTransaction" />
+                </div>
+                <div class="form-group">
+                    <label>Trạng thái:</label>
+                    <select class="form-control" [(ngModel)]="editVoucher.status">
+                        <option value="Còn hiệu lực">Còn hiệu lực</option>
+                        <option value="Hết hạn">Hết hạn</option>
+                        <option value="Đã sử dụng">Đã sử dụng</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cancel" (click)="closeEditVoucherModal()">Hủy</button>
+                <button class="btn btn-save" (click)="saveVoucherChanges()">Lưu</button>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- ITEM EDIT MODAL -->
+@if (showEditItemModal && editItem) {
+    <div class="modal-overlay" (click)="closeEditItemModal()">
+        <div class="modal-container" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <h4>Chỉnh sửa Item</h4>
+                <button class="btn-close" (click)="closeEditItemModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>ID:</label>
+                    <input type="text" class="form-control" [(ngModel)]="editItem.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label>Tên:</label>
+                    <input type="text" class="form-control" [(ngModel)]="editItem.name" />
+                </div>
+                <div class="form-group">
+                    <label>Điểm yêu cầu:</label>
+                    <input type="number" class="form-control" [(ngModel)]="editItem.pointsRequired" />
+                </div>
+                <div class="form-group">
+                    <label>Tồn kho:</label>
+                    <input type="number" class="form-control" [(ngModel)]="editItem.stock" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cancel" (click)="closeEditItemModal()">Hủy</button>
+                <button class="btn btn-save" (click)="saveItemChanges()">Lưu</button>
+            </div>
+        </div>
+    </div>
+}
+

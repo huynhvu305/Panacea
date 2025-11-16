@@ -1,0 +1,84 @@
+<section class="hero-section">
+  <img src="assets/images/BACKGROUND.webp" alt="Hình nền Panacea - Hệ thống tích điểm Xu" 
+    title="Hình nền Panacea - Hệ thống tích điểm Xu Panacea" />
+  <div class="banner-inner container">
+    <div class="hero-content">
+      <h1 class="hero-title">Xu Panacea <span class="accent">Hệ Thống Tích Điểm</span></h1>
+      <p class="hero-subtitle">Tích xu mỗi khi sử dụng dịch vụ, đổi voucher giảm giá và quà tặng độc quyền</p>
+    </div>
+  </div>
+</section>
+<div class="bg" id="bg">
+  <div class="content">
+    <!-- HEADER -->
+    <section class="header">
+      <h1>Thư giãn thả ga, nhận thưởng bao la!</h1>
+      <p>Hãy tìm hiểu tất cả về Xu Panacea và cách kiếm Xu</p>
+    </section>
+
+    <!-- XU CƠ BẢN -->
+    <section class="card-section">
+      <div class="info-card">
+        <div class="icon">
+          <img src="../../assets/images/wallet.webp" alt="Icon ví - Xu Cơ Bản Panacea" 
+            title="Icon ví - Xu Cơ Bản Panacea - Kiếm xu qua mã hoàn xu và chuyển đổi" />
+        </div>
+        <div class="text">
+          <h2>Xu Cơ Bản</h2>
+          <p class="mt-3">
+            Kiếm Xu Cơ Bản thông qua mã hoàn xu, chuyển đổi xu thưởng chưa sử dụng từ các ứng dụng khác và nhiều cách
+            khác.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIẾT KIỆM HƠN -->
+    <section class="save-more">
+      <h3>Tiết Kiệm Hơn Cho Chuyến Thư Giãn với Xu Panacea</h3>
+      <p>
+        Từ việc giảm giá trực tiếp cho các trải nghiệm thư giãn của bạn, ưu đãi đặc biệt từ các đối tác đa dạng, cho đến
+        khuyến mãi hấp dẫn cho các phòng giải trí và hoạt động yêu thích trên Panacea.
+      </p>
+    </section>
+
+    <!-- TRẢI NGHIỆM BẰNG XU -->
+    <section class="travel-box">
+      <div class="travel-left">
+        <h3>Trải nghiệm bằng Xu</h3>
+        <p>
+          Bây giờ bạn có thể sử dụng Xu để giảm giá trực tiếp cho đặt phòng bằng cách đổi nó trên Trang
+          Thanh toán. Tiện lợi và dễ dàng.
+        </p>
+        <p class="exchange-text">Có thể đổi lấy Ưu đãi cho các sản phẩm sau:</p>
+        <div class="icons">
+          <div>Gấu bông</div>
+          <div>Voucher giảm giá</div>
+          <div>Cốc Panacea</div>
+          <div>Túi Tote</div>
+        </div>
+      </div>
+
+      <div class="travel-right">
+        <img src="../../assets/images/paymentUI.webp" alt="Giao diện thanh toán bằng Xu - Trải nghiệm bằng Xu Panacea" 
+          title="Giao diện thanh toán bằng Xu - Sử dụng Xu để giảm giá trực tiếp cho đặt phòng" />
+      </div>
+    </section>
+
+    <!-- BUTTON -->
+
+    <!-- FAQ -->
+    <section class="faq-section">
+      <h2>Các Câu Hỏi Thường Gặp</h2>
+      <div class="faq-box">
+        <details *ngFor="let faq of faqList">
+          <summary>{{ faq.question }}</summary>
+          <p style="margin: 3px 0">{{ faq.answer }}</p>
+        </details>
+      </div>
+      <p class="help-link">
+        Có câu hỏi khác? <a routerLink="/support/center">Hãy truy cập Trung Tâm Trợ Giúp</a> để biết thêm thông tin.
+      </p>
+    </section>
+  </div>
+</div>

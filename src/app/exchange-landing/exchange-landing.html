@@ -1,0 +1,255 @@
+<!-- HERO SECTION -->
+<section class="hero-section">
+  <img src="assets/images/BACKGROUND.webp" alt="Hình nền Panacea - Đổi quà thành viên Panacea" 
+    title="Hình nền Panacea - Đổi quà thành viên Panacea" />
+  <div class="banner-inner container">
+    <div class="hero-content">
+      <h1 class="hero-title">Đổi Quà Thành Viên <span class="accent">Panacea</span></h1>
+      <p class="hero-subtitle">Tích xu mỗi khi sử dụng dịch vụ, đổi voucher giảm giá và quà tặng độc quyền</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" (click)="scrollToExchange()">
+          <i class="bi bi-gift"></i> Xem quà ngay
+        </button>
+        <a *ngIf="!isLoggedIn" routerLink="/login" class="btn btn-outline">
+          <i class="bi bi-box-arrow-in-right"></i> Đăng nhập để tích xu
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES SECTION -->
+<section class="features-section scroll-reveal">
+  <div class="container">
+    <h2 class="section-title">Tại sao chọn Panacea Xu?</h2>
+    <div class="features-grid">
+      <div class="feature-card" *ngFor="let feature of features">
+        <div class="feature-icon">
+          <i class="bi" [ngClass]="feature.icon"></i>
+        </div>
+        <h3 class="feature-title">{{ feature.title }}</h3>
+        <p class="feature-description">{{ feature.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS SECTION -->
+<section class="how-it-works-section scroll-reveal">
+  <div class="container">
+    <h2 class="section-title">Cách thức hoạt động</h2>
+    <div class="how-it-works-grid">
+      <div class="step-card" *ngFor="let step of howItWorks">
+        <div class="step-number">{{ step.step }}</div>
+        <h3 class="step-title">{{ step.title }}</h3>
+        <p class="step-description">{{ step.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cta-section scroll-reveal">
+  <div class="cta-banner-wrapper">
+    <img src="assets/images/bannerpromotion.webp"
+      alt="Banner khuyến mãi tích xu - Đăng nhập ngay để tích xu và đổi quà hấp dẫn tại Panacea"
+      title="Banner khuyến mãi tích xu - Đăng nhập ngay để tích xu và đổi quà hấp dẫn tại Panacea"
+      class="cta-banner-image" />
+  </div>
+</section>
+
+<!-- EXCHANGE SECTION (Giữ nguyên cấu trúc từ exchange.html) -->
+<div class="page scroll-reveal" id="exchange-section">
+  <!-- 🔹 Điểm hiện tại và Bộ lọc (Gộp chung) -->
+  <div class="top-section">
+    <!-- Điểm hiện tại -->
+    <div class="points-card-compact">
+      <div class="points-content-compact">
+        <div class="points-icon-compact">
+          <i class="bi bi-coin"></i>
+        </div>
+        <div class="points-info-compact">
+          <p class="points-label-compact">Số điểm hiện có</p>
+          <h3 class="points-value-compact">
+            <span>{{ userPoints | number }}</span>
+            <span class="points-unit-compact">Xu</span>
+          </h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔹 Bộ lọc và tìm kiếm -->
+    <div class="filter-section-compact">
+      <!-- Hàng 1: Search + Category Tabs -->
+      <div class="filter-row-top">
+        <!-- Search Box -->
+        <div class="search-box-compact">
+          <i class="bi bi-search"></i>
+          <input type="text" [(ngModel)]="searchQuery" (input)="onSearch()" (keydown.enter)="onSearch()"
+            placeholder="Tìm kiếm..." class="search-input-compact" />
+          <button type="button" class="btn-clear-search-compact" *ngIf="searchQuery" (click)="clearSearch()"
+            title="Xóa tìm kiếm">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="category-tabs-compact">
+          <button class="tab-btn-compact" [class.active]="selectedCategory === 'all'" (click)="changeCategory('all')">
+            <i class="bi bi-grid"></i> Tất cả
+          </button>
+          <button class="tab-btn-compact" [class.active]="selectedCategory === 'voucher'"
+            (click)="changeCategory('voucher')">
+            <i class="bi bi-ticket-perforated"></i> Voucher
+          </button>
+          <button class="tab-btn-compact" [class.active]="selectedCategory === 'item'" (click)="changeCategory('item')">
+            <i class="bi bi-gift"></i> Vật phẩm
+          </button>
+        </div>
+      </div>
+
+      <!-- Hàng 2: Filter Group -->
+      <div class="filter-row-bottom">
+        <div class="filter-group">
+          <div class="filter-group-header">
+            <i class="bi bi-funnel"></i>
+            <span>Bộ lọc</span>
+          </div>
+          <div class="filter-group-content">
+            <!-- Sắp xếp theo điểm -->
+            <div class="filter-item">
+              <i class="bi bi-coin"></i>
+              <select [(ngModel)]="pointsSort" (change)="changePointsSort(pointsSort)" class="filter-select">
+                <option value="none">Sắp xếp điểm</option>
+                <option value="low">Điểm: Thấp → Cao</option>
+                <option value="high">Điểm: Cao → Thấp</option>
+              </select>
+            </div>
+            <div class="filter-divider"></div>
+            <!-- Sắp xếp theo tên -->
+            <div class="filter-item">
+              <i class="bi bi-sort-alpha-down"></i>
+              <select [(ngModel)]="nameSort" (change)="changeNameSort(nameSort)" class="filter-select">
+                <option value="none">Sắp xếp tên</option>
+                <option value="asc">Tên: A → Z</option>
+                <option value="desc">Tên: Z → A</option>
+              </select>
+            </div>
+            <div class="filter-divider"></div>
+            <!-- Lọc theo điểm -->
+            <div class="filter-item">
+              <i class="bi bi-funnel-fill"></i>
+              <select [(ngModel)]="pointsFilter" (change)="changePointsFilter(pointsFilter)" class="filter-select">
+                <option value="all">Tất cả điểm</option>
+                <option value="0-200">0-200 Xu</option>
+                <option value="200-400">200-400 Xu</option>
+                <option value="400-600">400-600 Xu</option>
+                <option value="600+">600+ Xu</option>
+              </select>
+            </div>
+          </div>
+          <!-- Nút xóa bộ lọc -->
+          <button class="btn-clear-filters" (click)="clearFilters()" title="Xóa tất cả bộ lọc">
+            Xóa
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔹 Khu vực voucher -->
+  <h2 class="section-title scroll-reveal" *ngIf="selectedCategory === 'all' || selectedCategory === 'voucher'">
+    Danh sách Voucher
+    <span class="count-badge" *ngIf="filteredVouchers.length !== vouchers.length">
+      ({{ filteredVouchers.length }}/{{ vouchers.length }})
+    </span>
+  </h2>
+  <div class="no-results scroll-reveal"
+    *ngIf="(selectedCategory === 'all' || selectedCategory === 'voucher') && filteredVouchers.length === 0">
+    <i class="bi bi-inbox"></i>
+    <p>Không tìm thấy voucher nào</p>
+  </div>
+  <div class="voucher-grid"
+    *ngIf="(selectedCategory === 'all' || selectedCategory === 'voucher') && filteredVouchers.length > 0">
+    <div class="voucher-card scroll-reveal" [class.delay-100]="i % 3 === 1" [class.delay-200]="i % 3 === 2"
+      *ngFor="let v of filteredVouchers; let i = index">
+      <div class="voucher-image-wrapper">
+        <img [src]="v.img" [alt]="'Hình ảnh ' + v.type + ' - Panacea'" [title]="'Xem ảnh lớn ' + v.type"
+          class="voucher-img" (error)="handleImageError($event)" (click)="openLightbox(v.img, v.type)"
+          style="cursor: pointer;" />
+      </div>
+      <div class="voucher-body text-center">
+        <h4 class="card-title">{{ v.type }}</h4>
+        <p class="points-required">
+          <i class="bi bi-coin"></i> Cần: <b>{{ v.pointsRequired | number }}</b> Xu
+        </p>
+        <button class="btn btn-redeem" (click)="redeemVoucher(v)">
+          <i class="bi bi-ticket-perforated"></i> Đổi ngay
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔹 Khu vực vật phẩm -->
+  <h2 class="section-title scroll-reveal" *ngIf="selectedCategory === 'all' || selectedCategory === 'item'">
+    Danh sách Vật phẩm
+    <span class="count-badge" *ngIf="filteredItems.length !== items.length">
+      ({{ filteredItems.length }}/{{ items.length }})
+    </span>
+  </h2>
+  <div class="no-results scroll-reveal"
+    *ngIf="(selectedCategory === 'all' || selectedCategory === 'item') && filteredItems.length === 0">
+    <i class="bi bi-inbox"></i>
+    <p>Không tìm thấy vật phẩm nào</p>
+  </div>
+  <div class="item-grid"
+    *ngIf="(selectedCategory === 'all' || selectedCategory === 'item') && filteredItems.length > 0">
+    <div class="item-card scroll-reveal" [class.delay-100]="idx % 3 === 1" [class.delay-200]="idx % 3 === 2"
+      *ngFor="let i of filteredItems; let idx = index">
+      <div class="item-image-wrapper">
+        <img [src]="i.img" [alt]="'Hình ảnh ' + i.name + ' - Panacea'" [title]="'Xem ảnh lớn ' + i.name"
+          class="item-img" (error)="handleImageError($event)" (click)="openLightbox(i.img, i.name)"
+          style="cursor: pointer;" />
+      </div>
+      <div class="item-info text-center">
+        <h4 class="card-title">{{ i.name }}</h4>
+        <p class="points-required">
+          <i class="bi bi-coin"></i> Cần: <b>{{ i.pointsRequired | number }}</b> Xu
+        </p>
+        <button class="btn btn-redeem" (click)="redeemItem(i)">
+          <i class="bi bi-box-seam"></i> Đổi ngay
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- LIGHTBOX (Xem ảnh phóng to) -->
+<div class="lightbox" *ngIf="lightboxImage" (click)="onLightboxOverlayClick($event)">
+  <div class="lightbox-content" (click)="$event.stopPropagation()">
+    <button class="lightbox-close" (click)="closeLightbox()" title="Đóng (ESC)">
+      <i class="bi bi-x-lg"></i>
+    </button>
+    <img [src]="lightboxImage" [alt]="lightboxTitle" class="lightbox-image" />
+    <div class="lightbox-title" *ngIf="lightboxTitle">{{ lightboxTitle }}</div>
+  </div>
+</div>
+
+<!-- FAQ SECTION -->
+<section class="faq-section scroll-reveal">
+  <div class="container">
+    <h2 class="section-title">Câu hỏi thường gặp</h2>
+    <div class="faq-list">
+      <div class="faq-item" [class.active]="faq.isOpen" *ngFor="let faq of faqs; let i = index">
+        <div class="faq-question" (click)="toggleFaq(i)">
+          <h3>{{ faq.question }}</h3>
+          <i class="bi bi-chevron-down"></i>
+        </div>
+        <div class="faq-answer" *ngIf="faq.isOpen">
+          <p>{{ faq.answer }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

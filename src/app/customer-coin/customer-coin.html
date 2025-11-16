@@ -1,0 +1,390 @@
+<div class="acc-point-wrapper container-fluid p-4">
+    <div class="row justify-content-center align-items-start g-4">
+        <!-- SIDEBAR -->
+        <div class="col-lg-3 col-md-4 mb-4">
+            <app-user-toolbar></app-user-toolbar>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="col-lg-9 col-md-8">
+            <div class="acc-point-card shadow-lg p-4">
+
+                <!-- Giữ phần tổng quan xu của bạn -->
+                <div class="header-section text-center mb-4">
+                    <h2 class="fw-bold text-blue">Xu Tích Lũy Của Bạn</h2>
+                    <p class="text-muted">Theo dõi xu tích lũy và lịch sử đổi xu của bạn</p>
+                </div>
+
+                <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                        <div class="info-card gradient-blue d-flex flex-column justify-content-between">
+                            <div>
+                                <h5 class="fw-bold text-white mb-3">Xu Panacea</h5>
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="bi bi-coin text-warning fs-3 me-2"></i>
+                                    <h3 class="fw-bold text-white mb-0">{{ currentAccount?.coin || 0 }}</h3>
+                                </div>
+
+                                <p class="small text-light mb-1">
+                                    <i class="bi bi-calendar3 me-1"></i>
+                                    Xu tại ngày <strong>{{ currentDate }}</strong>:
+                                    <strong>{{ currentAccount?.coin || 0 }}</strong>.
+                                </p>
+                            </div>
+                            <div class="text-end mt-3">
+                                <button class="btn btn-light btn-sm text-blue fw-bold rounded-pill px-3"
+                                    (click)="openAboutPoint()">
+                                    Về Panacea Xu
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="info-card light-blue text-white d-flex flex-column justify-content-between">
+                            <div>
+                                <h5 class="fw-bold mb-2">Tìm hiểu thêm</h5>
+                                <p class="small mb-4">Khám phá cách sử dụng Xu để nhận ưu đãi và trải nghiệm mới.</p>
+                            </div>
+                            <div class="text-start">
+                                <button class="btn btn-light btn-sm text-blue fw-bold rounded-pill px-3"
+                                    (click)="openLearnHow()">
+                                    Tìm hiểu thêm
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== HISTORY TAB: Đồng bộ style với booking-history ===== -->
+                <div class="history-section mt-5">
+                    <h2 class="text-center mb-3 title text-blue">Lịch sử đổi xu</h2>
+
+                    <!-- Tabs -->
+                    <div class="order-tabs mb-3">
+                        <button class="tab-btn" [class.active]="activeTab === 'all'" (click)="setTab('all')">
+                            Tất cả
+                        </button>
+                        <button class="tab-btn" [class.active]="activeTab === 'processing'"
+                            (click)="setTab('processing')">
+                            Đang xử lý
+                        </button>
+                        <button class="tab-btn" [class.active]="activeTab === 'increase'" (click)="setTab('increase')">
+                            Tăng Xu
+                        </button>
+                        <button class="tab-btn" [class.active]="activeTab === 'decrease'" (click)="setTab('decrease')">
+                            Giảm Xu
+                        </button>
+                    </div>
+
+                    <!-- LIST VIEW (card) -->
+                    <div class="order-list" *ngIf="paginatedCoinHistory.length > 0; else emptyCoin">
+                        <div class="order-card" *ngFor="let item of paginatedCoinHistory"
+                            (click)="openHistoryDetail(item)">
+                            <div class="order-head">
+                                <div class="order-id">
+                                    Ngày thực hiện: <strong>{{ item.date }}</strong>
+                                </div>
+                                <span class="badge status-badge {{ getCoinHistoryStatusClass(item) }}">{{
+                                    displayStatus(item)
+                                    }}</span>
+                            </div>
+
+                            <div class="order-body">
+                                <div class="order-desc">
+                                    <i [ngClass]="item.icon" class="icon"></i>
+                                    <div>
+                                        <p class="title mb-0">{{ item.description }}</p>
+                                        <div class="sub">Loại: {{ getTransactionType(item) }}</div>
+                                    </div>
+                                </div>
+                                <div class="order-amount">
+                                    <div class="label">Số Xu</div>
+                                    <div class="value"
+                                        [ngClass]="item.amount > 0 ? 'positive' : (item.amount < 0 ? 'negative' : 'text-muted')">
+                                        <span *ngIf="item.amount > 0">+</span>{{ item.amount }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="order-foot">
+                                <button type="button" class="btn btn-outline-primary btn-sm"
+                                    (click)="$event.stopPropagation(); openHistoryDetail(item)">
+                                    Xem chi tiết
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PHÂN TRANG -->
+                    <div class="pagination-wrapper mt-4" *ngIf="totalPages > 1">
+                        <div class="d-flex justify-content-center align-items-center gap-2">
+                            <button class="btn btn-outline-primary btn-sm" (click)="previousPage()"
+                                [disabled]="currentPage === 1">
+                                <i class="bi bi-chevron-left"></i> Trước
+                            </button>
+
+                            <div class="d-flex gap-1">
+                                <button *ngFor="let page of [].constructor(totalPages); let i = index"
+                                    class="btn btn-sm" [class.btn-primary]="currentPage === (i + 1)"
+                                    [class.btn-outline-primary]="currentPage !== (i + 1)" (click)="goToPage(i + 1)">
+                                    {{ i + 1 }}
+                                </button>
+                            </div>
+
+                            <button class="btn btn-outline-primary btn-sm" (click)="nextPage()"
+                                [disabled]="currentPage === totalPages">
+                                Sau <i class="bi bi-chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="text-center text-muted small mt-2">
+                            Trang {{ currentPage }} / {{ totalPages }} ({{ filteredCoinHistory.length }} sự kiện)
+                        </div>
+                    </div>
+
+                    <!-- EMPTY STATE -->
+                    <ng-template #emptyCoin>
+                        <div class="order-empty">
+                            <div class="empty-icon">🗒️</div>
+                            <div class="empty-text">Chưa có lịch sử đổi xu</div>
+                        </div>
+                    </ng-template>
+                </div>
+
+                <!-- ===== MODAL: Về Panacea Xu (GIỮ NGUYÊN) ===== -->
+                <div class="pnx-modal-backdrop" *ngIf="showAboutModal" (click)="closeAboutPoint()"></div>
+                <div class="pnx-modal-container" *ngIf="showAboutModal">
+                    <div class="pnx-modal-content animate__animated animate__fadeInDown"
+                        (click)="$event.stopPropagation()">
+                        <div class="pnx-modal-header d-flex justify-content-between align-items-center">
+                            <h5 class="fw-bold text-white m-0">Về Panacea Xu</h5>
+                            <button type="button" class="btn-close-white" (click)="closeAboutPoint()">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+                        </div>
+
+                        <div class="pnx-modal-body bg-white text-dark">
+                            <div class="text-center mb-3">
+                                <i class="bi bi-stars icon-yellow"></i>
+                            </div>
+                            <h6 class="fw-bold text-blue mt-4 mb-2">Panacea Xu là gì?</h6>
+                            <p class="mb-3">
+                                Panacea Xu là điểm thưởng bạn <b>nhận được khi đặt phòng</b> hoặc sử dụng dịch vụ
+                                tại
+                                Panacea.
+                                Xu có thể được dùng để đổi voucher, quà tặng hoặc trải nghiệm miễn phí.
+                            </p>
+
+                            <h6 class="fw-bold text-blue mt-4 mb-2">Cách bạn nhận Xu</h6>
+                            <ul class="list-unstyled m-0 mb-3">
+                                <li class="pnx-bullet">
+                                    <span class="bi bi-cash-coin icon-blue"></span>
+                                    <span> 1.000 VNĐ = 1 Điểm Panacea.</span>
+                                </li>
+                                <li class="pnx-bullet">
+                                    <span class="bi bi-arrow-left-right icon-blue"></span>
+                                    <span> Tích lũy tự động khi thanh toán đơn hàng đủ điều kiện.</span>
+                                </li>
+                                <li class="pnx-bullet">
+                                    <span class="bi bi-gift icon-blue"></span>
+                                    <span> Dùng điểm để đổi quà, nhận voucher giảm giá hoặc trải nghiệm đặc
+                                        quyền.</span>
+                                </li>
+                            </ul>
+
+                            <h6 class="fw-bold text-blue mt-3 mb-2">Chính sách sử dụng Xu</h6>
+                            <ul class="list-unstyled m-0">
+                                <li class="pnx-bullet">
+                                    <span class="bi bi-clock-history icon-blue"></span>
+                                    <span> Điểm có thời hạn sử dụng trong vòng 12 tháng kể từ ngày phát sinh.</span>
+                                </li>
+                                <li class="pnx-bullet">
+                                    <span class="bi bi-exclamation-circle icon-blue"></span>
+                                    <span> Điểm không được quy đổi thành tiền mặt và không thể chuyển nhượng.</span>
+                                </li>
+                                <li class="pnx-bullet">
+                                    <span class="bi bi-check-circle icon-blue"></span>
+                                    <span> Khi hủy đặt dịch vụ, điểm thưởng tương ứng sẽ được hoàn lại (nếu đủ điều
+                                        kiện).</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="pnx-modal-footer d-flex justify-content-end bg-light px-4 py-3">
+                            <button class="btn btn-outline-primary me-2" (click)="closeAboutPoint()">Đóng</button>
+                            <button class="btn btn-primary" (click)="openLearnHow()">Tìm hiểu thêm</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== MODAL: Chi tiết lịch sử đổi Xu (GIỮ NGUYÊN) ===== -->
+                <div class="pnx-modal-backdrop" *ngIf="showHistoryModal" (click)="closeHistoryDetail()"></div>
+                <div class="pnx-modal-container" *ngIf="showHistoryModal">
+                    <div class="pnx-modal-content animate__animated animate__fadeInDown"
+                        (click)="$event.stopPropagation()">
+                        <div class="pnx-modal-header d-flex justify-content-between align-items-center">
+                            <h5 class="fw-bold text-white m-0">Chi tiết lịch sử đổi Xu</h5>
+                            <button type="button" class="btn-close-white" (click)="closeHistoryDetail()">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+                        </div>
+
+                        <div class="pnx-modal-body bg-white text-dark">
+                            <div class="text-center mb-3">
+                                <i [ngClass]="selectedHistory?.icon" class="fs-1 text-blue"></i>
+                            </div>
+
+                            <h6 class="fw-bold text-blue text-center mb-3">{{ selectedHistory?.description }}</h6>
+
+                            <!-- Thông tin chung -->
+                            <ul class="list-unstyled">
+                                <li><strong>Ngày thực hiện:</strong> {{ selectedHistory?.date }}</li>
+                                <li>
+                                    <strong>Loại giao dịch:</strong>
+                                    {{ getTransactionType(selectedHistory) }}
+                                </li>
+                                <li>
+                                    <strong>Số Xu thay đổi:</strong>
+                                    <span
+                                        [ngClass]="selectedHistory?.amount > 0 ? 'text-success fw-bold' : 'text-danger fw-bold'">
+                                        {{ selectedHistory?.amount > 0 ? '+' : '' }}{{ selectedHistory?.amount }}
+                                    </span>
+                                </li>
+                                <li><strong>Trạng thái:</strong> {{ selectedHistory?.status }}</li>
+                            </ul>
+
+                            <!-- 1. THÔNG TIN ĐẶT PHÒNG (booking) -->
+                            <div *ngIf="selectedHistory?.type === 'booking' && selectedHistoryDetail"
+                                class="mt-3 p-3 rounded-3 bg-light border">
+                                <h6 class="fw-semibold text-blue mb-2">
+                                    <i class="bi bi-calendar-check me-2"></i>Thông tin đặt phòng
+                                </h6>
+                                <div class="small">
+                                    <div class="mb-2"><strong>Mã đơn:</strong> {{ selectedHistoryDetail.id }}</div>
+                                    <div class="mb-2"><strong>Phòng:</strong> {{ getRoomName(selectedHistoryDetail) }}
+                                    </div>
+                                    <div class="mb-2"><strong>Phạm vi:</strong> {{ selectedHistoryDetail.range || '—' }}
+                                    </div>
+                                    <div class="mb-2"><strong>Giờ đặt:</strong> {{ selectedHistoryDetail.startTime }} →
+                                        {{ selectedHistoryDetail.endTime }}</div>
+                                    <div class="mb-2"><strong>Trạng thái:</strong>
+                                        <span
+                                            class="badge status-badge {{ getStatusClass(selectedHistoryDetail.status) }}">
+                                            {{ getStatusLabel(selectedHistoryDetail.status) }}
+                                        </span>
+                                    </div>
+                                    <div class="mb-2"><strong>Tổng thanh toán:</strong> {{
+                                        formatCurrency(selectedHistoryDetail.totalPrice || 0) }}</div>
+                                    <div><strong>Xu nhận được:</strong> {{ selectedHistoryDetail.rewardPointsEarned || 0
+                                        }} Xu</div>
+                                </div>
+                            </div>
+
+                            <!-- 2. THÔNG TIN VOUCHER (exchange - voucher) -->
+                            <div *ngIf="selectedHistory?.type === 'exchange' && selectedHistoryDetail?.type === 'voucher'"
+                                class="mt-3 p-3 rounded-3 bg-light border">
+                                <h6 class="fw-semibold text-blue mb-2">
+                                    <i class="bi bi-ticket-perforated me-2"></i>Thông tin voucher
+                                </h6>
+                                <div class="small">
+                                    <div class="mb-2"><strong>Loại voucher:</strong> {{
+                                        selectedHistoryDetail.voucherType || '—' }}</div>
+                                    <div class="mb-2"><strong>Mã voucher:</strong>
+                                        <span class="fw-bold text-primary">{{ selectedHistoryDetail.code || '—'
+                                            }}</span>
+                                    </div>
+                                    <div class="mb-0"><strong>Giá trị:</strong> Giảm {{
+                                        selectedHistoryDetail.voucherType || '—' }}</div>
+                                </div>
+                            </div>
+
+                            <!-- 3. THÔNG TIN VẬT PHẨM (exchange - item) -->
+                            <div *ngIf="selectedHistory?.type === 'exchange' && selectedHistoryDetail?.type === 'item'"
+                                class="mt-3 p-3 rounded-3 bg-light border">
+                                <h6 class="fw-semibold text-blue mb-2">
+                                    <i class="bi bi-gift me-2"></i>Thông tin gửi hàng
+                                </h6>
+                                <div class="small">
+                                    <div class="mb-2"><strong>Vật phẩm:</strong> {{ selectedHistoryDetail.itemName ||
+                                        '—' }}</div>
+                                    <div class="mb-2"><strong>Người nhận:</strong> {{ selectedHistoryDetail.name || '—'
+                                        }}</div>
+                                    <div class="mb-2"><strong>Số điện thoại:</strong> {{ selectedHistoryDetail.phone ||
+                                        '—' }}</div>
+                                    <div class="mb-2"><strong>Địa chỉ:</strong> {{ selectedHistoryDetail.address || '—'
+                                        }}</div>
+                                    <div class="mb-2"><strong>Quận/Huyện:</strong> {{ selectedHistoryDetail.district ||
+                                        '—' }}</div>
+                                    <div class="mb-0"><strong>Tỉnh/Thành phố:</strong> {{ selectedHistoryDetail.province
+                                        || '—' }}</div>
+                                </div>
+                            </div>
+
+                            <!-- 4. THÔNG TIN ĐỔI XU (redeem) -->
+                            <div *ngIf="selectedHistory?.type === 'redeem' && selectedHistoryDetail"
+                                class="mt-3 p-3 rounded-3 bg-light border">
+                                <h6 class="fw-semibold text-blue mb-2">
+                                    <i class="bi bi-calendar-check me-2"></i>Thông tin đặt phòng liên quan
+                                </h6>
+                                <div class="small">
+                                    <div class="mb-2"><strong>Mã đơn:</strong> {{ selectedHistoryDetail.id }}</div>
+                                    <div class="mb-2"><strong>Phòng:</strong> {{ getRoomName(selectedHistoryDetail) }}
+                                    </div>
+                                    <div class="mb-2"><strong>Phạm vi:</strong> {{ selectedHistoryDetail.range || '—' }}
+                                    </div>
+                                    <div class="mb-2"><strong>Giờ đặt:</strong> {{ selectedHistoryDetail.startTime }} →
+                                        {{ selectedHistoryDetail.endTime }}</div>
+                                    <div class="mb-2"><strong>Trạng thái:</strong>
+                                        <span
+                                            class="badge status-badge {{ getStatusClass(selectedHistoryDetail.status) }}">
+                                            {{ getStatusLabel(selectedHistoryDetail.status) }}
+                                        </span>
+                                    </div>
+                                    <div class="mb-0"><strong>Đã dùng 50 Xu để giảm:</strong> {{ formatCurrency(20000)
+                                        }}</div>
+                                </div>
+                            </div>
+
+                            <!-- 5. THÔNG TIN ĐÁNH GIÁ (review) -->
+                            <div *ngIf="selectedHistory?.type === 'review' && selectedHistoryDetail"
+                                class="mt-3 p-3 rounded-3 bg-light border">
+                                <h6 class="fw-semibold text-blue mb-2">
+                                    <i class="bi bi-star-fill me-2"></i>Thông tin đánh giá
+                                </h6>
+                                <div class="small">
+                                    <div class="mb-2">
+                                        <strong>Đánh giá:</strong>
+                                        <span *ngFor="let star of [1,2,3,4,5]" class="ms-1">
+                                            <i class="bi"
+                                                [class.bi-star-fill]="star <= (selectedHistoryDetail.rating || 0)"
+                                                [class.bi-star]="star > (selectedHistoryDetail.rating || 0)"
+                                                [style.color]="star <= (selectedHistoryDetail.rating || 0) ? '#ffc107' : '#dee2e6'">
+                                            </i>
+                                        </span>
+                                        <span class="ms-2">({{ selectedHistoryDetail.rating || 0 }} sao)</span>
+                                    </div>
+                                    <div class="mb-2"><strong>Nội dung:</strong> {{ selectedHistoryDetail.content ||
+                                        selectedHistoryDetail.comment || '—' }}</div>
+                                    <div class="mb-0"><strong>Ngày đánh giá:</strong> {{
+                                        formatReviewDate(selectedHistoryDetail) }}</div>
+                                </div>
+                            </div>
+
+                            <!-- Xóa đánh giá -->
+                            <div *ngIf="selectedHistory?.type === 'deleted_review'"
+                                class="mt-3 p-3 rounded-3 bg-light border">
+                                <h6 class="fw-semibold text-blue mb-2">
+                                    <i class="bi bi-star me-2"></i>Thông tin
+                                </h6>
+                                <p class="mb-0 small">Bạn đã xóa đánh giá này và bị trừ 50 Xu.</p>
+                            </div>
+                        </div>
+
+                        <div class="pnx-modal-footer d-flex justify-content-end bg-light px-4 py-3">
+                            <button class="btn btn-outline-primary me-2" (click)="closeHistoryDetail()">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,196 @@
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Về Panacea</span>
+        <h1>Giữa một thế giới luôn hối hả, bạn có đang lạc mất <span class="accent">chính mình?</span></h1>
+        <p>Chúng ta đang sống trong một nhịp sống gấp gáp. Giữa áp lực công việc, thành tích và những kỳ vọng, nhiều
+          người trẻ chúng ta rơi vào trạng thái căng thẳng, lo âu và mất kết nối với chính mình. Panacea được sinh ra từ
+          chính thực tế đó. Chúng tôi không phải một liệu pháp, chúng tôi là <b>một hành trình giúp bạn tìm lại sự an
+            yên giữa nhịp sống hối hả.</b></p>
+        <div class="hero-ctas">
+          <a class="btn primary" routerLink="/about/panacea-story">
+            Đọc cốt truyện Panacea
+            <span class="btn-icon-circle">
+              <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class="hero-media" role="img" aria-label="Illustration hero">
+        <img src="../../assets/images/Linh.webp" alt="Hình minh họa Panacea - Giữa thế giới hối hả, bạn có đang lạc mất chính mình?" 
+          title="Hình minh họa Panacea - Giữa thế giới hối hả, bạn có đang lạc mất chính mình?" class="hero-image" loading="eager">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IS PANACEA -->
+<section class="what-is-panacea lazy-load">
+  <div class="container">
+    <div class="what-is-content">
+      <h2>Panacea là gì?</h2>
+      <p>Trong thần thoại Hy Lạp, <b>Panacea là Người chữa lành tất cả</b> Đối với chúng tôi, Panacea là một '<b>Vũ trụ
+          giải trí</b>' một nền tảng số hóa chuyên biệt giúp kết nối bạn với các trung tâm trị liệu, chuyên gia và các
+        hoạt động chữa lành một cách thông minh. Slogan của chúng tôi là '<i>a medicine from the stars</i>' (liều thuốc
+        từ những vì sao), thể hiện triết lý rằng Panacea là liều thuốc tinh thần, giúp bạn tìm thấy bản thân giữa hỗn
+        loạn.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VISION MISSION & CORE VALUES -->
+<section class="vision-mission-values lazy-load">
+  <div class="container">
+    <div class="vmv-grid">
+      <!-- Left Column: Vision & Mission -->
+      <div class="vmv-column vmv-left">
+        <h2 class="vmv-title">Tầm nhìn & Sứ mệnh</h2>
+
+        <div class="vmv-item">
+          <div class="vmv-icon">
+            <i class="bi bi-sun" aria-hidden="true"></i>
+          </div>
+          <div class="vmv-content">
+            <h3>Tầm nhìn</h3>
+            <p>Trở thành nền tảng hàng đầu tại Việt Nam trong lĩnh vực chăm sóc và nâng cao giá trị tinh thần.</p>
+          </div>
+        </div>
+
+        <div class="vmv-item">
+          <div class="vmv-icon">
+            <i class="bi bi-sun" aria-hidden="true"></i>
+          </div>
+          <div class="vmv-content">
+            <h3>Sứ mệnh</h3>
+            <p>Mang đến cho khách hàng những dịch vụ thư giãn, giải trí chất lượng cao, đồng thời góp phần cải thiện
+              chất lượng cuộc sống và nâng cao năng suất lao động cho cộng đồng.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Core Values -->
+      <div class="vmv-column vmv-right">
+        <h2 class="vmv-title">Giá trị cốt lõi</h2>
+
+        <div class="vmv-item" *ngFor="let value of coreValues">
+          <div class="vmv-icon">
+            <i class="bi bi-sun" aria-hidden="true"></i>
+          </div>
+          <div class="vmv-content">
+            <h3>{{ value.title }}</h3>
+            <p>{{ value.desc }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY TIMELINE -->
+<section class="story lazy-load">
+  <div class="container">
+    <h2 class="story-title">Hành Trình Sáng Tạo Panacea</h2>
+    <div class="timeline" aria-label="Dòng thời gian">
+      <div class="tl-item lazy-load" *ngFor="let t of timeline">
+        <div class="tl-year">{{ t.month }}</div>
+        <article class="tl-card">
+          <h6>{{ t.title }}</h6>
+          <p>{{ t.desc }}</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats lazy-load">
+  <div class="container">
+    <div class="stat-grid">
+      <div class="stat lazy-load" *ngFor="let s of stats; index as i">
+        <div class="badge" aria-hidden="true"></div>
+        <div class="num">{{ formatStatValue(i) }}</div>
+        <div class="label">{{ s.label }}</div>
+        <div class="note" *ngIf="s.note">{{ s.note }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team lazy-load">
+  <div class="container">
+    <h2>Đội Ngũ Phát Triển</h2>
+    <div class="team-grid">
+      <div class="member lazy-load" *ngFor="let m of team; index as i">
+        <div class="avatar" [attr.aria-label]="m.name">
+          <img [src]="m.avatar" [alt]="'Ảnh đại diện ' + m.name + ' - ' + m.role + ' tại Panacea'" *ngIf="m.avatar">
+        </div>
+        <p class="member-role">{{ m.role }}</p>
+        <h6>{{ m.name }}</h6>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="partners lazy-load">
+  <div class="container">
+    <h2 class="partners-title">Đối tác đồng hành</h2>
+    <div class="partner-grid">
+      <div class="partner-logo lazy-load">
+        <img src="assets/images/5ACB.webp" alt="Logo đối tác ngân hàng ACB - Ngân hàng Á Châu" 
+          title="Logo đối tác ngân hàng ACB - Ngân hàng Á Châu">
+      </div>
+      <div class="partner-logo lazy-load">
+        <img src="assets/images/6HSBC.webp" alt="Logo đối tác ngân hàng HSBC" 
+          title="Logo đối tác ngân hàng HSBC">
+      </div>
+      <div class="partner-logo lazy-load">
+        <img src="assets/images/7Vietcombank.webp" alt="Logo đối tác ngân hàng Vietcombank - Ngân hàng Ngoại thương Việt Nam" 
+          title="Logo đối tác ngân hàng Vietcombank - Ngân hàng Ngoại thương Việt Nam">
+      </div>
+      <div class="partner-logo lazy-load">
+        <img src="assets/images/8MBbank.webp" alt="Logo đối tác ngân hàng MB Bank - Ngân hàng Quân đội" 
+          title="Logo đối tác ngân hàng MB Bank - Ngân hàng Quân đội">
+      </div>
+      <div class="partner-logo lazy-load">
+        <img src="assets/images/9Citibank.webp" alt="Logo đối tác ngân hàng Citibank" 
+          title="Logo đối tác ngân hàng Citibank">
+      </div>
+      <div class="partner-logo lazy-load">
+        <img src="assets/images/10VietinBank.webp" alt="Logo đối tác ngân hàng VietinBank - Ngân hàng Công thương Việt Nam" 
+          title="Logo đối tác ngân hàng VietinBank - Ngân hàng Công thương Việt Nam">
+      </div>
+      <div class="partner-logo lazy-load">
+        <img src="assets/images/11TPbank.webp" alt="Logo đối tác ngân hàng TPBank - Ngân hàng Tiên Phong" 
+          title="Logo đối tác ngân hàng TPBank - Ngân hàng Tiên Phong">
+      </div>
+      <div class="partner-logo lazy-load">
+        <img src="assets/images/12BIDV.webp" alt="Logo đối tác ngân hàng BIDV - Ngân hàng Đầu tư và Phát triển Việt Nam" 
+          title="Logo đối tác ngân hàng BIDV - Ngân hàng Đầu tư và Phát triển Việt Nam">
+      </div>
+      <div class="partner-logo lazy-load">
+        <img src="assets/images/MoMo_Logo.webp" alt="Logo đối tác thanh toán MoMo - Ví điện tử MoMo" 
+          title="Logo đối tác thanh toán MoMo - Ví điện tử MoMo">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section lazy-load">
+  <div class="container">
+    <h2 class="cta-headline">Bạn đã sẵn sàng bắt đầu hành trình của mình?</h2>
+    <p class="cta-description">Tìm lại sự cân bằng không phải là một đích đến, mà là một lựa chọn. Hãy chọn khu vườn phù
+      hợp với bạn ngay hôm nay.</p>
+    <div class="cta-buttons">
+      <a class="btn cta-primary" routerLink="/room-list">
+        Khám phá dịch vụ
+        <i class="bi bi-arrow-right" aria-hidden="true"></i>
+      </a>
+      <a class="btn cta-secondary" routerLink="/support/center">Liên hệ chúng tôi</a>
+    </div>
+  </div>
+</section>

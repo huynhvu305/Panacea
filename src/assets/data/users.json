@@ -1,0 +1,93 @@
+[
+  {
+    "user_id": "US01",
+    "email": "admin@gmail.com",
+    "phone_number": "0123456789",
+    "full_name": "Nguyễn Văn A",
+    "gender": "male",
+    "birthdate": "01-01-1990",
+    "city": "Hà Nội",
+    "coin": null,
+    "star": null,
+    "password": "123456",
+    "role": "admin"
+  },
+  {
+    "user_id": "US07",
+    "email": "vanvuhuynh@gmail.com",
+    "phone_number": "0123456789",
+    "full_name": "Huỳnh Văn Vũ",
+    "gender": "male",
+    "birthdate": "01-01-1990",
+    "city": "Hà Nội",
+    "coin": null,
+    "star": null,
+    "password": "123456",
+    "role": "admin"
+  },
+  {
+    "user_id": "US022",
+    "email": "truongquocbao.30102005@gmail.com",
+    "phone_number": "0123456788",
+    "full_name": "Trương Quốc Bảo",
+    "gender": "male",
+    "birthdate": "01-01-1990",
+    "city": "Hà Nội",
+    "coin": 650,
+    "star": 40,
+    "password": "123456",
+    "role": "user"
+  },
+  {
+    "user_id": "US03",
+    "email": "lethib@gmail.com",
+    "phone_number": "0987654321",
+    "full_name": "Lê Thị B",
+    "gender": "female",
+    "birthdate": "15-05-1995",
+    "city": "TP. Hồ Chí Minh",
+    "coin": 850,
+    "star": 25,
+    "password": "123456",
+    "role": "user"
+  },
+  {
+    "user_id": "US04",
+    "email": "tranvanc@gmail.com",
+    "phone_number": "0912345678",
+    "full_name": "Trần Văn C",
+    "gender": "male",
+    "birthdate": "20-08-1992",
+    "city": "Đà Nẵng",
+    "coin": 320,
+    "star": 12,
+    "password": "123456",
+    "role": "user"
+  },
+  {
+    "user_id": "US05",
+    "email": "phamthid@gmail.com",
+    "phone_number": "0923456789",
+    "full_name": "Phạm Thị D",
+    "gender": "female",
+    "birthdate": "10-12-1998",
+    "city": "Hà Nội",
+    "coin": 1200,
+    "star": 45,
+    "password": "123456",
+    "role": "user"
+  },
+  {
+    "user_id": "US06",
+    "email": "hoangvane@gmail.com",
+    "phone_number": "0934567890",
+    "full_name": "Hoàng Văn E",
+    "gender": "male",
+    "birthdate": "25-03-1993",
+    "city": "Hải Phòng",
+    "coin": 580,
+    "star": 8,
+    "password": "123456",
+    "role": "user"
+  }
+]

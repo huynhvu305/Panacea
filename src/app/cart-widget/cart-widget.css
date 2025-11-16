@@ -1,0 +1,132 @@
+/* ===================== GIỎ HÀNG NỔI ===================== */
+.cart-floating {
+  position: fixed;
+  bottom: 100px; /* Đặt cao hơn chatbot (chatbot button 64px + bottom 20px = 84px, cộng thêm 16px margin) */
+  right: 20px; /* Đặt ở bottom-right, cùng vị trí với chatbot (chatbot ở right: 20px) */
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  color: #fff;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  box-shadow: 0 8px 20px rgba(14, 165, 233, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  cursor: pointer;
+  z-index: 10000; /* Đặt z-index cao hơn chatbot (chatbot có z-index: 9999) để đảm bảo hiển thị trên */
+  transition: all 0.3s ease;
+}
+
+.cart-floating:hover {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  transform: scale(1.08);
+  box-shadow: 0 10px 25px rgba(14, 165, 233, 0.45);
+}
+
+.cart-count {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background-color: #ff6600;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 7px;
+}
+
+/* ===================== POPUP GIỎ HÀNG ===================== */
+.cart-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  z-index: 10001; /* Đặt z-index cao hơn cả cart button và chatbot để đảm bảo popup hiển thị trên cùng */
+}
+
+.cart-popup-content {
+  background: #fff;
+  width: 360px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 12px 0 0 12px;
+  padding: 1.2rem;
+  box-shadow: -6px 0 20px rgba(0, 0, 0, 0.15);
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.cart-title {
+  font-weight: 700;
+  color: #132fba;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding: 0.75rem 0;
+  gap: 0.8rem;
+}
+
+.cart-img {
+  width: 64px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.cart-info {
+  flex: 1;
+}
+
+.cart-info h6 {
+  margin: 0;
+  font-weight: 600;
+  color: #001a41;
+}
+
+.cart-info p {
+  margin: 2px 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.cart-info .price {
+  color: #ff6600;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.btn-remove {
+  border: none;
+  background: transparent;
+  color: #999;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.btn-remove:hover {
+  color: #ff4444;
+}
+
+.cart-item-payment {
+  margin-top: 0.5rem;
+}
+
+.cart-item-payment .btn {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+}
+

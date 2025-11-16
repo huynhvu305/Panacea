@@ -1,0 +1,28 @@
+<div class="account-wrapper container-fluid p-4">
+    <div class="row justify-content-center align-items-start g-4">
+        <!-- SIDEBAR -->
+        <div class="col-lg-3 col-md-4 mb-4">
+            <app-user-toolbar></app-user-toolbar>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="col-lg-9 col-md-8">
+            <div class="content-container">
+                <div class="settings-header">
+                    <h2 class="title">Cài đặt tài khoản</h2>
+                    <nav class="settings-tabs">
+                        <a class="tab" [routerLink]="['/customer-account/account-information']" routerLinkActive="active">Thông
+                            tin tài khoản</a>
+                        <a class="tab" [routerLink]="['/customer-account/password-security']" routerLinkActive="active">Mật khẩu
+                            & bảo mật</a>
+                    </nav>
+                </div>
+
+                <!-- NỘI DUNG COMPONENT CON -->
+                <div class="tab-content">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

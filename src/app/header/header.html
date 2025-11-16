@@ -1,0 +1,312 @@
+<!-- ✅ FIXED: Scrolling Banner -->
+<div class="scrolling-banner">
+  <div class="scrolling-wrapper">
+    <div class="scrolling-text">
+      <span>Chào mừng bạn đến với PANACEA – a medicine from the starts</span>
+    </div>
+  </div>
+</div>
+
+<header [class.scrolled]="scrolled">
+  <div class="inner">
+    <!-- Logo -->
+    <a class="brand" routerLink="/" (click)="closeMenu()" aria-label="Panacea - Trang chủ">
+      <img src="../../assets/images/SUBLOGO.webp" alt="Panacea - Logo không gian trị liệu và chữa lành tâm hồn" />
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="nav-desktop" aria-label="Menu chính">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+        [attr.aria-current]="isActiveRoute('/') ? 'page' : null">Trang chủ</a>
+      <a routerLink="/room-list" routerLinkActive="active"
+        [attr.aria-current]="isActiveRoute('/room-list') ? 'page' : null">Đặt phòng</a>
+      <a routerLink="/exchange-landing" routerLinkActive="active"
+        [attr.aria-current]="isActiveRoute('/exchange-landing') ? 'page' : null">Ưu đãi</a>
+
+      <!-- ✅ FIXED: Hỗ trợ có dropdown với 3 items -->
+      <div class="dropdown support-dropdown" [class.open]="isSupportDropdownOpen" (mouseenter)="openSupportDropdown()"
+        (mouseleave)="closeSupportDropdown()" tabindex="0" role="button" [attr.aria-haspopup]="true"
+        [attr.aria-expanded]="isSupportDropdownOpen" (keydown.enter)="toggleSupportDropdown($event)"
+        (keydown.space)="toggleSupportDropdown($event)" (keydown.escape)="closeSupportDropdown()">
+        <span>
+          Hỗ trợ
+          <i class="bi bi-chevron-down dropdown-icon" aria-hidden="true"></i>
+        </span>
+        <div class="menu" role="menu" *ngIf="isSupportDropdownOpen">
+          <a routerLink="/support/center" role="menuitem" aria-label="Trung tâm hỗ trợ"
+            (click)="closeSupportDropdown()">Trung tâm hỗ trợ</a>
+          <a routerLink="/support/reviews" role="menuitem" aria-label="Đánh giá" (click)="closeSupportDropdown()">Đánh
+            giá</a>
+          <a routerLink="/support/blog" role="menuitem" aria-label="Blog" (click)="closeSupportDropdown()">Blog</a>
+          <a routerLink="/support/star" role="menuitem" aria-label="Sao Panacea" (click)="closeSupportDropdown()">Sao
+            Panacea</a>
+          <a routerLink="/support/coin" role="menuitem" aria-label="Xu Panacea" (click)="closeSupportDropdown()">Xu
+            Panacea</a>
+        </div>
+      </div>
+
+      <div class="dropdown policy-dropdown" [class.open]="isPolicyDropdownOpen" (mouseenter)="openPolicyDropdown()"
+        (mouseleave)="closePolicyDropdown()" tabindex="0" role="button" [attr.aria-haspopup]="true"
+        [attr.aria-expanded]="isPolicyDropdownOpen" (keydown.enter)="togglePolicyDropdown($event)"
+        (keydown.space)="togglePolicyDropdown($event)" (keydown.escape)="closePolicyDropdown()">
+        <span>
+          Chính sách
+          <i class="bi bi-chevron-down dropdown-icon" aria-hidden="true"></i>
+        </span>
+        <div class="menu" role="menu" *ngIf="isPolicyDropdownOpen">
+          <a routerLink="/policy/operating" role="menuitem" aria-label="Chính sách hoạt động"
+            (click)="closePolicyDropdown()">Chính sách hoạt động</a>
+          <a routerLink="/policy/termsofuse" role="menuitem" aria-label="Điều kiện & Điều khoản"
+            (click)="closePolicyDropdown()">Điều kiện & Điều khoản</a>
+          <a routerLink="/policy/privacy" role="menuitem" aria-label="Chính sách quyền riêng tư"
+            (click)="closePolicyDropdown()">Chính sách quyền riêng tư</a>
+        </div>
+      </div>
+
+      <div class="dropdown about-dropdown" [class.open]="isAboutDropdownOpen" (mouseenter)="openAboutDropdown()"
+        (mouseleave)="closeAboutDropdown()" tabindex="0" role="button" [attr.aria-haspopup]="true"
+        [attr.aria-expanded]="isAboutDropdownOpen" (keydown.enter)="toggleAboutDropdown($event)"
+        (keydown.space)="toggleAboutDropdown($event)" (keydown.escape)="closeAboutDropdown()">
+        <span>
+          Về chúng tôi
+          <i class="bi bi-chevron-down dropdown-icon" aria-hidden="true"></i>
+        </span>
+        <div class="menu" role="menu" *ngIf="isAboutDropdownOpen">
+          <a routerLink="/about/about-us" role="menuitem" aria-label="Về Panacea" (click)="closeAboutDropdown()">Về
+            Panacea</a>
+          <a routerLink="/about/panacea-story" role="menuitem" aria-label="Cốt truyện Panacea" (click)="closeAboutDropdown()">Cốt
+            truyện Panacea</a>
+        </div>
+      </div>
+
+      <!-- Tablet: More menu (ẩn một vài link khi màn hình nhỏ) -->
+      <div class="dropdown more-dropdown d-none d-md-block d-lg-none" [class.open]="isMoreDropdownOpen"
+        (mouseenter)="openMoreDropdown()" (mouseleave)="closeMoreDropdown()" tabindex="0" role="button"
+        [attr.aria-haspopup]="true" [attr.aria-expanded]="isMoreDropdownOpen"
+        (keydown.enter)="toggleMoreDropdown($event)" (keydown.space)="toggleMoreDropdown($event)"
+        (keydown.escape)="closeMoreDropdown()">
+        <span>
+          Thêm
+          <i class="bi bi-chevron-down dropdown-icon" aria-hidden="true"></i>
+        </span>
+        <div class="menu" role="menu" *ngIf="isMoreDropdownOpen">
+          <a routerLink="/about/about-us" role="menuitem" aria-label="Về chúng tôi" (click)="closeMoreDropdown()">Về chúng
+            tôi</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Actions -->
+    <div class="actions" *ngIf="!authService.isLoggedIn()">
+      <a class="btn ghost d-none d-lg-block" routerLink="/login">Đăng nhập</a>
+      <a class="btn primary d-none d-lg-block" routerLink="/register">Đăng ký</a>
+      <button class="burger" (click)="toggle()" [attr.aria-controls]="'site-drawer'" [attr.aria-expanded]="isOpen"
+        [attr.aria-label]="isOpen ? 'Đóng menu' : 'Mở menu'">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Logged in -->
+    <div class="actions user" *ngIf="authService.isLoggedIn()">
+      <div class="user-info-wrapper d-none d-lg-block" (mouseenter)="openDropdown()"
+        (mouseleave)="closeDropdownOnLeave($event)" (click)="handleUserWrapperClick($event)">
+        <!-- Header với tên, xu và mũi tên -->
+        <div class="user-header">
+          <div class="user-header-left">
+            <i class="bi bi-person-circle user-icon" aria-hidden="true"></i>
+            <span class="name">{{ currentAccount?.ho_ten || 'Username' }}</span>
+          </div>
+          <div class="user-header-right">
+            <div class="points-display">
+              <i class="bi bi-coin points-icon" aria-hidden="true"></i>
+              <span class="points-text">{{ currentAccount?.diem_kha_dung || 0 }} Xu</span>
+            </div>
+            <button class="dropdown-arrow" [attr.aria-label]="'Mở menu người dùng'"
+              [attr.aria-expanded]="isDropdownOpen" (click)="toggleDropdown($event); $event.stopPropagation()">
+              <i class="bi bi-chevron-down" [class.rotated]="isDropdownOpen" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Dropdown mở khi click hoặc hover -->
+        <div class="user-drop" [class.open]="isDropdownOpen" (mouseenter)="openDropdown()"
+          (mouseleave)="closeDropdownOnLeave($event)">
+          <div class="panel">
+            <!-- Menu items -->
+            <div class="menu-items" (click)="$event.stopPropagation()">
+              <a class="menu-item" routerLink="/customer-account/account-information"
+                (click)="closeDropdown(); $event.stopPropagation()">
+                <i class="bi bi-person menu-icon" aria-hidden="true"></i>
+                <span>Tài khoản</span>
+              </a>
+              <a class="menu-item" routerLink="/customer-star" (click)="closeDropdown(); $event.stopPropagation()">
+                <i class="bi bi-star-fill menu-icon" aria-hidden="true"></i>
+                <span>Sao Panacea</span>
+              </a>
+              <a class="menu-item" routerLink="/customer-coin" (click)="closeDropdown(); $event.stopPropagation()">
+                <i class="bi bi-coin menu-icon" aria-hidden="true"></i>
+                <span>Xu Panacea</span>
+              </a>
+              <a class="menu-item" routerLink="/booking-history" (click)="closeDropdown(); $event.stopPropagation()">
+                <i class="bi bi-calendar-check menu-icon" aria-hidden="true"></i>
+                <span>Đặt chỗ của tôi</span>
+              </a>
+              <a class="menu-item" routerLink="/customer-booking" (click)="closeDropdown(); $event.stopPropagation()">
+                <i class="bi bi-calendar-x menu-icon" aria-hidden="true"></i>
+                <span>Hủy lịch/ Đổi lịch</span>
+              </a>
+              <a class="menu-item admin-item" routerLink="/admin-dashboard"
+                (click)="closeDropdown(); $event.stopPropagation()" *ngIf="isAdmin">
+                <i class="bi bi-shield-check menu-icon" aria-hidden="true"></i>
+                <span>Admin Panel</span>
+              </a>
+              <button class="menu-item danger" (click)="logout(); $event.stopPropagation()">
+                <i class="bi bi-power menu-icon" aria-hidden="true"></i>
+                <span>Đăng xuất</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="burger" (click)="toggle()" [attr.aria-controls]="'site-drawer'" [attr.aria-expanded]="isOpen"
+        [attr.aria-label]="isOpen ? 'Đóng menu' : 'Mở menu'">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile/Tablet Drawer -->
+  <div class="drawer-overlay" *ngIf="isOpen" (click)="closeMenu()" [attr.aria-hidden]="!isOpen" role="presentation">
+  </div>
+
+  <div class="drawer" [class.drawer-open]="isOpen" id="site-drawer" role="dialog" aria-modal="true"
+    [attr.aria-hidden]="!isOpen" (click)="$event.stopPropagation()">
+    <div class="drawer-header">
+      <a class="drawer-logo" routerLink="/" (click)="closeMenu()" aria-label="Panacea - Trang chủ">
+        <img src="../../assets/images/SUBLOGO.webp" alt="Panacea Logo - Không gian trị liệu và chữa lành tâm hồn" 
+          title="Panacea Logo - Không gian trị liệu và chữa lành tâm hồn" />
+        <span>Panacea</span>
+      </a>
+      <button class="drawer-close" (click)="closeMenu()" aria-label="Đóng menu" type="button">
+        <i class="bi bi-x-lg" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <nav class="drawer-nav" aria-label="Menu điều hướng">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+        [attr.aria-current]="isActiveRoute('/') ? 'page' : null" (click)="closeMenu()" class="drawer-link">
+        <span>Trang chủ</span>
+        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a routerLink="/room-list" routerLinkActive="active"
+        [attr.aria-current]="isActiveRoute('/room-list') ? 'page' : null" (click)="closeMenu()" class="drawer-link">
+        <span>Đặt phòng</span>
+        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a routerLink="/exchange-landing" routerLinkActive="active"
+        [attr.aria-current]="isActiveRoute('/exchange-landing') ? 'page' : null" (click)="closeMenu()"
+        class="drawer-link">
+        <span>Ưu đãi</span>
+        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+      </a>
+
+      <!-- ✅ FIXED: Hỗ trợ expandable trên mobile -->
+      <div class="drawer-dropdown">
+        <button class="drawer-dropdown-toggle" (click)="toggleMobileSupportDropdown()"
+          [attr.aria-expanded]="isMobileSupportDropdownOpen" aria-label="Mở menu Hỗ trợ" type="button">
+          <span>Hỗ trợ</span>
+          <i class="bi bi-chevron-down" [class.rotated]="isMobileSupportDropdownOpen" aria-hidden="true"></i>
+        </button>
+        <div class="drawer-dropdown-menu" *ngIf="isMobileSupportDropdownOpen">
+          <a routerLink="/support/center" (click)="closeMenu()" class="drawer-link drawer-link-sub">
+            <span>Trung tâm hỗ trợ</span>
+            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+          </a>
+          <a routerLink="/support/reviews" (click)="closeMenu()" class="drawer-link drawer-link-sub">
+            <span>Đánh giá</span>
+            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+          </a>
+          <a routerLink="/support/blog" (click)="closeMenu()" class="drawer-link drawer-link-sub">
+            <span>Blog</span>
+            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+          </a>
+          <a routerLink="/support/star" (click)="closeMenu()" class="drawer-link drawer-link-sub">
+            <span>Sao Panacea</span>
+            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+          </a>
+          <a routerLink="/support/coin" (click)="closeMenu()" class="drawer-link drawer-link-sub">
+            <span>Xu Panacea</span>
+            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <a routerLink="/policy/operating" (click)="closeMenu()" class="drawer-link">
+        <span>Chính sách hoạt động</span>
+        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a routerLink="/policy/termsofuse" (click)="closeMenu()" class="drawer-link">
+        <span>Điều kiện & Điều khoản</span>
+        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a routerLink="/policy/privacy" (click)="closeMenu()" class="drawer-link">
+        <span>Chính sách quyền riêng tư</span>
+        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+      </a>
+
+      <!-- ✅ FIXED: Về chúng tôi expandable trên mobile -->
+      <div class="drawer-dropdown drawer-dropdown-about">
+        <button class="drawer-dropdown-toggle" (click)="toggleMobileAboutDropdown()"
+          [attr.aria-expanded]="isMobileAboutDropdownOpen" aria-label="Mở menu Về chúng tôi" type="button">
+          <span>Về chúng tôi</span>
+          <i class="bi bi-chevron-down" [class.rotated]="isMobileAboutDropdownOpen" aria-hidden="true"></i>
+        </button>
+        <div class="drawer-dropdown-menu" *ngIf="isMobileAboutDropdownOpen">
+          <a routerLink="/about/about-us" (click)="closeMenu()" class="drawer-link drawer-link-sub">
+            <span>Về Panacea</span>
+            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+          </a>
+          <a routerLink="/about/panacea-story" (click)="closeMenu()" class="drawer-link drawer-link-sub">
+            <span>Cốt truyện Panacea</span>
+            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Contact Block -->
+    <div class="drawer-contact">
+      <h3 class="drawer-contact-title">Liên hệ</h3>
+      <div class="drawer-contact-info">
+        <a href="tel:+84123456789" class="drawer-contact-item">
+          <i class="bi bi-telephone" aria-hidden="true"></i>
+          <span>+84 123 456 789</span>
+        </a>
+        <a href="mailto:support@panacea.vn" class="drawer-contact-item">
+          <i class="bi bi-envelope" aria-hidden="true"></i>
+          <span>support@panacea.vn</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- User Actions -->
+    <div class="drawer-actions">
+      <div *ngIf="!authService.isLoggedIn()" class="drawer-auth-buttons">
+        <a class="drawer-btn drawer-btn-primary" routerLink="/login" (click)="closeMenu()">Đăng nhập</a>
+        <a class="drawer-btn drawer-btn-secondary" routerLink="/register" (click)="closeMenu()">Đăng ký</a>
+      </div>
+
+      <div *ngIf="authService.isLoggedIn()" class="drawer-user-info">
+        <div class="drawer-user-links">
+          <a routerLink="/customer-account/account-information" (click)="closeMenu()" class="drawer-link">
+            <i class="bi bi-person" aria-hidden="true"></i>
+            <span>Tài khoản</span>
+          </a>
+          <a routerLink="/admin-dashboard" (click)="closeMenu()" class="drawer-link" *ngIf="isAdmin">
+            <i class="bi bi-shield-check" aria-hidden="true"></i>
+            <span>Admin Panel</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,160 @@
+<!-- account-point.html -->
+<div class="acc-point-wrapper container-fluid p-4">
+    <div class="row justify-content-center align-items-start g-4">
+
+        <!-- SIDEBAR -->
+        <div class="col-lg-3 col-md-4 mb-4">
+            <app-user-toolbar></app-user-toolbar>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="col-lg-9 col-md-8">
+            <div class="acc-point-card shadow-lg p-4">
+
+                <!-- Header -->
+                <div class="header-section text-center mb-4">
+                    <h2 class="fw-bold text-blue">Sao Thưởng Của Bạn</h2>
+                    <p class="text-muted">Theo dõi sao thưởng và cấp bậc thành viên của bạn</p>
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="row g-4 mb-4">
+
+                    <!-- Card 1: Sao Panacea -->
+                    <div class="col-md-6">
+                        <div class="info-card gradient-blue d-flex flex-column justify-content-between">
+                            <div>
+                                <h5 class="fw-bold text-white mb-3">Sao Panacea</h5>
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="bi bi-star text-warning fs-3 me-2"></i>
+                                    <h3 class="fw-bold text-white mb-0">{{ currentAccount?.star || 0 }}</h3>
+                                </div>
+
+                                <p class="small text-light mb-1">
+                                    <i class="bi bi-calendar3 me-1"></i>
+                                    Sao tại ngày <strong>{{ currentDate }}</strong> của bạn là
+                                    <strong>{{ currentAccount?.star || 0 }}</strong>.
+                                </p>
+                            </div>
+
+                            <div class="text-end mt-3">
+                                <button class="btn btn-light btn-sm text-blue fw-bold rounded-pill px-3"
+                                    (click)="openAboutStar()">
+                                    Về Panacea Sao
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Learn How -->
+                    <div class="col-md-6">
+                        <div class="info-card light-blue text-white d-flex flex-column justify-content-between">
+                            <div>
+                                <h5 class="fw-bold mb-2">Tìm hiểu thêm về sao thưởng</h5>
+                                <p class="small mb-4">
+                                    Cùng khám phá cách tích lũy và đổi sao để nhận ưu đãi thành viên tại Panacea nhé!
+                                </p>
+                            </div>
+                            <div class="text-start">
+                                <button class="btn btn-light btn-sm text-blue fw-bold rounded-pill px-3"
+                                    (click)="openLearnHow()">
+                                    Cách tích & đổi sao
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== MODAL: Về Panacea Sao ===== -->
+                <div class="pnx-modal-backdrop" *ngIf="showStarModal" (click)="closeAboutStar()"></div>
+
+                <div class="pnx-modal-container" *ngIf="showStarModal">
+                    <div class="pnx-modal-content" (click)="$event.stopPropagation()">
+                        <!-- Header -->
+                        <div class="pnx-modal-header d-flex justify-content-between align-items-center">
+                            <h5 class="fw-bold text-white m-0">Về Panacea Sao</h5>
+                            <button type="button" class="btn-close-white" (click)="closeAboutStar()">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+                        </div>
+
+                        <!-- Body -->
+                        <div class="pnx-modal-body bg-white text-dark">
+                            <div class="text-center mb-3">
+                                <i class="bi bi-stars" style="font-size:3rem;color:#f7da1d;"></i>
+                            </div>
+                            <h6 class="fw-bold text-blue mt-2 mb-2">Panacea Sao là gì?</h6>
+                            <p class="text-muted">
+                                <b>Panacea Sao</b> là đơn vị dùng để xác định vị thế thành viên tại Panacea.
+                                Khi bạn đặt phòng hoặc sử dụng dịch vụ hợp lệ, bạn nhận <b>Panacea Xu</b> và có thể quy
+                                đổi thành <b>Sao</b>.
+                            </p>
+                            <h6 class="fw-bold text-blue mt-3 mb-2">Quy tắc quy đổi</h6>
+                            <ul class="list-unstyled mb-3">
+                                <li class="pnx-bullet"><i class="bi bi-cash-stack"></i> 1.000&nbsp;VNĐ = 1&nbsp;Điểm
+                                </li>
+                                <li class="pnx-bullet"><i class="bi bi-arrow-down-up"></i> 500&nbsp;Điểm = 1&nbsp;Sao
+                                </li>
+                            </ul>
+                            <h6 class="fw-bold text-blue mt-3 mb-2">Chính sách sử dụng Sao</h6>
+                            <ul class="list-unstyled">
+                                <li class="pnx-bullet"><i class="bi bi-star"></i> Sao dùng để xác định cấp bậc thành
+                                    viên.</li>
+                                <li class="pnx-bullet"><i class="bi bi-shield-check"></i> Sao<b>không bị trừ</b>khi
+                                    bạn sử dụng xu tích lũy.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="pnx-modal-footer d-flex justify-content-end bg-light px-4 py-3">
+                            <button class="btn btn-outline-primary me-2" (click)="closeAboutStar()">Đóng</button>
+                            <button class="btn btn-primary" (click)="openLearnHow()">Tìm hiểu thêm</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Section -->
+                <div class="progress-section text-center p-3 rounded-4">
+                    <p *ngIf="membershipInfo.nextThreshold > 0" class="text-muted mb-2">
+                        Bạn cần thêm
+                        <span class="fw-bold text-success">{{ membershipInfo.coinsNeeded | number }}</span>
+                        sao nữa để đạt hạng
+                        <span class="fw-bold text-orange">{{ membershipInfo.nextLevel }}</span>.
+                    </p>
+
+                    <p *ngIf="membershipInfo.nextThreshold === 0" class="text-success fw-bold">
+                        🎉 Xin chúc mừng! Bạn đã đạt hạng cao nhất – {{ membershipInfo.level }}!
+                    </p>
+
+                    <div class="progress-container mt-3">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" [style.width]="progressPercent + '%'"
+                                [attr.aria-valuenow]="progressPercent" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="progress-label d-flex justify-content-between mt-1">
+                            <span class="text-secondary">{{ currentAccount?.star | number }} / {{
+                                membershipInfo.nextThreshold | number }}</span>
+                            <span class="fw-bold text-blue">{{ progressPercent | number: '1.0-0' }}%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Benefit Section -->
+                <div class="benefit-section mt-5">
+                    <h4 class="fw-bold mb-3 text-blue">Quyền lợi theo cấp bậc</h4>
+                    <div class="benefit-list row g-3">
+                        <div class="col-md-6 col-lg-4" *ngFor="let benefit of benefits">
+                            <div class="benefit-item p-3 rounded shadow-sm text-center h-100">
+                                <img [src]="benefit.icon" [alt]="'Icon ' + benefit.title + ' - Quyền lợi ' + getMembershipRank() + ' Priority'"
+                  [title]="'Icon ' + benefit.title + ' - Quyền lợi theo cấp bậc ' + getMembershipRank() + ' Priority'"
+                  class="benefit-icon mb-3" />
+                                <h6 class="fw-bold text-blue">{{ benefit.title }}</h6>
+                                <p class="text-muted small" [innerHTML]="benefit.desc"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

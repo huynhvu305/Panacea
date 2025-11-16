@@ -1,0 +1,256 @@
+<div class="acc-point-wrapper container-fluid p-4">
+    <div class="row justify-content-center align-items-start g-4">
+        <!-- SIDEBAR -->
+        <div class="col-lg-3 col-md-4 mb-4">
+            <app-user-toolbar></app-user-toolbar>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="col-lg-9 col-md-8">
+            <div class="acc-point-card shadow-lg p-4">
+                <h2 class="text-center mb-4 title">Hủy lịch/ Đổi lịch</h2>
+
+                <!-- Tabs -->
+                <div class="order-tabs mb-3">
+                    <button class="tab-btn" [class.active]="activeTab==='reschedule'" (click)="setTab('reschedule')">
+                        Đổi lịch
+                    </button>
+                    <button class="tab-btn" [class.active]="activeTab==='cancel'" (click)="setTab('cancel')">
+                        Hủy lịch
+                    </button>
+                </div>
+
+                <!-- Tab Content: Đổi lịch -->
+                <div *ngIf="activeTab === 'reschedule'">
+                    <div class="order-list" *ngIf="reschedulableBookings.length > 0; else emptyReschedule">
+                        <div class="order-card" *ngFor="let booking of reschedulableBookings"
+                            (click)="openDetailModal(booking)">
+                            <div class="order-head">
+                                <div class="order-id">
+                                    Mã đơn: <strong>{{ booking.id }}</strong>
+                                </div>
+                                <span class="badge status-badge status-confirmed">
+                                    {{ booking.status === 'confirmed' ? 'Đã xác nhận' : 'Chờ xác nhận' }}
+                                </span>
+                            </div>
+
+                            <div class="order-body">
+                                <div class="order-room">
+                                    <div class="room-title">{{ booking.room?.room_name || 'N/A' }}</div>
+                                    <div class="room-sub">{{ booking.range }}</div>
+                                </div>
+                                <div class="order-time">
+                                    <div class="label">Thời gian hiện tại</div>
+                                    <div class="value">{{ booking.startTime }} - {{ booking.endTime }}</div>
+                                </div>
+                                <div class="order-price">
+                                    <div class="label">Tổng tiền</div>
+                                    <div class="value">{{ (booking.totalPrice || 0).toLocaleString('vi-VN') }}₫</div>
+                                </div>
+                                <div class="order-action">
+                                    <button type="button" class="btn btn-primary btn-sm"
+                                        (click)="$event.stopPropagation(); openRescheduleModal(booking)">
+                                        <i class="bi bi-calendar-event me-1"></i>Đổi lịch
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ng-template #emptyReschedule>
+                        <div class="order-empty">
+                            <div class="empty-icon">📅</div>
+                            <div class="empty-text">Không có lịch nào có thể đổi</div>
+                        </div>
+                    </ng-template>
+                </div>
+
+                <!-- Tab Content: Hủy lịch -->
+                <div *ngIf="activeTab === 'cancel'">
+                    <div class="order-list" *ngIf="cancelableBookings.length > 0; else emptyCancel">
+                        <div class="order-card" *ngFor="let booking of cancelableBookings"
+                            (click)="openDetailModal(booking)">
+                            <div class="order-head">
+                                <div class="order-id">
+                                    Mã đơn: <strong>{{ booking.id }}</strong>
+                                </div>
+                                <span class="badge status-badge status-confirmed">
+                                    {{ booking.status === 'confirmed' ? 'Đã xác nhận' : 'Chờ xác nhận' }}
+                                </span>
+                            </div>
+
+                            <div class="order-body">
+                                <div class="order-room">
+                                    <div class="room-title">{{ booking.room?.room_name || 'N/A' }}</div>
+                                    <div class="room-sub">{{ booking.range }}</div>
+                                </div>
+                                <div class="order-time">
+                                    <div class="label">Thời gian</div>
+                                    <div class="value">{{ booking.startTime }} - {{ booking.endTime }}</div>
+                                </div>
+                                <div class="order-price">
+                                    <div class="label">Tổng tiền</div>
+                                    <div class="value">{{ (booking.totalPrice || 0).toLocaleString('vi-VN') }}₫</div>
+                                </div>
+                                <div class="order-action">
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                        (click)="$event.stopPropagation(); cancelBooking(booking)">
+                                        <i class="bi bi-x-circle me-1"></i>Hủy lịch
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ng-template #emptyCancel>
+                        <div class="order-empty">
+                            <div class="empty-icon">📅</div>
+                            <div class="empty-text">Không có lịch nào có thể hủy</div>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Xem chi tiết -->
+<div class="modal-overlay" *ngIf="showDetailModal" (click)="closeDetailModal()"></div>
+<div class="modal-container" *ngIf="showDetailModal" (click)="$event.stopPropagation()">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>Chi tiết đặt phòng</h4>
+            <button class="btn-close" (click)="closeDetailModal()">×</button>
+        </div>
+
+        <div class="modal-body" *ngIf="selectedBookingForDetail">
+            <!-- 🔹 THÔNG TIN KHÁCH HÀNG -->
+            <div class="modal-section">
+                <h5>Thông tin khách hàng</h5>
+                <div class="info-row"><span>Tên:</span>
+                    <p>{{ selectedBookingForDetail.customerName }}</p>
+                </div>
+                <div class="info-row"><span>Email:</span>
+                    <p>{{ selectedBookingForDetail.customerEmail }}</p>
+                </div>
+                <div class="info-row"><span>Số điện thoại:</span>
+                    <p>{{ selectedBookingForDetail.customerPhone }}</p>
+                </div>
+            </div>
+
+            <!-- 🔹 THÔNG TIN ĐẶT PHÒNG -->
+            <div class="modal-section">
+                <h5>Thông tin đặt phòng</h5>
+                <div class="info-row"><span>Mã đơn:</span>
+                    <p>{{ selectedBookingForDetail.id }}</p>
+                </div>
+                <div class="info-row"><span>Phòng:</span>
+                    <p>{{ getRoomName(selectedBookingForDetail) }}</p>
+                </div>
+                <div class="info-row"><span>Phạm vi:</span>
+                    <p>{{ selectedBookingForDetail.range }}</p>
+                </div>
+                <div class="info-row"><span>Giờ đặt:</span>
+                    <p>{{ selectedBookingForDetail.startTime }} → {{ selectedBookingForDetail.endTime }}</p>
+                </div>
+                <div class="info-row"><span>Giờ sử dụng thực tế:</span>
+                    <p>
+                        {{ selectedBookingForDetail.checkInTime || '—' }} → {{ selectedBookingForDetail.checkOutTime ||
+                        '—' }}
+                    </p>
+                </div>
+                <div class="info-row"><span>Trạng thái:</span>
+                    <p><span class="badge status-badge {{ getStatusClass(selectedBookingForDetail.status) }}">
+                            {{ getStatusLabel(selectedBookingForDetail.status) }}</span></p>
+                </div>
+            </div>
+
+            <!-- 🔹 DỊCH VỤ ĐI KÈM -->
+            <div class="modal-section">
+                <h5>Dịch vụ đi kèm</h5>
+                <ul
+                    *ngIf="selectedBookingForDetail.services && selectedBookingForDetail.services.length > 0; else noService">
+                    <li *ngFor="let s of selectedBookingForDetail.services">
+                        {{ s.name }}
+                        <span *ngIf="s.quantity && s.quantity > 1">× {{ s.quantity }}</span>
+                        - {{ formatCurrency(getServiceTotalPrice(s)) }}
+                    </li>
+                </ul>
+                <ng-template #noService>
+                    <p class="text-muted">Không có dịch vụ thêm</p>
+                </ng-template>
+            </div>
+
+            <!-- 🔹 VOUCHER & THANH TOÁN -->
+            <div class="modal-section">
+                <h5>Voucher & Thanh toán</h5>
+                <div class="info-row"><span>Giá phòng:</span>
+                    <p>{{ formatCurrency(selectedBookingForDetail.basePrice || 0) }}</p>
+                </div>
+                <div class="info-row"><span>Tổng dịch vụ:</span>
+                    <p>{{ formatCurrency(getTotalServicesPrice(selectedBookingForDetail)) }}</p>
+                </div>
+                <div class="info-row"><span>Tạm tính:</span>
+                    <p>{{ formatCurrency(getSubtotal(selectedBookingForDetail)) }}</p>
+                </div>
+                <div class="info-row"><span>Voucher:</span>
+                    <p>{{ selectedBookingForDetail.voucherCode || 'Không áp dụng' }}</p>
+                </div>
+                <div class="info-row"><span>Giảm giá:</span>
+                    <p>{{ selectedBookingForDetail.discountValue ?
+                        formatCurrency(selectedBookingForDetail.discountValue) : '0 ₫' }}
+                    </p>
+                </div>
+                <div class="info-row highlight"><span>Tổng thanh toán:</span>
+                    <p>{{ formatCurrency(selectedBookingForDetail.totalPrice) }}</p>
+                </div>
+                <div class="info-row"><span>Xu tích lũy:</span>
+                    <p>{{ selectedBookingForDetail.rewardPointsEarned || 0 }} điểm</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-primary" (click)="closeDetailModal()">Đóng</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Đổi lịch -->
+<div class="modal-overlay" *ngIf="showRescheduleModal" (click)="closeRescheduleModal()"></div>
+<div class="modal-container" *ngIf="showRescheduleModal" (click)="$event.stopPropagation()">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Đổi lịch đặt phòng</h5>
+            <button type="button" class="btn-close" (click)="closeRescheduleModal()">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+        <div class="modal-body" *ngIf="selectedBookingForReschedule">
+            <div class="info-section mb-3">
+                <p><strong>Phòng:</strong> {{ selectedBookingForReschedule.room?.room_name }}</p>
+                <p><strong>Thời gian hiện tại:</strong> {{ selectedBookingForReschedule.startTime }} - {{
+                    selectedBookingForReschedule.endTime }}</p>
+                <p class="text-muted small">Lưu ý: Chỉ có thể đổi ngày và thời gian bắt đầu. Khoảng thời gian, phòng và
+                    dịch vụ không thể thay đổi.</p>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label">Ngày bắt đầu mới <span class="text-danger">*</span></label>
+                <input type="date" class="form-control" [(ngModel)]="newDate" [min]="minDate" required>
+                <small class="text-muted" *ngIf="newDate">
+                    <i class="bi bi-calendar3 me-1"></i>Ngày đã chọn: {{ formatDateToDDMMYYYY(newDate) }}
+                </small>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label">Giờ bắt đầu mới <span class="text-danger">*</span></label>
+                <input type="time" class="form-control" [(ngModel)]="newStartTime" required>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeRescheduleModal()">Hủy</button>
+            <button type="button" class="btn btn-primary" (click)="confirmReschedule()">Xác nhận đổi lịch</button>
+        </div>
+    </div>
+</div>

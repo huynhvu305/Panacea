@@ -1,0 +1,44 @@
+[
+  {
+    "id": "balo_panacea",
+    "name": "Balo Panacea cao cấp",
+    "img": "assets/images/balopanacea.webp",
+    "pointsRequired": 500,
+    "stock": 20
+  },
+  {
+    "id": "ly_giu_nhiet",
+    "name": "Ly giữ nhiệt Panacea",
+    "img": "assets/images/lygiunhietpanacea.webp",
+    "pointsRequired": 350,
+    "stock": 30
+  },
+  {
+    "id": "ao_thun",
+    "name": "Áo thun Panacea unisex",
+    "img": "assets/images/aothunpanacea.webp",
+    "pointsRequired": 400,
+    "stock": 25
+  },
+  {
+    "id": "tui_du_lich",
+    "name": "Túi du lịch gấp gọn",
+    "img": "assets/images/tuipanacea.webp",
+    "pointsRequired": 450,
+    "stock": 15
+  },
+  {
+    "id": "binh_nuoc",
+    "name": "Bình nước thể thao",
+    "img": "assets/images/binhnuocpanacea.webp",
+    "pointsRequired": 300,
+    "stock": 50
+  },
+  {
+    "id": "vali_mini",
+    "name": "Vali mini Panacea",
+    "img": "assets/images/valipanacea.webp",
+    "pointsRequired": 800,
+    "stock": 10
+  }
+]

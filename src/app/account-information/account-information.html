@@ -1,0 +1,73 @@
+<div>
+    <form #infoForm="ngForm" (ngSubmit)="saveChanges()" *ngIf="editableUser">
+        <!-- Họ và tên -->
+        <div class="form-row">
+            <label class="form-label">Họ và tên</label>
+            <input class="form-control" type="text" name="full_name" [(ngModel)]="editableUser.full_name"
+                [readonly]="!isEditing" required />
+            <p class="form-hint">
+                Họ và tên của bạn cũng sẽ hiển thị như tên hồ sơ.
+            </p>
+        </div>
+
+        <!-- Hàng: Email + Số điện thoại -->
+        <div class="grid-2">
+            <div class="form-col">
+                <label class="form-label">Email (không thể thay đổi)</label>
+                <input class="form-control always-readonly" type="email" name="email"
+                    [(ngModel)]="editableUser.email" readonly tabindex="-1" placeholder="email@domain.com" />
+            </div>
+
+            <div class="form-col">
+                <label class="form-label">Số điện thoại (không thể thay đổi)</label>
+                <input class="form-control always-readonly" type="tel" name="phone_number"
+                    [(ngModel)]="editableUser.phone_number" readonly tabindex="-1"
+                    placeholder="Ví dụ: +84 912 345 678" />
+            </div>
+        </div>
+
+        <!-- Hàng: Giới tính + Ngày sinh -->
+        <div class="grid-2">
+            <div class="form-col">
+                <label class="form-label">Giới tính</label>
+                <div class="select-wrapper">
+                    <select class="form-control custom-select" name="gender" [(ngModel)]="editableUser.gender"
+                        [disabled]="!isEditing">
+                        <option value="" disabled>— Chọn giới tính —</option>
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                        <option value="Khác">Khác</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-col">
+                <label class="form-label">Ngày sinh</label>
+                <input class="form-control" type="text" name="birthdate" [(ngModel)]="editableUser.birthdate"
+                    [readonly]="!isEditing" placeholder="dd/mm/yyyy" />
+            </div>
+        </div>
+
+        <!-- Thành phố cư trú -->
+        <div class="form-row">
+            <label class="form-label">Thành phố cư trú</label>
+            <input class="form-control" type="text" name="city" [(ngModel)]="editableUser.city"
+                [readonly]="!isEditing" placeholder="Nhập thành phố" />
+        </div>
+
+        <!-- Nút chức năng -->
+        <div class="btn-bar">
+            <button type="button" class="btn-outline" [disabled]="!isEditing" (click)="isEditing && cancelEdit()">
+                Để sau
+            </button>
+
+            <button type="button" class="btn-primary" *ngIf="!isEditing" (click)="enableEdit()">
+                Chỉnh sửa
+            </button>
+
+            <button type="submit" class="btn-primary" *ngIf="isEditing">
+                Lưu
+            </button>
+        </div>
+    </form>
+</div>

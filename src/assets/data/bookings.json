@@ -1,0 +1,1996 @@
+[
+  {
+    "id": "BK001",
+    "userId": "US022",
+    "roomId": 1,
+    "room": {
+      "room_id": 1,
+      "room_name": "Tĩnh Tâm",
+      "price": 220000,
+      "range": "1-2 người"
+    },
+    "range": "1-2 người",
+    "basePrice": 660000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Thuê Kính VR (Oculus Quest 2)",
+        "price": 100000,
+        "quantity": 1
+      },
+      {
+        "type": "extra",
+        "name": "Thuê Máy chiếu Mini (Projector)",
+        "price": 80000,
+        "quantity": 2
+      }
+    ],
+    "startTime": "12:00 10/11/2025",
+    "endTime": "15:00 10/11/2025",
+    "checkInTime": "",
+    "checkOutTime": "",
+    "voucherCode": "VPWELCOME",
+    "voucherDiscountType": "fixed",
+    "discountValue": 50000,
+    "totalPrice": 870000,
+    "status": "completed",
+    "customerName": "Trương Quốc Bảo",
+    "customerPhone": "01234567888",
+    "customerEmail": "truongquocbao.30102005@gmail.com",
+    "rewardPointsEarned": 870,
+    "createdAt": "2025-11-11T10:00:00Z"
+  },
+  {
+    "id": "BK002",
+    "userId": "US022",
+    "roomId": 1,
+    "room": {
+      "room_id": 1,
+      "room_name": "Tĩnh Tâm",
+      "price": 220000,
+      "range": "1-2 người"
+    },
+    "range": "1-2 người",
+    "basePrice": 660000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Thuê Loa Bluetooth Karaoke",
+        "price": 70000,
+        "quantity": 1
+      },
+      {
+        "type": "extra",
+        "name": "Bộ Sáng Tạo Nội Dung",
+        "price": 60000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "12:00 10/11/2025",
+    "endTime": "15:00 10/11/2025",
+    "checkInTime": "",
+    "checkOutTime": "",
+    "voucherCode": null,
+    "voucherDiscountType": null,
+    "discountValue": null,
+    "totalPrice": 790000,
+    "status": "no-show",
+    "customerName": "Trương Quốc Bảo",
+    "customerPhone": "01234567888",
+    "customerEmail": "truongquocbao.30102005@gmail.com",
+    "rewardPointsEarned": 790,
+    "createdAt": "2025-11-11T10:00:00Z"
+  },
+  {
+    "id": "BK003",
+    "userId": "US022",
+    "roomId": 3,
+    "room": {
+      "room_id": 3,
+      "room_name": "Workshop Tĩnh",
+      "price": 650000,
+      "range": "6-10 người"
+    },
+    "range": "6-10 người",
+    "basePrice": 1300000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Hướng Dẫn Thiền Định",
+        "price": 400000
+      }
+    ],
+    "startTime": "09:00 09/11/2025",
+    "endTime": "11:00 09/11/2025",
+    "checkInTime": "09:05 09/11/2025",
+    "checkOutTime": "10:30 09/11/2025",
+    "voucherCode": "VPROOM100",
+    "voucherDiscountType": "fixed",
+    "discountValue": 100000,
+    "totalPrice": 1600000,
+    "status": "completed",
+    "customerName": "Trương Quốc Bảo",
+    "customerPhone": "01234567888",
+    "customerEmail": "truongquocbao.30102005@gmail.com",
+    "rewardPointsEarned": 1600,
+    "createdAt": "2025-11-10T08:00:00Z"
+  },
+  {
+    "id": "BK004",
+    "userId": "US022",
+    "roomId": 4,
+    "room": {
+      "room_id": 4,
+      "room_name": "Thư Giãn",
+      "price": 200000,
+      "range": "1-2 người"
+    },
+    "range": "1-2 người",
+    "basePrice": 400000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Hướng Dẫn Yoga",
+        "price": 450000
+      },
+      {
+        "type": "extra",
+        "name": "Thuê Máy Massage Cổ-Vai-Gáy",
+        "price": 70000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "16:00 08/11/2025",
+    "endTime": "18:00 08/11/2025",
+    "checkInTime": "",
+    "checkOutTime": "",
+    "voucherCode": null,
+    "voucherDiscountType": null,
+    "discountValue": 0,
+    "totalPrice": 920000,
+    "status": "cancelled",
+    "customerName": "Trương Quốc Bảo",
+    "customerPhone": "01234567888",
+    "customerEmail": "truongquocbao.30102005@gmail.com",
+    "rewardPointsEarned": 0,
+    "createdAt": "2025-11-09T14:00:00Z"
+  },
+  {
+    "id": "BK005",
+    "userId": "US01",
+    "roomId": 2,
+    "room": {
+      "room_id": 2,
+      "room_name": "Chia Sẻ",
+      "price": 380000,
+      "range": "3-5 người"
+    },
+    "range": "3-5 người",
+    "basePrice": 1140000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Tư Vấn Tâm Lý 1:1",
+        "price": 500000
+      },
+      {
+        "type": "extra",
+        "name": "Thuê Đàn Guitar Acoustic",
+        "price": 500000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "14:00 12/11/2025",
+    "endTime": "17:00 12/11/2025",
+    "checkInTime": "14:10 12/11/2025",
+    "checkOutTime": "16:45 12/11/2025",
+    "voucherCode": "VPROOM10",
+    "voucherDiscountType": "percent",
+    "discountValue": 214000,
+    "totalPrice": 1926000,
+    "status": "completed",
+    "customerName": "Nguyễn Văn A",
+    "customerPhone": "0123456789",
+    "customerEmail": "vana@gmail.com",
+    "rewardPointsEarned": 1926,
+    "createdAt": "2025-11-12T12:00:00Z"
+  },
+  {
+    "id": "BK006",
+    "userId": "US01",
+    "roomId": 5,
+    "room": {
+      "room_id": 5,
+      "room_name": "Cân Bằng",
+      "price": 360000,
+      "range": "3-5 người"
+    },
+    "range": "3-5 người",
+    "basePrice": 720000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Hướng Dẫn Yoga",
+        "price": 450000
+      }
+    ],
+    "startTime": "10:00 05/11/2025",
+    "endTime": "12:00 05/11/2025",
+    "checkInTime": "",
+    "checkOutTime": "",
+    "voucherCode": null,
+    "voucherDiscountType": null,
+    "discountValue": 0,
+    "totalPrice": 1170000,
+    "status": "confirmed",
+    "customerName": "Nguyễn Văn A",
+    "customerPhone": "0123456789",
+    "customerEmail": "vana@gmail.com",
+    "rewardPointsEarned": 1170,
+    "createdAt": "2025-11-05T08:00:00Z"
+  },
+  {
+    "id": "BK007",
+    "userId": "US01",
+    "roomId": 7,
+    "room": {
+      "room_id": 7,
+      "room_name": "Sáng Tác",
+      "price": 300000,
+      "range": "1-2 người"
+    },
+    "range": "1-2 người",
+    "basePrice": 900000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Bảng vẽ Wacom (di động)",
+        "price": 90000,
+        "quantity": 1
+      },
+      {
+        "type": "extra",
+        "name": "Thuê Máy ảnh Polaroid",
+        "price": 120000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "13:00 03/11/2025",
+    "endTime": "16:00 03/11/2025",
+    "checkInTime": "13:05 03/11/2025",
+    "checkOutTime": "15:50 03/11/2025",
+    "voucherCode": "VPFIRST",
+    "voucherDiscountType": "percent",
+    "discountValue": 166500,
+    "totalPrice": 943500,
+    "status": "completed",
+    "customerName": "Nguyễn Văn A",
+    "customerPhone": "0123456789",
+    "customerEmail": "vana@gmail.com",
+    "rewardPointsEarned": 943,
+    "createdAt": "2025-11-03T11:00:00Z"
+  },
+  {
+    "id": "BK008",
+    "userId": "US03",
+    "roomId": 4,
+    "room": {
+      "room_id": 4,
+      "room_name": "Thư Giãn",
+      "price": 200000,
+      "range": "1-2 người"
+    },
+    "range": "1-2 người",
+    "basePrice": 400000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Hướng Dẫn Thiền Định",
+        "price": 400000
+      },
+      {
+        "type": "extra",
+        "name": "Thuê Chăn Nặng (Weighted Blanket)",
+        "price": 40000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "09:00 11/11/2025",
+    "endTime": "11:00 11/11/2025",
+    "checkInTime": "09:05 11/11/2025",
+    "checkOutTime": "10:55 11/11/2025",
+    "voucherCode": "VPWELCOME",
+    "voucherDiscountType": "fixed",
+    "discountValue": 50000,
+    "totalPrice": 790000,
+    "status": "completed",
+    "customerName": "Lê Thị B",
+    "customerPhone": "0987654321",
+    "customerEmail": "lethib@gmail.com",
+    "rewardPointsEarned": 790,
+    "createdAt": "2025-11-11T07:00:00Z"
+  },
+  {
+    "id": "BK009",
+    "userId": "US03",
+    "roomId": 8,
+    "room": {
+      "room_id": 8,
+      "room_name": "Nghệ Thuật",
+      "price": 520000,
+      "range": "3-5 người"
+    },
+    "range": "3-5 người",
+    "basePrice": 1040000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Workshop: Làm Bánh Kem Mini",
+        "price": 350000
+      },
+      {
+        "type": "extra",
+        "name": "Thuê Đàn Kalimba (Đàn Ngón)",
+        "price": 300000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "15:00 07/11/2025",
+    "endTime": "17:00 07/11/2025",
+    "checkInTime": "",
+    "checkOutTime": "",
+    "voucherCode": "VPSERVICE10",
+    "voucherDiscountType": "percent",
+    "discountValue": 169000,
+    "totalPrice": 1521000,
+    "status": "confirmed",
+    "customerName": "Lê Thị B",
+    "customerPhone": "0987654321",
+    "customerEmail": "lethib@gmail.com",
+    "rewardPointsEarned": 1521,
+    "createdAt": "2025-11-07T13:00:00Z"
+  },
+  {
+    "id": "BK010",
+    "userId": "US04",
+    "roomId": 6,
+    "room": {
+      "room_id": 6,
+      "room_name": "Đồng Điệu",
+      "price": 600000,
+      "range": "6-10 người"
+    },
+    "range": "6-10 người",
+    "basePrice": 1200000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Hướng Dẫn Yoga",
+        "price": 450000
+      }
+    ],
+    "startTime": "08:00 06/11/2025",
+    "endTime": "10:00 06/11/2025",
+    "checkInTime": "08:10 06/11/2025",
+    "checkOutTime": "09:50 06/11/2025",
+    "voucherCode": "VPROOM20",
+    "voucherDiscountType": "percent",
+    "discountValue": 330000,
+    "totalPrice": 1320000,
+    "status": "completed",
+    "customerName": "Trần Văn C",
+    "customerPhone": "0912345678",
+    "customerEmail": "tranvanc@gmail.com",
+    "rewardPointsEarned": 1320,
+    "createdAt": "2025-11-06T06:00:00Z"
+  },
+  {
+    "id": "BK011",
+    "userId": "US04",
+    "roomId": 1,
+    "room": {
+      "room_id": 1,
+      "room_name": "Tĩnh Tâm",
+      "price": 220000,
+      "range": "1-2 người"
+    },
+    "range": "1-2 người",
+    "basePrice": 440000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Thuê Bộ Chuông Xoay Thiền",
+        "price": 50000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "18:00 04/11/2025",
+    "endTime": "20:00 04/11/2025",
+    "checkInTime": "",
+    "checkOutTime": "",
+    "voucherCode": null,
+    "voucherDiscountType": null,
+    "discountValue": 0,
+    "totalPrice": 490000,
+    "status": "confirmed",
+    "customerName": "Trần Văn C",
+    "customerPhone": "0912345678",
+    "customerEmail": "tranvanc@gmail.com",
+    "rewardPointsEarned": 490,
+    "createdAt": "2025-11-04T16:00:00Z"
+  },
+  {
+    "id": "BK012",
+    "userId": "US05",
+    "roomId": 9,
+    "room": {
+      "room_id": 9,
+      "room_name": "Workshop Sáng Tạo",
+      "price": 650000,
+      "range": "6-10 người"
+    },
+    "range": "6-10 người",
+    "basePrice": 1950000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Workshop: Làm Trang Sức",
+        "price": 320000
+      },
+      {
+        "type": "expert",
+        "name": "Workshop: Tô Tượng Sáng Tạo",
+        "price": 250000
+      },
+      {
+        "type": "extra",
+        "name": "Gói Board Game (Chọn 3 tựa)",
+        "price": 70000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "14:00 13/11/2025",
+    "endTime": "17:00 13/11/2025",
+    "checkInTime": "",
+    "checkOutTime": "",
+    "voucherCode": "VPWORKSHOP15",
+    "voucherDiscountType": "percent",
+    "discountValue": 388500,
+    "totalPrice": 2201500,
+    "status": "confirmed",
+    "customerName": "Phạm Thị D",
+    "customerPhone": "0923456789",
+    "customerEmail": "phamthid@gmail.com",
+    "rewardPointsEarned": 2201,
+    "createdAt": "2025-11-13T12:00:00Z"
+  },
+  {
+    "id": "BK013",
+    "userId": "US05",
+    "roomId": 2,
+    "room": {
+      "room_id": 2,
+      "room_name": "Chia Sẻ",
+      "price": 380000,
+      "range": "3-5 người"
+    },
+    "range": "3-5 người",
+    "basePrice": 760000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Tư Vấn Tâm Lý 1:1",
+        "price": 500000
+      }
+    ],
+    "startTime": "11:00 01/11/2025",
+    "endTime": "13:00 01/11/2025",
+    "checkInTime": "11:05 01/11/2025",
+    "checkOutTime": "12:55 01/11/2025",
+    "voucherCode": "VPSPECIAL",
+    "voucherDiscountType": "percent",
+    "discountValue": 378000,
+    "totalPrice": 882000,
+    "status": "completed",
+    "customerName": "Phạm Thị D",
+    "customerPhone": "0923456789",
+    "customerEmail": "phamthid@gmail.com",
+    "rewardPointsEarned": 882,
+    "createdAt": "2025-11-01T09:00:00Z"
+  },
+  {
+    "id": "BK014",
+    "userId": "US06",
+    "roomId": 10,
+    "room": {
+      "room_id": 10,
+      "room_name": "Rage & Game",
+      "price": 380000,
+      "range": "1-2 người"
+    },
+    "range": "1-2 người",
+    "basePrice": 760000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Thuê Tay cầm chơi game (Controller)",
+        "price": 30000,
+        "quantity": 1
+      },
+      {
+        "type": "extra",
+        "name": "Gói Board Game (Chọn 3 tựa)",
+        "price": 70000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "19:00 14/11/2025",
+    "endTime": "21:00 14/11/2025",
+    "checkInTime": "",
+    "checkOutTime": "",
+    "voucherCode": "VPROOM10",
+    "voucherDiscountType": "percent",
+    "discountValue": 86000,
+    "totalPrice": 774000,
+    "status": "confirmed",
+    "customerName": "Hoàng Văn E",
+    "customerPhone": "0934567890",
+    "customerEmail": "hoangvane@gmail.com",
+    "rewardPointsEarned": 774,
+    "createdAt": "2025-11-14T17:00:00Z"
+  },
+  {
+    "id": "BK015",
+    "userId": "US06",
+    "roomId": 11,
+    "room": {
+      "room_id": 11,
+      "room_name": "Chiến Hữu",
+      "price": 680000,
+      "range": "3-5 người"
+    },
+    "range": "3-5 người",
+    "basePrice": 1360000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Rổ Đồ Đập Thêm (Tiêu chuẩn)",
+        "price": 800000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "16:00 02/11/2025",
+    "endTime": "18:00 02/11/2025",
+    "checkInTime": "16:05 02/11/2025",
+    "checkOutTime": "17:50 02/11/2025",
+    "voucherCode": null,
+    "voucherDiscountType": null,
+    "discountValue": 0,
+    "totalPrice": 2160000,
+    "status": "completed",
+    "customerName": "Hoàng Văn E",
+    "customerPhone": "0934567890",
+    "customerEmail": "hoangvane@gmail.com",
+    "rewardPointsEarned": 2160,
+    "createdAt": "2025-11-02T14:00:00Z"
+  },
+  {
+    "id": "BK016",
+    "userId": "US022",
+    "roomId": 2,
+    "room": {
+      "room_id": 2,
+      "room_name": "Chia Sẻ",
+      "price": 380000,
+      "range": "3-5 người"
+    },
+    "range": "3-5 người",
+    "basePrice": 1140000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Tư Vấn Tâm Lý 1:1",
+        "price": 500000
+      },
+      {
+        "type": "extra",
+        "name": "Thuê Đàn Guitar Acoustic",
+        "price": 500000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "14:00 15/11/2025",
+    "endTime": "17:00 15/11/2025",
+    "checkInTime": "14:05 15/11/2025",
+    "checkOutTime": "16:55 15/11/2025",
+    "voucherCode": "VPROOM10",
+    "voucherDiscountType": "percent",
+    "discountValue": 214000,
+    "totalPrice": 1926000,
+    "status": "completed",
+    "customerName": "Trương Quốc Bảo",
+    "customerPhone": "01234567888",
+    "customerEmail": "truongquocbao.30102005@gmail.com",
+    "rewardPointsEarned": 1926,
+    "createdAt": "2025-11-16T12:00:00Z"
+  },
+  {
+    "id": "BK017",
+    "userId": "US022",
+    "roomId": 5,
+    "room": {
+      "room_id": 5,
+      "room_name": "Cân Bằng",
+      "price": 360000,
+      "range": "3-5 người"
+    },
+    "range": "3-5 người",
+    "basePrice": 720000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Hướng Dẫn Yoga",
+        "price": 450000
+      },
+      {
+        "type": "extra",
+        "name": "Thuê Máy Massage Cổ-Vai-Gáy",
+        "price": 70000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "10:00 16/11/2025",
+    "endTime": "12:00 16/11/2025",
+    "checkInTime": "10:05 16/11/2025",
+    "checkOutTime": "11:55 16/11/2025",
+    "voucherCode": null,
+    "voucherDiscountType": null,
+    "discountValue": 0,
+    "totalPrice": 1240000,
+    "status": "completed",
+    "customerName": "Trương Quốc Bảo",
+    "customerPhone": "01234567888",
+    "customerEmail": "truongquocbao.30102005@gmail.com",
+    "rewardPointsEarned": 1240,
+    "createdAt": "2025-11-17T08:00:00Z"
+  },
+  {
+    "id": "BK018",
+    "userId": "US022",
+    "roomId": 7,
+    "room": {
+      "room_id": 7,
+      "room_name": "Sáng Tác",
+      "price": 300000,
+      "range": "1-2 người"
+    },
+    "range": "1-2 người",
+    "basePrice": 900000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Bảng vẽ Wacom (di động)",
+        "price": 90000,
+        "quantity": 1
+      },
+      {
+        "type": "extra",
+        "name": "Thuê Máy ảnh Polaroid",
+        "price": 120000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "13:00 17/11/2025",
+    "endTime": "16:00 17/11/2025",
+    "checkInTime": "13:05 17/11/2025",
+    "checkOutTime": "15:50 17/11/2025",
+    "voucherCode": "VPFIRST",
+    "voucherDiscountType": "percent",
+    "discountValue": 166500,
+    "totalPrice": 943500,
+    "status": "completed",
+    "customerName": "Trương Quốc Bảo",
+    "customerPhone": "01234567888",
+    "customerEmail": "truongquocbao.30102005@gmail.com",
+    "rewardPointsEarned": 943,
+    "createdAt": "2025-11-18T11:00:00Z"
+  },
+  {
+    "id": "BK019",
+    "userId": "US022",
+    "roomId": 8,
+    "room": {
+      "room_id": 8,
+      "room_name": "Nghệ Thuật",
+      "price": 520000,
+      "range": "3-5 người"
+    },
+    "range": "3-5 người",
+    "basePrice": 1040000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Workshop: Làm Bánh Kem Mini",
+        "price": 350000
+      },
+      {
+        "type": "extra",
+        "name": "Thuê Đàn Kalimba (Đàn Ngón)",
+        "price": 300000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "15:00 18/11/2025",
+    "endTime": "17:00 18/11/2025",
+    "checkInTime": "15:05 18/11/2025",
+    "checkOutTime": "16:55 18/11/2025",
+    "voucherCode": "VPSERVICE10",
+    "voucherDiscountType": "percent",
+    "discountValue": 169000,
+    "totalPrice": 1521000,
+    "status": "completed",
+    "customerName": "Trương Quốc Bảo",
+    "customerPhone": "01234567888",
+    "customerEmail": "truongquocbao.30102005@gmail.com",
+    "rewardPointsEarned": 1521,
+    "createdAt": "2025-11-18T13:00:00Z"
+  },
+  {
+    "id": "BK020",
+    "userId": "US022",
+    "roomId": 6,
+    "room": {
+      "room_id": 6,
+      "room_name": "Đồng Điệu",
+      "price": 600000,
+      "range": "6-10 người"
+    },
+    "range": "6-10 người",
+    "basePrice": 1200000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Hướng Dẫn Yoga",
+        "price": 450000
+      }
+    ],
+    "startTime": "08:00 19/11/2025",
+    "endTime": "10:00 19/11/2025",
+    "checkInTime": "08:10 19/11/2025",
+    "checkOutTime": "09:50 19/11/2025",
+    "voucherCode": "VPROOM20",
+    "voucherDiscountType": "percent",
+    "discountValue": 330000,
+    "totalPrice": 1320000,
+    "status": "completed",
+    "customerName": "Trương Quốc Bảo",
+    "customerPhone": "01234567888",
+    "customerEmail": "truongquocbao.30102005@gmail.com",
+    "rewardPointsEarned": 1320,
+    "createdAt": "2025-11-19T06:00:00Z"
+  },
+  {
+    "id": "BK021",
+    "userId": "US022",
+    "roomId": 1,
+    "room": {
+      "room_id": 1,
+      "room_name": "Tĩnh Tâm",
+      "price": 220000,
+      "range": "1-2 người"
+    },
+    "range": "1-2 người",
+    "basePrice": 440000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Thuê Bộ Chuông Xoay Thiền",
+        "price": 50000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "18:00 20/11/2025",
+    "endTime": "20:00 20/11/2025",
+    "checkInTime": "18:05 20/11/2025",
+    "checkOutTime": "19:55 20/11/2025",
+    "voucherCode": null,
+    "voucherDiscountType": null,
+    "discountValue": 0,
+    "totalPrice": 490000,
+    "status": "completed",
+    "customerName": "Trương Quốc Bảo",
+    "customerPhone": "01234567888",
+    "customerEmail": "truongquocbao.30102005@gmail.com",
+    "rewardPointsEarned": 490,
+    "createdAt": "2025-11-19T16:00:00Z"
+  },
+  {
+    "id": "BK022",
+    "userId": "US022",
+    "roomId": 4,
+    "room": {
+      "room_id": 4,
+      "room_name": "Thư Giãn",
+      "price": 200000,
+      "range": "1-2 người"
+    },
+    "range": "1-2 người",
+    "basePrice": 400000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Hướng Dẫn Thiền Định",
+        "price": 400000
+      },
+      {
+        "type": "extra",
+        "name": "Thuê Chăn Nặng (Weighted Blanket)",
+        "price": 40000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "09:00 21/11/2025",
+    "endTime": "11:00 21/11/2025",
+    "checkInTime": "09:05 21/11/2025",
+    "checkOutTime": "10:55 21/11/2025",
+    "voucherCode": "VPWELCOME",
+    "voucherDiscountType": "fixed",
+    "discountValue": 50000,
+    "totalPrice": 790000,
+    "status": "completed",
+    "customerName": "Trương Quốc Bảo",
+    "customerPhone": "01234567888",
+    "customerEmail": "truongquocbao.30102005@gmail.com",
+    "rewardPointsEarned": 790,
+    "createdAt": "2025-11-18T07:00:00Z"
+  },
+  {
+    "id": "BK023",
+    "userId": "US022",
+    "roomId": 9,
+    "room": {
+      "room_id": 9,
+      "room_name": "Workshop Sáng Tạo",
+      "price": 650000,
+      "range": "6-10 người"
+    },
+    "range": "6-10 người",
+    "basePrice": 1950000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Workshop: Làm Trang Sức",
+        "price": 320000
+      },
+      {
+        "type": "expert",
+        "name": "Workshop: Tô Tượng Sáng Tạo",
+        "price": 250000
+      },
+      {
+        "type": "extra",
+        "name": "Gói Board Game (Chọn 3 tựa)",
+        "price": 70000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "14:00 22/11/2025",
+    "endTime": "17:00 22/11/2025",
+    "checkInTime": "14:05 22/11/2025",
+    "checkOutTime": "16:55 22/11/2025",
+    "voucherCode": "VPWORKSHOP15",
+    "voucherDiscountType": "percent",
+    "discountValue": 388500,
+    "totalPrice": 2201500,
+    "status": "completed",
+    "customerName": "Trương Quốc Bảo",
+    "customerPhone": "01234567888",
+    "customerEmail": "truongquocbao.30102005@gmail.com",
+    "rewardPointsEarned": 2201,
+    "createdAt": "2025-11-17T12:00:00Z"
+  },
+  {
+    "id": "BK024",
+    "userId": "US022",
+    "roomId": 10,
+    "room": {
+      "room_id": 10,
+      "room_name": "Rage & Game",
+      "price": 380000,
+      "range": "1-2 người"
+    },
+    "range": "1-2 người",
+    "basePrice": 760000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Thuê Tay cầm chơi game (Controller)",
+        "price": 30000,
+        "quantity": 1
+      },
+      {
+        "type": "extra",
+        "name": "Gói Board Game (Chọn 3 tựa)",
+        "price": 70000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "19:00 23/11/2025",
+    "endTime": "21:00 23/11/2025",
+    "checkInTime": "19:05 23/11/2025",
+    "checkOutTime": "20:55 23/11/2025",
+    "voucherCode": "VPROOM10",
+    "voucherDiscountType": "percent",
+    "discountValue": 86000,
+    "totalPrice": 774000,
+    "status": "completed",
+    "customerName": "Trương Quốc Bảo",
+    "customerPhone": "01234567888",
+    "customerEmail": "truongquocbao.30102005@gmail.com",
+    "rewardPointsEarned": 774,
+    "createdAt": "2025-11-16T17:00:00Z"
+  },
+  {
+    "id": "BK025",
+    "userId": "US022",
+    "roomId": 11,
+    "room": {
+      "room_id": 11,
+      "room_name": "Chiến Hữu",
+      "price": 680000,
+      "range": "3-5 người"
+    },
+    "range": "3-5 người",
+    "basePrice": 1360000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Rổ Đồ Đập Thêm (Tiêu chuẩn)",
+        "price": 800000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "16:00 24/11/2025",
+    "endTime": "18:00 24/11/2025",
+    "checkInTime": "16:05 24/11/2025",
+    "checkOutTime": "17:50 24/11/2025",
+    "voucherCode": null,
+    "voucherDiscountType": null,
+    "discountValue": 0,
+    "totalPrice": 2160000,
+    "status": "completed",
+    "customerName": "Trương Quốc Bảo",
+    "customerPhone": "01234567888",
+    "customerEmail": "truongquocbao.30102005@gmail.com",
+    "rewardPointsEarned": 2160,
+    "createdAt": "2025-11-15T14:00:00Z"
+  },
+  {
+    "id": "BK026",
+    "userId": "US01",
+    "roomId": 1,
+    "room": {
+      "room_id": 1,
+      "room_name": "Tĩnh Tâm",
+      "price": 220000,
+      "range": "1-2 người"
+    },
+    "range": "1-2 người",
+    "basePrice": 440000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Thuê Bộ Chuông Xoay Thiền",
+        "price": 50000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "14:00 25/11/2025",
+    "endTime": "16:00 25/11/2025",
+    "checkInTime": "14:05 25/11/2025",
+    "checkOutTime": "15:55 25/11/2025",
+    "voucherCode": null,
+    "voucherDiscountType": null,
+    "discountValue": 0,
+    "totalPrice": 490000,
+    "status": "pending",
+    "customerName": "Nguyễn Văn A",
+    "customerPhone": "0123456789",
+    "customerEmail": "vana@gmail.com",
+    "rewardPointsEarned": 490,
+    "createdAt": "2025-11-25T12:00:00Z"
+  },
+  {
+    "id": "BK027",
+    "userId": "US03",
+    "roomId": 1,
+    "room": {
+      "room_id": 1,
+      "room_name": "Tĩnh Tâm",
+      "price": 220000,
+      "range": "1-2 người"
+    },
+    "range": "1-2 người",
+    "basePrice": 660000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Thuê Kính VR (Oculus Quest 2)",
+        "price": 100000,
+        "quantity": 1
+      },
+      {
+        "type": "extra",
+        "name": "Thuê Máy chiếu Mini (Projector)",
+        "price": 80000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "10:00 26/11/2025",
+    "endTime": "13:00 26/11/2025",
+    "checkInTime": "10:05 26/11/2025",
+    "checkOutTime": "12:55 26/11/2025",
+    "voucherCode": "VPWELCOME",
+    "voucherDiscountType": "fixed",
+    "discountValue": 50000,
+    "totalPrice": 790000,
+    "status": "pending",
+    "customerName": "Lê Thị B",
+    "customerPhone": "0987654321",
+    "customerEmail": "lethib@gmail.com",
+    "rewardPointsEarned": 790,
+    "createdAt": "2025-11-26T08:00:00Z"
+  },
+  {
+    "id": "BK028",
+    "userId": "US04",
+    "roomId": 1,
+    "room": {
+      "room_id": 1,
+      "room_name": "Tĩnh Tâm",
+      "price": 220000,
+      "range": "1-2 người"
+    },
+    "range": "1-2 người",
+    "basePrice": 440000,
+    "services": [],
+    "startTime": "15:00 27/11/2025",
+    "endTime": "17:00 27/11/2025",
+    "checkInTime": "15:05 27/11/2025",
+    "checkOutTime": "16:55 27/11/2025",
+    "voucherCode": null,
+    "voucherDiscountType": null,
+    "discountValue": 0,
+    "totalPrice": 440000,
+    "status": "pending",
+    "customerName": "Trần Văn C",
+    "customerPhone": "0912345678",
+    "customerEmail": "tranvanc@gmail.com",
+    "rewardPointsEarned": 440,
+    "createdAt": "2025-11-27T13:00:00Z"
+  },
+  {
+    "id": "BK029",
+    "userId": "US05",
+    "roomId": 2,
+    "room": {
+      "room_id": 2,
+      "room_name": "Chia Sẻ",
+      "price": 380000,
+      "range": "3-5 người"
+    },
+    "range": "3-5 người",
+    "basePrice": 1140000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Tư Vấn Tâm Lý 1:1",
+        "price": 500000
+      }
+    ],
+    "startTime": "09:00 28/11/2025",
+    "endTime": "12:00 28/11/2025",
+    "checkInTime": "09:05 28/11/2025",
+    "checkOutTime": "11:55 28/11/2025",
+    "voucherCode": "VPSPECIAL",
+    "voucherDiscountType": "percent",
+    "discountValue": 492000,
+    "totalPrice": 1148000,
+    "status": "pending",
+    "customerName": "Phạm Thị D",
+    "customerPhone": "0923456789",
+    "customerEmail": "phamthid@gmail.com",
+    "rewardPointsEarned": 1148,
+    "createdAt": "2025-11-28T07:00:00Z"
+  },
+  {
+    "id": "BK030",
+    "userId": "US01",
+    "roomId": 3,
+    "room": {
+      "room_id": 3,
+      "room_name": "Workshop Tĩnh",
+      "price": 650000,
+      "range": "6-10 người"
+    },
+    "range": "6-10 người",
+    "basePrice": 1300000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Hướng Dẫn Thiền Định",
+        "price": 400000
+      }
+    ],
+    "startTime": "14:00 29/11/2025",
+    "endTime": "16:00 29/11/2025",
+    "checkInTime": "14:05 29/11/2025",
+    "checkOutTime": "15:55 29/11/2025",
+    "voucherCode": "VPROOM100",
+    "voucherDiscountType": "fixed",
+    "discountValue": 100000,
+    "totalPrice": 1600000,
+    "status": "pending",
+    "customerName": "Nguyễn Văn A",
+    "customerPhone": "0123456789",
+    "customerEmail": "vana@gmail.com",
+    "rewardPointsEarned": 1600,
+    "createdAt": "2025-11-29T12:00:00Z"
+  },
+  {
+    "id": "BK031",
+    "userId": "US06",
+    "roomId": 3,
+    "room": {
+      "room_id": 3,
+      "room_name": "Workshop Tĩnh",
+      "price": 650000,
+      "range": "6-10 người"
+    },
+    "range": "6-10 người",
+    "basePrice": 1950000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Hướng Dẫn Thiền Định",
+        "price": 400000
+      },
+      {
+        "type": "expert",
+        "name": "Hướng Dẫn Yoga",
+        "price": 450000
+      }
+    ],
+    "startTime": "08:00 30/11/2025",
+    "endTime": "11:00 30/11/2025",
+    "checkInTime": "08:05 30/11/2025",
+    "checkOutTime": "10:55 30/11/2025",
+    "voucherCode": "VPROOM20",
+    "voucherDiscountType": "percent",
+    "discountValue": 560000,
+    "totalPrice": 2240000,
+    "status": "pending",
+    "customerName": "Hoàng Văn E",
+    "customerPhone": "0934567890",
+    "customerEmail": "hoangvane@gmail.com",
+    "rewardPointsEarned": 2240,
+    "createdAt": "2025-11-30T06:00:00Z"
+  },
+  {
+    "id": "BK032",
+    "userId": "US01",
+    "roomId": 4,
+    "room": {
+      "room_id": 4,
+      "room_name": "Thư Giãn",
+      "price": 200000,
+      "range": "1-2 người"
+    },
+    "range": "1-2 người",
+    "basePrice": 400000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Hướng Dẫn Yoga",
+        "price": 450000
+      }
+    ],
+    "startTime": "16:00 01/12/2025",
+    "endTime": "18:00 01/12/2025",
+    "checkInTime": "16:05 01/12/2025",
+    "checkOutTime": "17:55 01/12/2025",
+    "voucherCode": null,
+    "voucherDiscountType": null,
+    "discountValue": 0,
+    "totalPrice": 850000,
+    "status": "pending",
+    "customerName": "Nguyễn Văn A",
+    "customerPhone": "0123456789",
+    "customerEmail": "vana@gmail.com",
+    "rewardPointsEarned": 850,
+    "createdAt": "2025-12-01T14:00:00Z"
+  },
+  {
+    "id": "BK033",
+    "userId": "US05",
+    "roomId": 4,
+    "room": {
+      "room_id": 4,
+      "room_name": "Thư Giãn",
+      "price": 200000,
+      "range": "1-2 người"
+    },
+    "range": "1-2 người",
+    "basePrice": 400000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Hướng Dẫn Thiền Định",
+        "price": 400000
+      },
+      {
+        "type": "extra",
+        "name": "Thuê Chăn Nặng (Weighted Blanket)",
+        "price": 40000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "10:00 02/12/2025",
+    "endTime": "12:00 02/12/2025",
+    "checkInTime": "10:05 02/12/2025",
+    "checkOutTime": "11:55 02/12/2025",
+    "voucherCode": "VPWELCOME",
+    "voucherDiscountType": "fixed",
+    "discountValue": 50000,
+    "totalPrice": 790000,
+    "status": "pending",
+    "customerName": "Phạm Thị D",
+    "customerPhone": "0923456789",
+    "customerEmail": "phamthid@gmail.com",
+    "rewardPointsEarned": 790,
+    "createdAt": "2025-12-02T08:00:00Z"
+  },
+  {
+    "id": "BK034",
+    "userId": "US03",
+    "roomId": 5,
+    "room": {
+      "room_id": 5,
+      "room_name": "Cân Bằng",
+      "price": 360000,
+      "range": "3-5 người"
+    },
+    "range": "3-5 người",
+    "basePrice": 720000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Hướng Dẫn Yoga",
+        "price": 450000
+      }
+    ],
+    "startTime": "13:00 03/12/2025",
+    "endTime": "15:00 03/12/2025",
+    "checkInTime": "13:05 03/12/2025",
+    "checkOutTime": "14:55 03/12/2025",
+    "voucherCode": null,
+    "voucherDiscountType": null,
+    "discountValue": 0,
+    "totalPrice": 1170000,
+    "status": "pending",
+    "customerName": "Lê Thị B",
+    "customerPhone": "0987654321",
+    "customerEmail": "lethib@gmail.com",
+    "rewardPointsEarned": 1170,
+    "createdAt": "2025-12-03T11:00:00Z"
+  },
+  {
+    "id": "BK035",
+    "userId": "US04",
+    "roomId": 5,
+    "room": {
+      "room_id": 5,
+      "room_name": "Cân Bằng",
+      "price": 360000,
+      "range": "3-5 người"
+    },
+    "range": "3-5 người",
+    "basePrice": 1080000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Hướng Dẫn Yoga",
+        "price": 450000
+      },
+      {
+        "type": "extra",
+        "name": "Thuê Máy Massage Cổ-Vai-Gáy",
+        "price": 70000,
+        "quantity": 2
+      }
+    ],
+    "startTime": "09:00 04/12/2025",
+    "endTime": "12:00 04/12/2025",
+    "checkInTime": "09:05 04/12/2025",
+    "checkOutTime": "11:55 04/12/2025",
+    "voucherCode": "VPROOM10",
+    "voucherDiscountType": "percent",
+    "discountValue": 160000,
+    "totalPrice": 1440000,
+    "status": "pending",
+    "customerName": "Trần Văn C",
+    "customerPhone": "0912345678",
+    "customerEmail": "tranvanc@gmail.com",
+    "rewardPointsEarned": 1440,
+    "createdAt": "2025-12-04T07:00:00Z"
+  },
+  {
+    "id": "BK036",
+    "userId": "US03",
+    "roomId": 6,
+    "room": {
+      "room_id": 6,
+      "room_name": "Đồng Điệu",
+      "price": 600000,
+      "range": "6-10 người"
+    },
+    "range": "6-10 người",
+    "basePrice": 1200000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Hướng Dẫn Yoga",
+        "price": 450000
+      }
+    ],
+    "startTime": "14:00 05/12/2025",
+    "endTime": "16:00 05/12/2025",
+    "checkInTime": "14:05 05/12/2025",
+    "checkOutTime": "15:55 05/12/2025",
+    "voucherCode": "VPROOM20",
+    "voucherDiscountType": "percent",
+    "discountValue": 330000,
+    "totalPrice": 1320000,
+    "status": "pending",
+    "customerName": "Lê Thị B",
+    "customerPhone": "0987654321",
+    "customerEmail": "lethib@gmail.com",
+    "rewardPointsEarned": 1320,
+    "createdAt": "2025-12-05T12:00:00Z"
+  },
+  {
+    "id": "BK037",
+    "userId": "US05",
+    "roomId": 7,
+    "room": {
+      "room_id": 7,
+      "room_name": "Sáng Tác",
+      "price": 300000,
+      "range": "1-2 người"
+    },
+    "range": "1-2 người",
+    "basePrice": 600000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Bảng vẽ Wacom (di động)",
+        "price": 90000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "10:00 06/12/2025",
+    "endTime": "12:00 06/12/2025",
+    "checkInTime": "10:05 06/12/2025",
+    "checkOutTime": "11:55 06/12/2025",
+    "voucherCode": null,
+    "voucherDiscountType": null,
+    "discountValue": 0,
+    "totalPrice": 690000,
+    "status": "pending",
+    "customerName": "Phạm Thị D",
+    "customerPhone": "0923456789",
+    "customerEmail": "phamthid@gmail.com",
+    "rewardPointsEarned": 690,
+    "createdAt": "2025-12-06T08:00:00Z"
+  },
+  {
+    "id": "BK038",
+    "userId": "US03",
+    "roomId": 8,
+    "room": {
+      "room_id": 8,
+      "room_name": "Nghệ Thuật",
+      "price": 520000,
+      "range": "3-5 người"
+    },
+    "range": "3-5 người",
+    "basePrice": 1040000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Workshop: Làm Bánh Kem Mini",
+        "price": 350000
+      }
+    ],
+    "startTime": "15:00 07/12/2025",
+    "endTime": "17:00 07/12/2025",
+    "checkInTime": "15:05 07/12/2025",
+    "checkOutTime": "16:55 07/12/2025",
+    "voucherCode": "VPSERVICE10",
+    "voucherDiscountType": "percent",
+    "discountValue": 139000,
+    "totalPrice": 1251000,
+    "status": "pending",
+    "customerName": "Lê Thị B",
+    "customerPhone": "0987654321",
+    "customerEmail": "lethib@gmail.com",
+    "rewardPointsEarned": 1251,
+    "createdAt": "2025-12-07T13:00:00Z"
+  },
+  {
+    "id": "BK039",
+    "userId": "US04",
+    "roomId": 8,
+    "room": {
+      "room_id": 8,
+      "room_name": "Nghệ Thuật",
+      "price": 520000,
+      "range": "3-5 người"
+    },
+    "range": "3-5 người",
+    "basePrice": 1040000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Thuê Đàn Kalimba (Đàn Ngón)",
+        "price": 300000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "11:00 08/12/2025",
+    "endTime": "13:00 08/12/2025",
+    "checkInTime": "11:05 08/12/2025",
+    "checkOutTime": "12:55 08/12/2025",
+    "voucherCode": null,
+    "voucherDiscountType": null,
+    "discountValue": 0,
+    "totalPrice": 1340000,
+    "status": "pending",
+    "customerName": "Trần Văn C",
+    "customerPhone": "0912345678",
+    "customerEmail": "tranvanc@gmail.com",
+    "rewardPointsEarned": 1340,
+    "createdAt": "2025-12-08T09:00:00Z"
+  },
+  {
+    "id": "BK040",
+    "userId": "US01",
+    "roomId": 9,
+    "room": {
+      "room_id": 9,
+      "room_name": "Workshop Sáng Tạo",
+      "price": 650000,
+      "range": "6-10 người"
+    },
+    "range": "6-10 người",
+    "basePrice": 1950000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Workshop: Tô Tượng Sáng Tạo",
+        "price": 250000
+      }
+    ],
+    "startTime": "13:00 09/12/2025",
+    "endTime": "16:00 09/12/2025",
+    "checkInTime": "13:05 09/12/2025",
+    "checkOutTime": "15:55 09/12/2025",
+    "voucherCode": "VPWORKSHOP15",
+    "voucherDiscountType": "percent",
+    "discountValue": 330000,
+    "totalPrice": 1870000,
+    "status": "pending",
+    "customerName": "Nguyễn Văn A",
+    "customerPhone": "0123456789",
+    "customerEmail": "vana@gmail.com",
+    "rewardPointsEarned": 1870,
+    "createdAt": "2025-12-09T11:00:00Z"
+  },
+  {
+    "id": "BK041",
+    "userId": "US06",
+    "roomId": 9,
+    "room": {
+      "room_id": 9,
+      "room_name": "Workshop Sáng Tạo",
+      "price": 650000,
+      "range": "6-10 người"
+    },
+    "range": "6-10 người",
+    "basePrice": 1300000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Workshop: Làm Trang Sức",
+        "price": 320000
+      },
+      {
+        "type": "extra",
+        "name": "Gói Board Game (Chọn 3 tựa)",
+        "price": 70000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "10:00 10/12/2025",
+    "endTime": "12:00 10/12/2025",
+    "checkInTime": "10:05 10/12/2025",
+    "checkOutTime": "11:55 10/12/2025",
+    "voucherCode": "VPROOM10",
+    "voucherDiscountType": "percent",
+    "discountValue": 169000,
+    "totalPrice": 1521000,
+    "status": "pending",
+    "customerName": "Hoàng Văn E",
+    "customerPhone": "0934567890",
+    "customerEmail": "hoangvane@gmail.com",
+    "rewardPointsEarned": 1521,
+    "createdAt": "2025-12-10T08:00:00Z"
+  },
+  {
+    "id": "BK042",
+    "userId": "US03",
+    "roomId": 10,
+    "room": {
+      "room_id": 10,
+      "room_name": "Rage & Game",
+      "price": 380000,
+      "range": "1-2 người"
+    },
+    "range": "1-2 người",
+    "basePrice": 760000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Thuê Tay cầm chơi game (Controller)",
+        "price": 30000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "18:00 11/12/2025",
+    "endTime": "20:00 11/12/2025",
+    "checkInTime": "18:05 11/12/2025",
+    "checkOutTime": "19:55 11/12/2025",
+    "voucherCode": "VPROOM10",
+    "voucherDiscountType": "percent",
+    "discountValue": 79000,
+    "totalPrice": 711000,
+    "status": "pending",
+    "customerName": "Lê Thị B",
+    "customerPhone": "0987654321",
+    "customerEmail": "lethib@gmail.com",
+    "rewardPointsEarned": 711,
+    "createdAt": "2025-12-11T16:00:00Z"
+  },
+  {
+    "id": "BK043",
+    "userId": "US05",
+    "roomId": 10,
+    "room": {
+      "room_id": 10,
+      "room_name": "Rage & Game",
+      "price": 380000,
+      "range": "1-2 người"
+    },
+    "range": "1-2 người",
+    "basePrice": 760000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Gói Board Game (Chọn 3 tựa)",
+        "price": 70000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "19:00 12/12/2025",
+    "endTime": "21:00 12/12/2025",
+    "checkInTime": "19:05 12/12/2025",
+    "checkOutTime": "20:55 12/12/2025",
+    "voucherCode": null,
+    "voucherDiscountType": null,
+    "discountValue": 0,
+    "totalPrice": 830000,
+    "status": "pending",
+    "customerName": "Phạm Thị D",
+    "customerPhone": "0923456789",
+    "customerEmail": "phamthid@gmail.com",
+    "rewardPointsEarned": 830,
+    "createdAt": "2025-12-12T17:00:00Z"
+  },
+  {
+    "id": "BK044",
+    "userId": "US01",
+    "roomId": 11,
+    "room": {
+      "room_id": 11,
+      "room_name": "Chiến Hữu",
+      "price": 680000,
+      "range": "3-5 người"
+    },
+    "range": "3-5 người",
+    "basePrice": 1360000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Rổ Đồ Đập Thêm (Tiêu chuẩn)",
+        "price": 800000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "16:00 13/12/2025",
+    "endTime": "18:00 13/12/2025",
+    "checkInTime": "16:05 13/12/2025",
+    "checkOutTime": "17:55 13/12/2025",
+    "voucherCode": null,
+    "voucherDiscountType": null,
+    "discountValue": 0,
+    "totalPrice": 2160000,
+    "status": "pending",
+    "customerName": "Nguyễn Văn A",
+    "customerPhone": "0123456789",
+    "customerEmail": "vana@gmail.com",
+    "rewardPointsEarned": 2160,
+    "createdAt": "2025-12-13T14:00:00Z"
+  },
+  {
+    "id": "BK045",
+    "userId": "US03",
+    "roomId": 11,
+    "room": {
+      "room_id": 11,
+      "room_name": "Chiến Hữu",
+      "price": 680000,
+      "range": "3-5 người"
+    },
+    "range": "3-5 người",
+    "basePrice": 1360000,
+    "services": [],
+    "startTime": "14:00 14/12/2025",
+    "endTime": "16:00 14/12/2025",
+    "checkInTime": "14:05 14/12/2025",
+    "checkOutTime": "15:55 14/12/2025",
+    "voucherCode": "VPROOM20",
+    "voucherDiscountType": "percent",
+    "discountValue": 272000,
+    "totalPrice": 1088000,
+    "status": "pending",
+    "customerName": "Lê Thị B",
+    "customerPhone": "0987654321",
+    "customerEmail": "lethib@gmail.com",
+    "rewardPointsEarned": 1088,
+    "createdAt": "2025-12-14T12:00:00Z"
+  },
+  {
+    "id": "BK046",
+    "userId": "US04",
+    "roomId": 12,
+    "room": {
+      "room_id": 12,
+      "room_name": "Đại Náo",
+      "price": 1250000,
+      "range": "6-10 người"
+    },
+    "range": "6-10 người",
+    "basePrice": 2500000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Thuê Tay cầm chơi game (Controller)",
+        "price": 30000,
+        "quantity": 2
+      }
+    ],
+    "startTime": "18:00 15/12/2025",
+    "endTime": "20:00 15/12/2025",
+    "checkInTime": "18:05 15/12/2025",
+    "checkOutTime": "19:55 15/12/2025",
+    "voucherCode": "VPROOM10",
+    "voucherDiscountType": "percent",
+    "discountValue": 256000,
+    "totalPrice": 2304000,
+    "status": "pending",
+    "customerName": "Trần Văn C",
+    "customerPhone": "0912345678",
+    "customerEmail": "tranvanc@gmail.com",
+    "rewardPointsEarned": 2304,
+    "createdAt": "2025-12-15T16:00:00Z"
+  },
+  {
+    "id": "BK047",
+    "userId": "US05",
+    "roomId": 12,
+    "room": {
+      "room_id": 12,
+      "room_name": "Đại Náo",
+      "price": 1250000,
+      "range": "6-10 người"
+    },
+    "range": "6-10 người",
+    "basePrice": 3750000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Gói Board Game (Chọn 3 tựa)",
+        "price": 70000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "19:00 16/12/2025",
+    "endTime": "22:00 16/12/2025",
+    "checkInTime": "19:05 16/12/2025",
+    "checkOutTime": "21:55 16/12/2025",
+    "voucherCode": "VPROOM20",
+    "voucherDiscountType": "percent",
+    "discountValue": 764000,
+    "totalPrice": 3056000,
+    "status": "pending",
+    "customerName": "Phạm Thị D",
+    "customerPhone": "0923456789",
+    "customerEmail": "phamthid@gmail.com",
+    "rewardPointsEarned": 3056,
+    "createdAt": "2025-12-16T17:00:00Z"
+  },
+  {
+    "id": "BK048",
+    "userId": "US06",
+    "roomId": 12,
+    "room": {
+      "room_id": 12,
+      "room_name": "Đại Náo",
+      "price": 1250000,
+      "range": "6-10 người"
+    },
+    "range": "6-10 người",
+    "basePrice": 2500000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Thuê Tay cầm chơi game (Controller)",
+        "price": 30000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "20:00 17/12/2025",
+    "endTime": "22:00 17/12/2025",
+    "checkInTime": "20:05 17/12/2025",
+    "checkOutTime": "21:55 17/12/2025",
+    "voucherCode": null,
+    "voucherDiscountType": null,
+    "discountValue": 0,
+    "totalPrice": 2530000,
+    "status": "pending",
+    "customerName": "Hoàng Văn E",
+    "customerPhone": "0934567890",
+    "customerEmail": "hoangvane@gmail.com",
+    "rewardPointsEarned": 2530,
+    "createdAt": "2025-12-17T18:00:00Z"
+  },
+  {
+    "id": "BK049",
+    "userId": "US022",
+    "roomId": 2,
+    "room": {
+      "room_id": 2,
+      "room_name": "Chia Sẻ",
+      "price": 380000,
+      "range": "3-5 người"
+    },
+    "range": "3-5 người",
+    "basePrice": 1140000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Tư Vấn Tâm Lý 1:1",
+        "price": 500000
+      },
+      {
+        "type": "extra",
+        "name": "Thuê Đàn Guitar Acoustic",
+        "price": 500000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "14:00 22/11/2025",
+    "endTime": "17:00 22/11/2025",
+    "checkInTime": "",
+    "checkOutTime": "",
+    "voucherCode": null,
+    "voucherDiscountType": null,
+    "discountValue": 0,
+    "totalPrice": 2140000,
+    "status": "completed",
+    "customerName": "Trương Quốc Bảo",
+    "customerPhone": "01234567888",
+    "customerEmail": "truongquocbao.30102005@gmail.com",
+    "rewardPointsEarned": 2140,
+    "createdAt": "2025-11-17T12:00:00Z"
+  },
+  {
+    "id": "BK050",
+    "userId": "US022",
+    "roomId": 1,
+    "room": {
+      "room_id": 1,
+      "room_name": "Tĩnh Tâm",
+      "price": 220000,
+      "range": "1-2 người"
+    },
+    "range": "1-2 người",
+    "basePrice": 660000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Thuê Kính VR (Oculus Quest 2)",
+        "price": 100000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "15:00 20/11/2025",
+    "endTime": "18:00 20/11/2025",
+    "checkInTime": "",
+    "checkOutTime": "",
+    "voucherCode": null,
+    "voucherDiscountType": null,
+    "discountValue": 0,
+    "totalPrice": 760000,
+    "status": "confirmed",
+    "customerName": "Trương Quốc Bảo",
+    "customerPhone": "01234567888",
+    "customerEmail": "truongquocbao.30102005@gmail.com",
+    "rewardPointsEarned": 760,
+    "createdAt": "2025-11-13T10:00:00Z"
+  },
+  {
+    "id": "BK051",
+    "userId": "US022",
+    "roomId": 2,
+    "room": {
+      "room_id": 2,
+      "room_name": "Chia Sẻ",
+      "price": 380000,
+      "range": "3-5 người"
+    },
+    "range": "3-5 người",
+    "basePrice": 1140000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Tư Vấn Tâm Lý 1:1",
+        "price": 500000
+      }
+    ],
+    "startTime": "10:00 18/11/2025",
+    "endTime": "13:00 18/11/2025",
+    "checkInTime": "",
+    "checkOutTime": "",
+    "voucherCode": null,
+    "voucherDiscountType": null,
+    "discountValue": 0,
+    "totalPrice": 1640000,
+    "status": "confirmed",
+    "customerName": "Trương Quốc Bảo",
+    "customerPhone": "01234567888",
+    "customerEmail": "truongquocbao.30102005@gmail.com",
+    "rewardPointsEarned": 1640,
+    "createdAt": "2025-11-13T09:00:00Z"
+  },
+  {
+    "id": "BK052",
+    "userId": "US022",
+    "roomId": 3,
+    "room": {
+      "room_id": 3,
+      "room_name": "Workshop Tĩnh",
+      "price": 650000,
+      "range": "6-10 người"
+    },
+    "range": "6-10 người",
+    "basePrice": 1300000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Thuê Máy chiếu Mini (Projector)",
+        "price": 80000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "10:00 14/11/2025",
+    "endTime": "12:00 14/11/2025",
+    "checkInTime": "",
+    "checkOutTime": "",
+    "voucherCode": null,
+    "voucherDiscountType": null,
+    "discountValue": 0,
+    "totalPrice": 1380000,
+    "status": "confirmed",
+    "customerName": "Trương Quốc Bảo",
+    "customerPhone": "01234567888",
+    "customerEmail": "truongquocbao.30102005@gmail.com",
+    "rewardPointsEarned": 1380,
+    "createdAt": "2025-11-13T08:00:00Z"
+  },
+  {
+    "id": "BK053",
+    "userId": "US022",
+    "roomId": 1,
+    "room": {
+      "room_id": 1,
+      "room_name": "Tĩnh Tâm",
+      "price": 220000,
+      "range": "1-2 người"
+    },
+    "range": "1-2 người",
+    "basePrice": 660000,
+    "services": [
+      {
+        "type": "extra",
+        "name": "Thuê Bộ Chuông Xoay Thiền",
+        "price": 50000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "14:00 25/11/2025",
+    "endTime": "16:00 25/11/2025",
+    "checkInTime": "",
+    "checkOutTime": "",
+    "voucherCode": null,
+    "voucherDiscountType": null,
+    "discountValue": 0,
+    "totalPrice": 710000,
+    "status": "pending",
+    "customerName": "Trương Quốc Bảo",
+    "customerPhone": "01234567888",
+    "customerEmail": "truongquocbao.30102005@gmail.com",
+    "rewardPointsEarned": 710,
+    "createdAt": "2025-11-25T12:00:00Z"
+  },
+  {
+    "id": "BK054",
+    "userId": "US022",
+    "roomId": 4,
+    "room": {
+      "room_id": 4,
+      "room_name": "Thư Giãn",
+      "price": 200000,
+      "range": "1-2 người"
+    },
+    "range": "1-2 người",
+    "basePrice": 600000,
+    "services": [
+      {
+        "type": "expert",
+        "name": "Hướng Dẫn Thiền Định",
+        "price": 400000
+      },
+      {
+        "type": "extra",
+        "name": "Thuê Chăn Nặng (Weighted Blanket)",
+        "price": 40000,
+        "quantity": 1
+      }
+    ],
+    "startTime": "10:00 26/11/2025",
+    "endTime": "12:00 26/11/2025",
+    "checkInTime": "",
+    "checkOutTime": "",
+    "voucherCode": "VPWELCOME",
+    "voucherDiscountType": "fixed",
+    "discountValue": 50000,
+    "totalPrice": 990000,
+    "status": "pending",
+    "customerName": "Trương Quốc Bảo",
+    "customerPhone": "01234567888",
+    "customerEmail": "truongquocbao.30102005@gmail.com",
+    "rewardPointsEarned": 990,
+    "createdAt": "2025-11-26T08:00:00Z"
+  }
+]

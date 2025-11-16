@@ -1,0 +1,233 @@
+<div class="admin-wrapper container-fluid p-4">
+    <div class="row">
+        <!-- SIDEBAR -->
+        <div class="col-lg-2 col-md-3 mb-4">
+            <div class="admin-sidebar">
+                <h3 class="sidebar-title">Admin Panel</h3>
+                <nav class="admin-nav">
+                    <a routerLink="/admin-dashboard" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-speedometer2"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a routerLink="/admin-users" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-people"></i>
+                        <span>Quản lý Users</span>
+                    </a>
+                    <a routerLink="/admin-bookings" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-calendar-check"></i>
+                        <span>Quản lý Bookings</span>
+                    </a>
+                    <a routerLink="/admin-rooms" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-door-open"></i>
+                        <span>Quản lý Rooms</span>
+                    </a>
+                    <a routerLink="/admin-services" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-gear"></i>
+                        <span>Quản lý Services</span>
+                    </a>
+                    <a routerLink="/admin-exchange" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-gift"></i>
+                        <span>Quản lý Exchange</span>
+                    </a>
+                    <a routerLink="/admin-reviews" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-star"></i>
+                        <span>Quản lý Reviews</span>
+                    </a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button (click)="logout()" class="logout-btn">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Đăng xuất</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="col-lg-10 col-md-9">
+            <div class="admin-content">
+                <div class="page-header">
+                    <h1 class="page-title">Quản lý Users</h1>
+                    <div class="search-bar">
+                        <input type="text" 
+                               class="search-input" 
+                               placeholder="Tìm kiếm user..." 
+                               [(ngModel)]="searchTerm"
+                               (input)="onSearch()">
+                        <i class="bi bi-search search-icon"></i>
+                    </div>
+                </div>
+
+                <!-- USERS TABLE -->
+                <div class="table-container">
+                    <table class="users-table">
+                        <thead>
+                            <tr>
+                                <th>User ID</th>
+                                <th>Họ và tên</th>
+                                <th>Email</th>
+                                <th>Số điện thoại</th>
+                                <th>Xu</th>
+                                <th>Sao</th>
+                                <th>Trạng thái</th>
+                                <th>Role</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of filteredUsers">
+                                <td><strong>{{ user.user_id }}</strong></td>
+                                <td>{{ user.full_name }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.phone_number }}</td>
+                                <td>{{ formatCurrency(user.coin || 0) }}</td>
+                                <td>{{ user.star || 0 }}</td>
+                                <td>
+                                    <span class="status-badge" [ngClass]="getStatusClass(user.account_status || 'active')">
+                                        {{ getStatusLabel(user.account_status || 'active') }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="role-badge" [ngClass]="user.role === 'admin' ? 'role-admin' : 'role-user'">
+                                        {{ user.role === 'admin' ? 'Admin' : 'User' }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-view" (click)="viewUser(user)" title="Xem chi tiết">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                        <button class="btn-edit" (click)="editUserDetails(user)" title="Chỉnh sửa">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                        <button class="btn-delete" (click)="deleteUser(user)" title="Xóa">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="filteredUsers.length === 0">
+                                <td colspan="9" class="text-center">Không tìm thấy user nào</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- VIEW MODAL -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h4>Chi tiết User</h4>
+            <button class="btn-close" (click)="closeModal()">&times;</button>
+        </div>
+        <div class="modal-body" *ngIf="selectedUser">
+            <div class="info-row">
+                <span>User ID:</span>
+                <p><strong>{{ selectedUser.user_id }}</strong></p>
+            </div>
+            <div class="info-row">
+                <span>Họ và tên:</span>
+                <p>{{ selectedUser.full_name }}</p>
+            </div>
+            <div class="info-row">
+                <span>Email:</span>
+                <p>{{ selectedUser.email }}</p>
+            </div>
+            <div class="info-row">
+                <span>Số điện thoại:</span>
+                <p>{{ selectedUser.phone_number }}</p>
+            </div>
+            <div class="info-row">
+                <span>Giới tính:</span>
+                <p>{{ selectedUser.gender === 'male' ? 'Nam' : selectedUser.gender === 'female' ? 'Nữ' : 'Khác' }}</p>
+            </div>
+            <div class="info-row">
+                <span>Ngày sinh:</span>
+                <p>{{ selectedUser.birthdate }}</p>
+            </div>
+            <div class="info-row">
+                <span>Thành phố:</span>
+                <p>{{ selectedUser.city }}</p>
+            </div>
+            <div class="info-row">
+                <span>Xu:</span>
+                <p><strong>{{ formatCurrency(selectedUser.coin || 0) }}</strong></p>
+            </div>
+            <div class="info-row">
+                <span>Sao:</span>
+                <p><strong>{{ selectedUser.star || 0 }}</strong></p>
+            </div>
+            <div class="info-row">
+                <span>Trạng thái:</span>
+                <p>
+                    <span class="status-badge" [ngClass]="getStatusClass(selectedUser.account_status || 'active')">
+                        {{ getStatusLabel(selectedUser.account_status || 'active') }}
+                    </span>
+                </p>
+            </div>
+            <div class="info-row">
+                <span>Role:</span>
+                <p>
+                    <span class="role-badge" [ngClass]="selectedUser.role === 'admin' ? 'role-admin' : 'role-user'">
+                        {{ selectedUser.role === 'admin' ? 'Admin' : 'User' }}
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal-overlay" *ngIf="showEditModal" (click)="closeEditModal()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h4>Chỉnh sửa User</h4>
+            <button class="btn-close" (click)="closeEditModal()">&times;</button>
+        </div>
+        <div class="modal-body" *ngIf="editUser">
+            <div class="form-group">
+                <label>Họ và tên:</label>
+                <input type="text" [(ngModel)]="editUser.full_name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" [(ngModel)]="editUser.email" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+                <label>Số điện thoại:</label>
+                <input type="tel" [(ngModel)]="editUser.phone_number" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+                <label>Xu:</label>
+                <input type="number" [(ngModel)]="editUser.coin" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Sao:</label>
+                <input type="number" [(ngModel)]="editUser.star" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Trạng thái:</label>
+                <select [(ngModel)]="editUser.account_status" class="form-control">
+                    <option value="active">Hoạt động</option>
+                    <option value="inactive">Tạm khóa</option>
+                    <option value="deleted">Đã xóa</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Role:</label>
+                <select [(ngModel)]="editUser.role" class="form-control">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-cancel" (click)="closeEditModal()">Hủy</button>
+            <button class="btn btn-save" (click)="saveUserChanges()">Lưu</button>
+        </div>
+    </div>
+</div>

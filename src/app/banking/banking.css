@@ -1,0 +1,225 @@
+/* ================== HEADER / BƯỚC ================== */
+.header-bar h2 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.steps {
+  gap: 0.75rem;
+}
+
+.step-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #e9ecef;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.step-circle.active {
+  background: #132fba;
+  color: #fff;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.cursor-pointer:hover {
+  opacity: 0.8;
+}
+
+.cursor-pointer:hover .step-circle {
+  background: #132fba;
+  color: #fff;
+}
+
+.cursor-pointer:hover .small {
+  color: #132fba !important;
+}
+
+/* ================== QR CONTAINER ================== */
+.qr-container {
+  background-color: transparent; /* bỏ nền để 2 box nổi bật */
+  border-radius: 10px;
+  padding: 20px;
+}
+
+/* ===== CỘT TRÁI ===== */
+.qr-left {
+  border-right: none;
+}
+
+/* Hộp bọc QR bên trái */
+.qr-box-wrapper {
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  padding: 20px;
+}
+
+.alert-primary {
+  background-color: #eaf0ff;
+  border: 1px solid #cdd9ff;
+  color: #132fba;
+  font-weight: 500;
+}
+
+/* Đếm ngược màu xanh lá cây */
+.alert-primary strong.text-success {
+  color: #28a745 !important;
+  font-weight: 700;
+}
+
+/* Cảnh báo thanh toán */
+.alert-warning {
+  background-color: #fff8e5;
+  border: 1px solid #ffe9a9;
+  color: #665c00;
+}
+
+.qr-box {
+  background-color: #f0f5ff;
+  border: 1px dashed #132fba;
+  border-radius: 10px;
+}
+
+.qr-box h5 {
+  color: #132fba;
+  font-weight: 600;
+}
+
+.qr-image {
+  width: 210px;
+  height: 210px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #d9e3f5;
+  padding: 6px;
+}
+
+/* Hướng dẫn thanh toán */
+.instructions {
+  background-color: #f8faff;
+  border: 1px solid #dbe4f3;
+  border-radius: 8px;
+}
+
+.instructions ol {
+  padding-left: 1.25rem;
+  color: #333;
+}
+
+.instructions li {
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+}
+
+/* ===== CỘT PHẢI ===== */
+.summary-box {
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  color: #333;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  padding: 20px;
+}
+
+.summary-box h5 {
+  color: #132fba;
+  font-weight: 600;
+}
+
+.summary-box hr {
+  border-top: 1.5px solid #b0bac7;
+  opacity: 1;
+  margin: 10px 0;
+}
+
+
+.summary-box p {
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+.summary-box strong {
+  color: #000;
+}
+
+/* Dịch vụ */
+.summary-box ul {
+  padding-left: 1.2rem;
+}
+
+.summary-box li {
+  font-size: 0.9rem;
+}
+
+/* Tổng cộng */
+.text-end h4 {
+  color: #132fba;
+  font-weight: 700;
+}
+
+/* Kiếm xu */
+.rewards-row {
+  background-color: #fff9ed;
+  border: 1px solid #ffe7c2;
+  border-radius: 8px;
+  padding: 8px 10px;
+  color: #a66b00;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.rewards-row .icon {
+  background-color: #fff3cd;
+  border: 1px solid #ffe7c2;
+}
+
+/* ===== BUTTONS ===== */
+button.btn-outline-primary {
+  color: #132fba;
+  border-color: #132fba;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+button.btn-outline-primary:hover {
+  background-color: #132fba;
+  color: #fff;
+}
+
+/* ================== RESPONSIVE ================== */
+@media (max-width: 991px) {
+  .qr-left {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 575px) {
+  .header-bar h2 {
+    font-size: 1.1rem;
+  }
+
+  .step-circle {
+    width: 24px;
+    height: 24px;
+    font-size: 0.8rem;
+  }
+
+  .qr-image {
+    width: 180px;
+    height: 180px;
+  }
+
+  .qr-box-wrapper,
+  .summary-box {
+    padding: 15px;
+  }
+}

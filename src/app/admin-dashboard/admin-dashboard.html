@@ -1,0 +1,263 @@
+<div class="admin-wrapper container-fluid p-4">
+    <div class="row">
+        <!-- SIDEBAR -->
+        <div class="col-lg-2 col-md-3 mb-4">
+            <div class="admin-sidebar">
+                <h3 class="sidebar-title">Admin Panel</h3>
+                <nav class="admin-nav">
+                    <a routerLink="/admin-dashboard" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-speedometer2"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a routerLink="/admin-users" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-people"></i>
+                        <span>Quản lý Users</span>
+                    </a>
+                    <a routerLink="/admin-bookings" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-calendar-check"></i>
+                        <span>Quản lý Bookings</span>
+                    </a>
+                    <a routerLink="/admin-rooms" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-door-open"></i>
+                        <span>Quản lý Rooms</span>
+                    </a>
+                    <a routerLink="/admin-services" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-gear"></i>
+                        <span>Quản lý Services</span>
+                    </a>
+                    <a routerLink="/admin-exchange" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-gift"></i>
+                        <span>Quản lý Exchange</span>
+                    </a>
+                    <a routerLink="/admin-reviews" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-star"></i>
+                        <span>Quản lý Reviews</span>
+                    </a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button (click)="logout()" class="logout-btn">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Đăng xuất</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="col-lg-10 col-md-9">
+            <div class="admin-content">
+                <!-- HEADER -->
+                <div class="dashboard-header">
+                    <h1 class="page-title">
+                        <i class="bi bi-speedometer2"></i>
+                        Dashboard
+                    </h1>
+                    <div class="header-info">
+                        <span class="update-time">
+                            <i class="bi bi-clock"></i>
+                            Cập nhật: {{ formatDate(currentDate) }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- STATS CARDS -->
+                <div class="stats-grid">
+                    <div class="stat-card revenue">
+                        <div class="stat-icon">
+                            <i class="bi bi-currency-dollar"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>{{ formatCurrency(stats.totalRevenue) }}</h3>
+                            <p>Tổng Doanh thu</p>
+                            <small>
+                                <i class="bi bi-graph-up-arrow"></i>
+                                Từ {{ stats.completedBookings + stats.confirmedBookings }} bookings
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="stat-card bookings">
+                        <div class="stat-icon">
+                            <i class="bi bi-calendar-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>{{ stats.totalBookings }}</h3>
+                            <p>Tổng Bookings</p>
+                            <small>
+                                <i class="bi bi-check-circle"></i>
+                                {{ stats.completedBookings }} hoàn thành
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="stat-card users">
+                        <div class="stat-icon">
+                            <i class="bi bi-people"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>{{ stats.totalUsers }}</h3>
+                            <p>Tổng Users</p>
+                            <small>
+                                <i class="bi bi-person-check"></i>
+                                Đang hoạt động
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="stat-card rooms">
+                        <div class="stat-icon">
+                            <i class="bi bi-door-open"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>{{ stats.totalRooms }}</h3>
+                            <p>Tổng Rooms</p>
+                            <small>
+                                <i class="bi bi-star-fill"></i>
+                                Đánh giá: {{ stats.averageRating.toFixed(1) }}/5
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHARTS SECTION -->
+                <div class="charts-section">
+                    <div class="row">
+                        <!-- Revenue Chart -->
+                        <div class="col-lg-8 col-md-12 mb-4">
+                            <div class="chart-card">
+                                <div class="chart-header">
+                                    <h3>
+                                        <i class="bi bi-graph-up"></i>
+                                        Doanh thu theo tháng
+                                    </h3>
+                                    <p class="chart-description">Phân tích doanh thu trong 6 tháng gần nhất</p>
+                                </div>
+                                <div class="chart-container">
+                                    <canvas id="revenueChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Status Chart -->
+                        <div class="col-lg-4 col-md-12 mb-4">
+                            <div class="chart-card">
+                                <div class="chart-header">
+                                    <h3>
+                                        <i class="bi bi-pie-chart"></i>
+                                        Trạng thái Bookings
+                                    </h3>
+                                    <p class="chart-description">Phân bố theo trạng thái</p>
+                                </div>
+                                <div class="chart-container">
+                                    <canvas id="statusChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Top Rooms Chart -->
+                    <div class="row">
+                        <div class="col-12 mb-4">
+                            <div class="chart-card">
+                                <div class="chart-header">
+                                    <h3>
+                                        <i class="bi bi-bar-chart"></i>
+                                        Top 5 Phòng được đặt nhiều nhất
+                                    </h3>
+                                    <p class="chart-description">Số lượt đặt theo từng phòng</p>
+                                </div>
+                                <div class="chart-container">
+                                    <canvas id="topRoomsChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DATA TABLES SECTION -->
+                <div class="data-section">
+                    <div class="row">
+                        <!-- Recent Bookings -->
+                        <div class="col-lg-8 col-md-12 mb-4">
+                            <div class="data-card">
+                                <div class="data-card-header">
+                                    <h3>
+                                        <i class="bi bi-clock-history"></i>
+                                        Bookings gần đây
+                                    </h3>
+                                    <a routerLink="/admin-bookings" class="view-all-link">
+                                        Xem tất cả <i class="bi bi-arrow-right"></i>
+                                    </a>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Khách hàng</th>
+                                                <th>Phòng</th>
+                                                <th>Giá</th>
+                                                <th>Trạng thái</th>
+                                                <th>Ngày tạo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let booking of recentBookings">
+                                                <td><strong>{{ booking.id }}</strong></td>
+                                                <td>{{ booking.customerName }}</td>
+                                                <td>{{ booking.room?.room_name || 'N/A' }}</td>
+                                                <td class="price-cell">{{ formatCurrency(booking.totalPrice) }}</td>
+                                                <td>
+                                                    <span class="status-badge" [ngClass]="'status-' + booking.status">
+                                                        {{ getStatusLabel(booking.status) }}
+                                                    </span>
+                                                </td>
+                                                <td>{{ formatDate(booking.createdAt) }}</td>
+                                            </tr>
+                                            <tr *ngIf="recentBookings.length === 0">
+                                                <td colspan="6" class="text-center text-muted">Không có dữ liệu</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Top Users & Additional Stats -->
+                        <div class="col-lg-4 col-md-12 mb-4">
+                            <div class="data-card">
+                                <div class="data-card-header">
+                                    <h3>
+                                        <i class="bi bi-trophy"></i>
+                                        Top Users
+                                    </h3>
+                                </div>
+                                <div class="top-users-list">
+                                    <div class="user-item" *ngFor="let user of topUsers; let i = index">
+                                        <div class="user-rank">{{ i + 1 }}</div>
+                                        <div class="user-info">
+                                            <div class="user-name">{{ user.full_name }}</div>
+                                            <div class="user-stats">
+                                                <span class="coin-badge">
+                                                    <i class="bi bi-coin"></i>
+                                                    {{ user.coin || 0 }} xu
+                                                </span>
+                                                <span class="star-badge">
+                                                    <i class="bi bi-star-fill"></i>
+                                                    {{ user.star || 0 }} sao
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="topUsers.length === 0" class="text-center text-muted p-3">
+                                        Không có dữ liệu
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

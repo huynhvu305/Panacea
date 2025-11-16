@@ -1,0 +1,745 @@
+/* ================== KHUNG CHUNG – KHÔNG ĐỔI NỘI DUNG ================== */
+.card-block,
+.rules-card,
+.room-box,
+.price-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* ================== HEADER / BƯỚC ================== */
+.header-bar h2 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.steps {
+  gap: 0.75rem;
+}
+
+.step-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #e9ecef;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.step-circle.active {
+  background: #132fba;
+  color: #fff;
+}
+
+/* ================== THƯỞNG / XU ================== */
+.points-line {
+  position: relative;
+  display: inline-block;
+}
+
+.points-line.no-points {
+  color: #888 !important;
+  text-decoration: line-through dashed 1px;
+}
+
+.points-line.no-points::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -10px;
+  width: 36px;
+  border-top: 1px dashed #888;
+}
+
+/* ================== CHI TIẾT GIÁ ================== */
+.policy-link {
+  color: #132fba;
+  text-decoration: none;
+}
+
+.policy-link:hover {
+  text-decoration: underline;
+}
+
+.policy-text {
+  display: block;
+  margin: 0;
+  padding: 0 1.5rem 8px 1.5rem;
+  margin-bottom: 8px;
+  border-bottom: 2px dashed #dfe6eb;
+}
+
+.price-details {
+  background-color: #fff9e6;
+  border: 1px solid #ffe59c;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.price-details .price-line {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.price-details .small-muted {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.price-details .old-price {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.price-details .final-price {
+  font-weight: 700;
+  color: #132fba;
+}
+
+/* Tổng cộng */
+.total-price {
+  margin-left: -1rem;
+  margin-right: -1rem;
+  padding: 0.5rem 1rem 0;
+}
+
+/* Nút chính trong khung giá */
+.price-details button {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.8rem;
+  background-color: #132fba;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.price-details button:hover {
+  background-color: #0f28a0;
+}
+
+/* ================== DỊCH VỤ (ĐỒNG BỘ VỚI ROOM-DETAIL) ================== */
+/* Khung lớn ngoài - Dịch vụ đi kèm */
+.rules-card {
+  position: relative;
+}
+
+/* Khung riêng cho từng nhóm dịch vụ */
+.service-group-box {
+  background: #ffffff;
+  border: 1.5px solid #e3e7ff;
+  border-radius: 12px;
+  padding: 1.2rem 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(19, 47, 186, 0.08);
+  transition: all 0.25s ease;
+}
+
+.service-group-box:hover {
+  border-color: #132fba;
+  box-shadow: 0 4px 12px rgba(19, 47, 186, 0.12);
+}
+
+.service-group-box:first-child {
+  margin-top: 0.5rem;
+}
+
+/* Tiêu đề nhóm dịch vụ */
+.service-group-title {
+  color: #132fba;
+  margin: 0 0 1rem 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #e6ebff;
+}
+
+/* Dịch vụ item - giống room-detail */
+.service-group-box .service-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid #e6ebff;
+  padding: 0.75rem 0;
+  transition: background 0.25s, transform 0.25s;
+  margin-bottom: 0;
+}
+
+.service-group-box .service-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.service-group-box .service-item.mb-3 {
+  margin-bottom: 0 !important;
+}
+
+.service-group-box .service-item:hover {
+  background: #f9fbff;
+  transform: translateY(-2px);
+  border-radius: 8px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.service-item input[type="checkbox"] {
+  margin-top: 6px;
+  accent-color: #132fba;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.service-content {
+  flex: 1;
+}
+
+.service-content h6 {
+  margin: 0;
+  color: #001a41;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.service-content p {
+  margin: 0.25rem 0 0;
+  color: #555;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.service-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  min-width: 140px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.service-right .text-primary {
+  color: #ff6600 !important;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+
+/* Quantity control - giống room-detail */
+.quantity-control {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50px;
+  background: #f5f7ff;
+  border: 1.5px solid #d5dbff;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(19, 47, 186, 0.05),
+              0 1px 4px rgba(19, 47, 186, 0.08);
+  height: 38px;
+  transition: all 0.25s ease;
+  margin-top: 4px;
+  width: auto;
+  flex-wrap: nowrap;
+}
+
+.quantity-control:hover {
+  border-color: #132fba;
+  box-shadow: 0 0 6px rgba(19, 47, 186, 0.25);
+}
+
+.quantity-control button {
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;
+  flex-shrink: 0 !important;
+  border: none !important;
+  background: #132fba !important;
+  color: #fff !important;
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+}
+
+.quantity-control button:hover:not(:disabled) {
+  background: #0c1f8f !important;
+  transform: scale(1.08);
+}
+
+.quantity-control button:disabled {
+  background: #cfd4f7 !important;
+  cursor: not-allowed;
+  color: #777 !important;
+}
+
+.quantity-control input {
+  width: 46px !important;
+  min-width: 46px !important;
+  flex-shrink: 0 !important;
+  text-align: center !important;
+  border: none !important;
+  background: transparent !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  color: #132fba !important;
+  outline: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  height: 100% !important;
+}
+
+.quantity-control input::-webkit-inner-spin-button,
+.quantity-control input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Nút xem thêm - giống room-detail */
+.service-group-box .btn-link.btn-sm {
+  background: none;
+  border: none;
+  color: #132fba;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-decoration: none;
+  padding: 0.5rem 0;
+}
+
+.service-group-box .btn-link.btn-sm:hover {
+  color: #0d1f7a;
+  text-decoration: underline;
+  transform: scale(1.05);
+}
+
+.service-group-box .text-center {
+  margin-top: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e6ebff;
+}
+
+/* ================== MÃ KHUYẾN MÃI ================== */
+.discount-box {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.discount-box input {
+  flex: 1;
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}
+
+.discount-box button {
+  background-color: #132fba;
+  border: none;
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.discount-box button:hover {
+  background-color: #0f28a0;
+}
+
+/* ================== NÚT CHÍNH & CHỮ CHỦ ĐẠO ================== */
+.btn-primary,
+.btn.btn-primary {
+  background-color: #132fba !important;
+  border-color: #132fba !important;
+  color: #fff !important;
+}
+
+.btn-primary:hover {
+  background-color: #0f28a0 !important;
+  border-color: #0f28a0 !important;
+}
+
+.text-primary {
+  color: #132fba !important;
+}
+
+.border-primary {
+  border-color: #132fba !important;
+}
+
+/* ================== PHÒNG / QUY ĐỊNH ================== */
+.room-box {
+  border-left: 5px solid #132fba;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  padding: 20px 24px;
+}
+
+.room-time-box,
+.room-time {
+  background: #f4f7ff;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.time-item span,
+.time-section h4 {
+  color: #132fba;
+}
+
+.room-details i {
+  color: #132fba;
+}
+
+/* Quy định */
+.rules-card {
+  border-left: 5px solid #132fba;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  padding: 20px 24px;
+}
+
+/* Required asterisk */
+.required-asterisk {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-left: 2px;
+  vertical-align: middle;
+}
+
+/* Rule agree checkbox highlight */
+.rule-agree {
+  transition: all 0.3s ease;
+}
+
+.rule-agree.required-highlight {
+  animation: pulseHighlight 2s ease-in-out infinite;
+  background-color: rgba(220, 53, 69, 0.08);
+  border-radius: 8px;
+  padding: 12px;
+  margin: -12px;
+  border: 2px solid rgba(220, 53, 69, 0.4);
+  box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.1), 0 4px 12px rgba(220, 53, 69, 0.2);
+  transform: scale(1.02);
+  transition: all 0.3s ease;
+}
+
+.rule-agree.required-highlight.flash-highlight {
+  animation: pulseHighlight 2s ease-in-out infinite, flashRing 0.6s ease-out;
+}
+
+.rule-agree.required-highlight .form-check-input.is-invalid {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+  animation: checkboxPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes checkboxPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.rule-agree.required-highlight .form-check-label {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.rule-agree.required-highlight .invalid-feedback {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  display: block !important;
+}
+
+@keyframes pulseHighlight {
+  0% {
+    background-color: rgba(220, 53, 69, 0.08);
+    border-color: rgba(220, 53, 69, 0.4);
+    box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.1), 0 4px 12px rgba(220, 53, 69, 0.2);
+  }
+  50% {
+    background-color: rgba(220, 53, 69, 0.12);
+    border-color: rgba(220, 53, 69, 0.6);
+    box-shadow: 0 0 0 6px rgba(220, 53, 69, 0.15), 0 6px 16px rgba(220, 53, 69, 0.3);
+  }
+  100% {
+    background-color: rgba(220, 53, 69, 0.08);
+    border-color: rgba(220, 53, 69, 0.4);
+    box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.1), 0 4px 12px rgba(220, 53, 69, 0.2);
+  }
+}
+
+@keyframes flashRing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7), 0 4px 12px rgba(220, 53, 69, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(220, 53, 69, 0), 0 6px 20px rgba(220, 53, 69, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 53, 69, 0), 0 4px 12px rgba(220, 53, 69, 0.2);
+  }
+}
+
+.rules-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #132fba;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.rule-icon {
+  color: #132fba;
+  font-size: 22px;
+}
+
+.logged-in-info {
+  border-left: 4px solid #132fba;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+
+.logged-in-info strong {
+  color: #132fba;
+}
+
+/* ================== MÀU PHỤ / FORM / GẠCH DOTTED ================== */
+.info-box {
+  background-color: #f4f9ff;
+  border: 1px solid #d6e0ff;
+  border-radius: 10px;
+  padding: 22px;
+}
+
+.dotted-line {
+  border-top: 1.5px dashed #c2ccff;
+}
+
+/* ================== REWARD / XU ================== */
+.reward-item .icon {
+  background: #fff6e6;
+}
+
+.rewards-row {
+  background-color: #fff9ed;
+  border: 1px solid #ffe7c2;
+  border-radius: 8px;
+  padding: 8px 10px;
+  color: #a66b00;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.rewards-row .icon {
+  background-color: #fff3cd;
+  border: 1px solid #ffe7c2;
+}
+
+/* ================== LINK, ICON, ETC ================== */
+a {
+  color: #132fba;
+}
+
+a:hover {
+  color: #0f28a0;
+  text-decoration: underline;
+}
+
+/* ================== RESPONSIVE ================== */
+@media (max-width: 768px) {
+  .discount-box {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .price-details .total {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+/* ========== BOX phòng: giữ nền trắng ========== */
+.room-box {
+  background-color: #ffffff; /* GIỮ TRẮNG như yêu cầu */
+}
+
+/* ========== Bong bóng "Bạn có lựa chọn tuyệt vời" ========== */
+/* Inline bubble, KHÔNG tô nền cả box */
+.room-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #dff2ff;            /* xanh rất nhạt */
+  color: #0b5ed7;                  /* xanh chữ */
+  border: 1px solid #9cd3ff;
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-weight: 600;
+  position: relative;
+  margin-bottom: 10px;
+}
+.room-badge i {
+  font-size: 1.05rem;
+  color: #0b5ed7;
+}
+/* vạt nhỏ bên trái */
+.room-badge::before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0; height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-right: 7px solid #9cd3ff; /* viền */
+}
+.room-badge::after {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0; height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 6px solid #dff2ff; /* nền */
+}
+
+/* ========== Ngày chơi dưới tên phòng, màu xanh chủ đạo ========== */
+.room-header h3 {
+  color: #132fba;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.room-header .room-date {
+  color: #0f28a0;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+/* ========== Giờ nhận – 1 giờ – Giờ trả: cùng 1 hàng ========== */
+.room-time {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: #f4f7ff;
+  border-radius: 10px;
+  padding: 12px 18px;
+  margin-bottom: 10px;
+}
+.room-time .time-section { text-align: center; }
+.room-time .time-section h4 { color: #132fba; margin: 0; font-weight: 600; }
+.room-time .time-mid { color: #132fba; font-weight: 500; }
+
+/* ========== Free cancel / Changeable: xanh lá ========== */
+.room-details .free-cancel i,
+.room-details .changeable i {
+  color: #28a745 !important;
+}
+.room-details .free-cancel span,
+.room-details .changeable span {
+  color: #28a745;
+  font-weight: 500;
+}
+
+/* ========== Voucher message: Thành công màu xanh lá (ghi đè mạnh) ========== */
+/* Đây là <small *ngIf="discountMessage" class="{{ discountValue > 0 ? 'text-success' : 'text-danger' }}"> ... </small> trong HTML */
+.rules-card form small.text-success {
+  color: #28a745 !important;
+  font-weight: 600;
+}
+.rules-card form small.text-danger {
+  color: #dc3545 !important;
+  font-weight: 600;
+}
+
+/* ========== Login banner: vàng nhạt, dính sát viền trong card ========== */
+/* Đây là div.login-banner bên trong .rules-card ngay trên tiêu đề Liên hệ */
+.login-banner {
+  background-color: #fff9e6;      /* vàng nhạt */
+  border-bottom: 1px solid #ffe59c;
+  /* ăn tràn hết chiều ngang card: bù padding của .rules-card */
+  margin: -20px -24px -12px -24px; /* khớp padding .rules-card hiện tại */
+  padding: 12px 24px;
+  border-radius: 12px 12px 0 0;   /* bo tròn dính sát mép trên card */
+  color: #333;
+  font-weight: 0;
+}
+.login-banner strong { font-weight: 700; color: #111; }
+
+/* ========== (Giữ) màu xanh chủ đạo có sẵn ========== */
+
+.rule-item {
+  display: flex;
+  align-items: flex-start; /* canh icon và chữ theo hàng ngang */
+  gap: 10px;
+  margin-bottom: 10px;
+  background-color: #f8faff;
+  border: 1px solid #e3e8f0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  transition: all 0.2s ease-in-out;
+}
+
+.rule-item:hover {
+  background-color: #eef4ff;
+  border-color: #c7d6f3;
+}
+
+.rule-icon {
+  font-size: 1.4rem;
+  color: #132fba;
+  flex-shrink: 0; /* giữ icon cố định, không co lại */
+  margin-top: 2px;
+}
+
+.rule-text {
+  flex: 1;
+  line-height: 1.4;
+}
+
+.rule-text h5 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #132fba;
+}
+
+.rule-text p {
+  margin: 2px 0 0;
+  font-size: 0.9rem;
+  color: #555;
+}

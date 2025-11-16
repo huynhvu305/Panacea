@@ -1,0 +1,259 @@
+<h1 *ngIf="room" class="sr-only">{{ room.room_name }} - Panacea</h1>
+
+<!-- THANH TRƯỢT -->
+<nav class="room-tabs">
+    <!-- 🟩 ADDED: Nút quay lại (icon trong hình tròn) -->
+    <button class="back-button" (click)="navigateBack()" title="Quay lại danh sách phòng">
+        <i class="bi bi-arrow-left"></i>
+    </button>
+
+    <a class="tab" [class.active]="activeSection === 'overview'" (click)="scrollToSection('overview')">Tổng quan</a>
+    <a class="tab" [class.active]="activeSection === 'policy'" (click)="scrollToSection('policy')">Chính sách</a>
+    <a class="tab" [class.active]="activeSection === 'reviews'" (click)="scrollToSection('reviews')">Đánh giá</a>
+</nav>
+
+<!-- NỘI DUNG -->
+<!-- THÔNG TIN TỔNG QUAN -->
+<section id="overview" class="room-overview" *ngIf="room">
+    <div class="room-container">
+
+        <!-- ẢNH CHÍNH -->
+        <div class="image-section">
+            <div class="main-photo-wrapper">
+                <img [src]="room.photos[currentSlide]" 
+                    [alt]="'Hình ảnh ' + room.room_name + ' - ' + room.range + ' - Panacea'"
+                    [title]="'Hình ảnh phòng ' + room.room_name + ' - ' + room.range + '. Giá: ' + (room.price | number) + ' VND - Panacea'"
+                    class="main-photo" (click)="openPopup(room.photos[currentSlide])" />
+                <button class="prev" (click)="prevSlide()">&lt;</button>
+                <button class="next" (click)="nextSlide()">&gt;</button>
+            </div>
+
+            <div class="thumbs">
+                <img *ngFor="let img of room.photos; let i = index" [src]="img"
+                    [class.active-thumb]="i === currentSlide" (click)="selectSlide(i)"
+                    [alt]="'Hình ảnh ' + room.room_name + ' - ' + room.range + ' - Ảnh ' + (i + 1) + ' - Panacea'"
+                    [title]="'Hình ảnh phòng ' + room.room_name + ' - ' + room.range + ' - Ảnh ' + (i + 1) + '. Giá: ' + (room.price | number) + ' VND - Panacea'" />
+            </div>
+        </div>
+
+        <!-- POPUP XEM ẢNH GỐC -->
+        <div class="image-popup" *ngIf="popupImage" (click)="closePopup()">
+            <div class="popup-content" (click)="$event.stopPropagation()">
+                <button class="nav-btn prev" (click)="prevPopupImage($event)">&#10094;</button>
+                <img [src]="popupImage" 
+                    [alt]="'Hình ảnh phóng to ' + room.room_name + ' - ' + room.range + ' - Panacea'"
+                    [title]="'Hình ảnh phóng to phòng ' + room.room_name + ' - ' + room.range + '. Giá: ' + (room.price | number) + ' VND - Panacea'" />
+                <button class="nav-btn next" (click)="nextPopupImage($event)">&#10095;</button>
+                <button class="close-btn" (click)="closePopup()">×</button>
+            </div>
+        </div>
+
+        <!-- THÔNG TIN PHÒNG -->
+        <div class="room-info-card-horizontal shadow-lg">
+            <div class="row g-4 align-items-center">
+
+                <!-- LEFT INFO -->
+                <div class="col-md-7 room-left">
+                    <h2 class="room-title mb-2" *ngIf="room">{{ room.room_name }}</h2>
+                    <p class="room-type mb-2">{{ room.range }} · {{ room.tags[0] }} </p>
+                    <div class="rating mb-2">
+                        <span class="stars-display">
+                            <i *ngFor="let star of [1, 2, 3, 4, 5]"
+                                [class]="star <= getDisplayStars() ? 'bi bi-star-fill text-warning' : 'bi bi-star text-muted'"
+                                style="font-size: 1.1rem;"></i>
+                        </span>
+                        <span class="fw-semibold ms-2">{{ averageRating }}</span>/5
+                        <span class="text-muted ms-1">({{ totalReviews }} lượt đánh giá)</span>
+                    </div>
+
+                    <p class="room-status available" *ngIf="room.available">
+                        <i class="bi bi-check-circle-fill text-primary me-1"></i>
+                        Đang mở đặt phòng
+                    </p>
+                </div>
+
+                <!-- RIGHT PRICE + ACTION -->
+                <div class="col-md-5 room-right">
+                    <div class="price-box text-md-end text-center mb-3">
+                        <p class="price-label mb-1 fw-semibold text-muted">Giá/phòng/giờ</p>
+                        <p class="room-price mb-0">{{ room.price | number:'1.0-0' }} VND</p>
+                    </div>
+                </div>
+
+                <div class="booking-form p-3 rounded-3 shadow-sm border border-1 border-light-subtle bg-white">
+                    <div class="row g-2 align-items-center mb-3">
+                        <div class="col-6">
+                            <label for="date" class="form-label fw-semibold small text-secondary">
+                                <i class="bi bi-calendar3 me-1"></i>Ngày
+                            </label>
+                            <input id="date" type="date" class="form-control date-input border-primary-subtle"
+                                [(ngModel)]="selectedDate" [min]="minDate" (change)="onDateChange()" />
+                            <small class="text-muted d-block mt-1" *ngIf="selectedDate && isPastDate(selectedDate)"
+                                style="color: #dc3545 !important;">
+                                <i class="bi bi-exclamation-triangle me-1"></i>Không thể chọn ngày trong quá khứ
+                            </small>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="time" class="form-label fw-semibold small text-secondary">
+                                <i class="bi bi-clock me-1"></i>Giờ
+                            </label>
+                            <select id="time" class="form-select time-select border-primary-subtle"
+                                [(ngModel)]="selectedTime" (change)="onTimeChange()">
+                                <option value="" disabled selected>-- Chọn giờ --</option>
+                                <option *ngFor="let slot of availableTimeSlots" [value]="slot">{{ slot }}</option>
+                            </select>
+                            <small class="text-muted d-block mt-1"
+                                *ngIf="selectedTime && isPastTime(selectedDate, selectedTime)"
+                                style="color: #dc3545 !important;">
+                                <i class="bi bi-exclamation-triangle me-1"></i>Không thể chọn giờ trong quá khứ
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-column gap-2">
+                        <button class="btn btn-warning" (click)="addToCart()">
+                            <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ hàng
+                        </button>
+
+                        <button class="btn btn-primary" (click)="selectRoom()">
+                            <i class="bi bi-calendar-check me-1"></i> Thanh toán ngay
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÔ TẢ CHI TIẾT -->
+        <div class="room-description" *ngIf="room.long_description">
+            <h2>Giới thiệu</h2>
+            <p [class.expanded]="isExpanded"> {{ room.long_description }} </p>
+            <button class="btn-toggle" (click)="toggleDescription()">
+                {{ isExpanded ? 'Thu gọn ▲' : 'Xem thêm ▼' }}
+            </button>
+        </div>
+    </div>
+</section>
+
+
+<!-- CHÍNH SÁCH -->
+<section id="policy" class="policy-section">
+    <div class="container">
+        <h2>Chính sách</h2>
+        <p class="subtitle">Dịch vụ áp dụng một số quy tắc sau - bạn vui lòng kiểm tra kỹ trước khi đặt phòng.</p>
+
+        <div class="policy-item">
+            <i class="bi bi-box-arrow-in-right"></i>
+            <div class="policy-content">
+                <h4>Nhận phòng</h4>
+                <p>Vui lòng đến đúng giờ, khuyến khích đến sớm hơn<strong> 10 phút.</strong></p>
+            </div>
+        </div>
+
+        <div class="policy-item">
+            <i class="bi bi-clock-history"></i>
+            <div class="policy-content">
+                <h4>Trả phòng trễ / Gia hạn</h4>
+                <p>Trả phòng trễ hơn quy định sẽ có áp dụng phụ phí. <br>
+                    Nếu muốn sử dụng thêm giờ, vui lòng gia hạn thời gian và được tiến hành xử lý như một đơn đặt phòng
+                    mới, với hóa đơn và quy trình kiểm tra điều kiện như thông thường.</p>
+            </div>
+        </div>
+
+        <div class="policy-item">
+            <i class="bi bi-x-octagon"></i>
+            <div class="policy-content">
+                <h4>Dịch vụ kèm thêm</h4>
+                <p>Không hỗ trợ đặt thêm "Dịch vụ chuyên gia" trong quá trình sử dụng</p>
+            </div>
+        </div>
+
+        <div class="policy-item">
+            <i class="bi bi-credit-card"></i>
+            <div class="policy-content">
+                <h4>Thanh toán</h4>
+                <p>Dù đặt trực tiếp hay trực tuyến phải thanh toán toàn bộ hóa đơn trong vòng 10–30 phút tính từ lúc xác
+                    nhận đặt phòng. <br>
+                    Không chấp nhận thanh toán một phần; nếu quá hạn, đơn sẽ tự động hủy.</p>
+            </div>
+        </div>
+
+        <div class="policy-item">
+            <i class="bi bi-calendar-x"></i>
+            <div class="policy-content">
+                <h4>Hủy đặt phòng / Thay đổi giờ</h4>
+                <p>Chính sách hủy và điều chỉnh giờ có thể khác nhau theo từng loại phòng. Vui lòng kiểm tra điều kiện
+                    cụ thể khi đặt.</p>
+            </div>
+        </div>
+
+        <div class="policy-item">
+            <i class="bi bi-person-check"></i>
+            <div class="policy-content">
+                <h4>Độ tuổi tối thiểu</h4>
+                <p>Độ tuổi tối thiểu để nhận phòng là 18 tuổi. Khách nhỏ tuổi phải có người lớn đi cùng khi nhận phòng.
+                </p>
+            </div>
+        </div>
+
+        <div class="policy-item">
+            <i class="bi bi-slash-circle"></i>
+            <div class="policy-content">
+                <h4>Hút thuốc</h4>
+                <p>Không cho phép hút thuốc trong phòng. Chỉ được phép hút thuốc trong khu vực chỉ định.</p>
+            </div>
+        </div>
+
+        <div class="policy-item">
+            <i class="bi bi-people"></i>
+            <div class="policy-content">
+                <h4>Tiệc tùng / Sự kiện</h4>
+                <p>Không cho phép tổ chức tiệc tùng hoặc sự kiện.</p>
+            </div>
+        </div>
+
+        <div class="policy-item">
+            <i class="bi bi-ban"></i>
+            <div class="policy-content">
+                <h4>Thú cưng</h4>
+                <p>Không được mang theo thú cưng.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ĐÁNH GIÁ -->
+<section id="reviews" class="review-section">
+    <div class="container">
+        <h2>Đánh giá</h2>
+
+        <div class="review-summary" *ngIf="totalReviews > 0">
+            <div class="avg-rating">
+                <span class="score">{{ averageRating }}</span>
+                <span class="outof">/5</span>
+            </div>
+            <p>{{ totalReviews }} lượt đánh giá</p>
+        </div>
+
+        <div class="review-list" *ngIf="reviews.length > 0">
+            <div class="review-card" *ngFor="let r of reviews">
+                <div class="review-header">
+                    <strong>{{ r.userName || r.user }}</strong>
+                    <span class="stars">
+                        <i *ngFor="let star of [1, 2, 3, 4, 5]"
+                            [class]="star <= (r.rating || 0) ? 'bi bi-star-fill text-warning' : 'bi bi-star text-muted'"
+                            style="font-size: 0.9rem;"></i>
+                        <span class="rating-number ms-1">{{ r.rating || 0 }}/5</span>
+                    </span>
+                </div>
+                <p class="comment">"{{ r.content || r.comment }}"</p>
+                <small class="date">{{ (r.createdAt || r.date) | date:'dd/MM/yyyy' }}</small>
+            </div>
+        </div>
+
+        <div class="no-reviews" *ngIf="reviews.length === 0">
+            <p>Chưa có đánh giá nào cho phòng này.</p>
+        </div>
+    </div>
+</section>

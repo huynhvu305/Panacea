@@ -1,0 +1,508 @@
+<section class="p-4">
+  <!-- ===== HEADER ===== -->
+  <div class="d-flex align-items-center justify-content-between mb-3 header-bar">
+    <div class="d-flex align-items-center">
+      <i class="bi bi-box-arrow-left" style="cursor: pointer; font-size: 1.05rem; margin-right: 0.75rem"
+        (click)="navigateBack()"></i>
+      <div>
+        <div class="h-100 d-flex align-items-center">
+          <h2 class="m-0">Đặt phòng</h2>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="d-flex align-items-center steps">
+      <ng-container *ngFor="let s of headerSteps">
+        <div class="d-flex align-items-center me-3">
+          <div class="step-circle me-2" [ngClass]="{ active: s.id === currentStep }">
+            {{ s.id }}
+          </div>
+          <div class="small text-muted">{{ s.name }}</div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <!-- ===== CỘT TRÁI ===== -->
+    <div class="col-lg-8 col-md-7 col-sm-12 order-2 order-md-1">
+      <!-- ========== THÔNG TIN LIÊN HỆ ========== -->
+      <div class="rules-card">
+        <!-- Banner vàng nhạt khi đăng nhập -->
+
+
+
+
+        <h4 class="rules-title">
+          <i class="bi bi-envelope"></i> Liên hệ đặt chỗ
+        </h4>
+        <p class="text-muted small mb-3">
+          Thêm liên hệ để nhận xác nhận đặt chỗ.
+        </p>
+
+
+        <form [formGroup]="contactForm">
+          <div class="info-box mb-1">
+            <!-- Họ tên -->
+            <div class="mb-3">
+              <label for="fullName" class="form-label">Họ tên*</label>
+              <input id="fullName" type="text" formControlName="fullName" class="form-control"
+                placeholder="Nhập họ tên" />
+            </div>
+
+
+            <!-- Số điện thoại & Email -->
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="phone" class="form-label">Số điện thoại*</label>
+                <input id="phone" type="text" formControlName="phone" class="form-control"
+                  placeholder="Nhập số điện thoại" />
+              </div>
+              <div class="col-md-6">
+                <label for="email" class="form-label">Email*</label>
+                <input id="email" type="text" formControlName="email" class="form-control"
+                  placeholder="Nhập email (@gmail.com)" />
+                <small class="text-muted"
+                  *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
+                  Email phải có đuôi @gmail.com
+                </small>
+              </div>
+            </div>
+
+
+            <!-- Gạch chấm -->
+            <p class="policy-text small text-muted mt-3"></p>
+
+
+            <!-- Checkbox -->
+            <div *ngIf="isLoggedIn; else notLoggedIn" class="form-check mt-2">
+              <div class="login-check mt-3">
+                <input class="form-check-input me-2" type="checkbox" id="selfBooking" [checked]="isSelfBooking"
+                  (change)="onSelfBookingToggle($event.target.checked)" />
+                <label class="form-check-label fw-semibold" for="selfBooking">
+                  Tôi đặt phòng cho chính mình
+                </label>
+              </div>
+              <small *ngIf="isLoggedIn" class="text-muted">
+                Nếu bạn không đặt cho chính mình, vui lòng nhập thông tin người nhận chỗ.
+              </small>
+
+
+            </div>
+
+
+            <ng-template #notLoggedIn>
+              <div class="form-check mt-3">
+                <input id="saveInfo" type="checkbox" class="form-check-input" (click)="openLoginPopup($event)" />
+                <label for="saveInfo" class="form-check-label">
+                  Đăng nhập để lưu thông tin của bạn (không bắt buộc)
+                </label>
+              </div>
+              <p class="mb-1">Bạn sẽ nhận voucher cho lần đặt tiếp theo.</p>
+            </ng-template>
+          </div>
+        </form>
+      </div>
+      <!-- ========== HẾT THÔNG TIN LIÊN HỆ ========== -->
+
+
+      <!-- DỊCH VỤ ĐI KÈM -->
+      <div class="rules-card">
+        <h4 class="rules-title">
+          <i class="bi bi-gift"></i> Dịch vụ đi kèm
+        </h4>
+
+        <!-- DỊCH VỤ CHUYÊN GIA -->
+        <div class="service-group-box" *ngIf="expertServices.length > 0">
+          <h5 class="service-group-title">Dịch vụ chuyên gia</h5>
+          <div class="service-item d-flex align-items-start mb-3"
+            *ngFor="let ex of expertServices | slice:0:(showAllExperts ? expertServices.length : 4)">
+            <input type="checkbox" [checked]="ex.selected" (change)="toggleExpertService(ex)"
+              class="form-check-input me-2 mt-1" style="width: 18px; height: 18px; cursor: pointer" />
+            <div class="service-content flex-grow-1">
+              <h6 class="mb-1 fw-semibold">{{ ex.name }}</h6>
+              <p class="text-muted small mb-0">{{ ex.description }}</p>
+            </div>
+            <div class="service-right ms-3">
+              <span class="text-primary fw-semibold">{{ ex.price | number }} VND</span>
+            </div>
+          </div>
+
+          <!-- Nút xem thêm -->
+          <div class="text-center mb-3" *ngIf="expertServices.length > 4">
+            <button class="btn btn-link btn-sm p-0" (click)="showAllExperts = !showAllExperts">
+              {{ showAllExperts ? 'Thu gọn ▲' : 'Xem thêm ▼' }}
+            </button>
+          </div>
+        </div>
+
+        <!-- DỊCH VỤ THUÊ THÊM -->
+        <div class="service-group-box" *ngIf="extraServices && extraServices.length > 0">
+          <h5 class="service-group-title">Dịch vụ thuê thêm</h5>
+          <div class="service-item d-flex align-items-start mb-3"
+            *ngFor="let s of extraServices | slice:0:(showAllExtras ? extraServices.length : 4); trackBy: trackByServiceId">
+            <input type="checkbox" [checked]="s.selected || false" (change)="toggleExtraService(s, $event)"
+              class="form-check-input me-2 mt-1" style="width: 18px; height: 18px; cursor: pointer"
+              [id]="'extra-' + s.name" />
+            <div class="service-content flex-grow-1">
+              <h6 class="mb-1 fw-semibold">{{ s.name || 'Dịch vụ' }}</h6>
+              <p class="text-muted small mb-0">{{ s.description || '' }}</p>
+            </div>
+            <div class="service-right ms-3 d-flex flex-column align-items-end">
+              <span class="text-primary fw-semibold mb-2">{{ (s.price || 0) | number }} VND</span>
+              <div class="quantity-control" *ngIf="s.selected">
+                <button class="btn btn-primary btn-sm" type="button"
+                  (click)="changeExtraQuantity(s, -1, $event); $event.stopPropagation()">
+                  −
+                </button>
+                <input type="number" class="form-control text-center border-primary" [ngModel]="s.quantity || 1"
+                  (ngModelChange)="s.quantity = parseNumber($event); changeExtraQuantity(s, 0, $event)" min="1"
+                  max="10" />
+                <button class="btn btn-primary btn-sm" type="button" [disabled]="(s.quantity || 1) >= 10"
+                  (click)="changeExtraQuantity(s, 1, $event); $event.stopPropagation()">
+                  +
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nút xem thêm -->
+          <div class="text-center mb-3" *ngIf="extraServices.length > 4">
+            <button class="btn btn-link btn-sm p-0" (click)="showAllExtras = !showAllExtras" type="button">
+              {{ showAllExtras ? 'Thu gọn ▲' : 'Xem thêm ▼' }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHÍNH SÁCH PHÒNG (Quy định chung) -->
+      <div class="rules-card">
+        <h4 class="rules-title"><i class="bi bi-shield-check"></i> Chính sách phòng</h4>
+        <div class="rule-item d-flex align-items-start mb-2">
+          <i class="bi bi-box-arrow-in-right rule-icon"></i>
+          <div class="rule-text">
+            <h5>Nhận phòng</h5>
+            <p>Vui lòng đến đúng giờ, khuyến khích đến sớm hơn <strong>10 phút</strong>.</p>
+          </div>
+        </div>
+        <div class="rule-item d-flex align-items-start mb-2">
+          <i class="bi bi-clock-history rule-icon"></i>
+          <div class="rule-text">
+            <h5>Trả phòng trễ / Gia hạn</h5>
+            <p>Trả phòng trễ có thể áp dụng phụ phí. Gia hạn sẽ tạo đơn mới và áp dụng điều kiện như thông thường.</p>
+          </div>
+        </div>
+        <div class="rule-item d-flex align-items-start mb-2">
+          <i class="bi bi-x-octagon rule-icon"></i>
+          <div class="rule-text">
+            <h5>Dịch vụ kèm thêm</h5>
+            <p>Không hỗ trợ đặt thêm "Dịch vụ chuyên gia" trong quá trình sử dụng.</p>
+          </div>
+        </div>
+        <div class="rule-item d-flex align-items-start mb-2">
+          <i class="bi bi-credit-card rule-icon"></i>
+          <div class="rule-text">
+            <h5>Thanh toán</h5>
+            <p>Phải thanh toán toàn bộ hóa đơn trong vòng 10–30 phút từ lúc xác nhận; quá hạn đơn sẽ tự hủy.</p>
+          </div>
+        </div>
+        <div class="rule-item d-flex align-items-start mb-2">
+          <i class="bi bi-calendar-x rule-icon"></i>
+          <div class="rule-text">
+            <h5>Hủy đặt phòng / Thay đổi giờ</h5>
+            <p>Chính sách có thể thay đổi theo từng loại phòng. Vui lòng kiểm tra điều kiện cụ thể khi đặt.</p>
+          </div>
+        </div>
+        <div class="rule-item d-flex align-items-start mb-2">
+          <i class="bi bi-person-check rule-icon"></i>
+          <div class="rule-text">
+            <h5>Độ tuổi tối thiểu</h5>
+            <p>Khách tối thiểu 18 tuổi. Khách nhỏ tuổi cần có người lớn đi cùng khi nhận phòng.</p>
+          </div>
+        </div>
+        <div class="rule-item d-flex align-items-start mb-2">
+          <i class="bi bi-slash-circle rule-icon"></i>
+          <div class="rule-text">
+            <h5>Hút thuốc</h5>
+            <p>Không cho phép hút thuốc trong phòng. Chỉ hút ở khu vực chỉ định.</p>
+          </div>
+        </div>
+        <div class="rule-item d-flex align-items-start mb-2">
+          <i class="bi bi-people rule-icon"></i>
+          <div class="rule-text">
+            <h5>Tiệc tùng / Sự kiện</h5>
+            <p>Không cho phép tổ chức tiệc tùng hoặc sự kiện.</p>
+          </div>
+        </div>
+
+        <div class="rule-agree form-check mt-3" id="agreeRulesContainer" [class.required-highlight]="showAgreeRequired">
+          <input type="checkbox" id="agreeRules" class="form-check-input" [class.is-invalid]="showAgreeRequired"
+            (change)="toggleAgree($event)" />
+          <label for="agreeRules" class="form-check-label mt-1">
+            Tôi đã đọc và đồng ý với các quy định trên<span class="text-danger required-asterisk">*</span>
+          </label>
+          <div class="invalid-feedback d-block" *ngIf="showAgreeRequired">
+            Vui lòng đồng ý với các quy định để tiếp tục
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ===== CỘT PHẢI ===== -->
+    <div class="col-lg-4 col-md-5 col-sm-12 order-1 order-md-2">
+      <!-- THÔNG TIN PHÒNG -->
+      <div class="room-box pb-1">
+        <div class="room-badge">
+          <i class="bi bi-hand-thumbs-up-fill"></i>
+          <span>Bạn có lựa chọn <strong>tuyệt vời</strong> cho tâm hồn của bạn</span>
+        </div>
+
+        <!-- 🟩 UPDATED: Hiển thị nhiều bookings trong cùng 1 khung (tách riêng) -->
+        <ng-container *ngIf="bookings.length > 0; else singleBooking">
+          <div *ngFor="let bk of bookings; let i = index" [class]="bookings.length > 1 ? 'mb-3 pb-3' : ''"
+            [style.border-bottom]="bookings.length > 1 && i < bookings.length - 1 ? '1px solid #e0e0e0' : 'none'">
+
+            <div class="room-header">
+              <h3 class="room-name">{{ bk.roomName || bk.room?.room_name || roomInfo?.room_name || 'Phòng chơi bí mật'
+                }}</h3>
+              <p class="room-date">
+                {{ bk.checkInDate | date: 'EEEE, dd MMMM yyyy' : undefined : 'vi' }}
+              </p>
+            </div>
+
+            <div class="room-time">
+              <div class="time-section">
+                <p>Giờ nhận</p>
+                <h4>{{ bk.checkInTime || '14:00' }}</h4>
+              </div>
+              <div class="time-mid">
+                <span>{{ getBookingHours(bk) }} giờ</span>
+              </div>
+              <div class="time-section">
+                <p>Giờ trả</p>
+                <h4>{{ bk.checkOutTime || '15:00' }}</h4>
+              </div>
+            </div>
+
+            <div class="room-details">
+              <p><i class="bi bi-people-fill"></i> Số lượng: {{ bk.room?.range || bk.room?.capacity || roomInfo?.range
+                || '2-4 người' }}</p>
+              <p class="free-cancel">
+                <i class="bi bi-check2-square"></i>
+                <span>
+                  Miễn phí hủy trước
+                  <strong>{{ bk.cancelBefore | date: 'dd MMMM yyyy' : undefined : 'vi' }}</strong>
+                </span>
+              </p>
+              <p class="changeable">
+                <i class="bi bi-arrow-repeat"></i>
+                <span>
+                  Có thể đổi lịch trước
+                  <strong>{{ bk.rescheduleBefore | date: 'dd MMMM yyyy' : undefined : 'vi' }}</strong>
+                </span>
+              </p>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #singleBooking>
+          <div class="room-header">
+            <h3 class="room-name">{{ roomInfo?.room_name || roomInfo?.roomName || booking?.room?.name || roomInfo?.name
+              || 'Phòng chơi bí mật' }}</h3>
+            <p class="room-date">
+              {{ booking?.checkInDate | date: 'EEEE, dd MMMM yyyy' : undefined : 'vi' }}
+            </p>
+          </div>
+
+          <div class="room-time">
+            <div class="time-section">
+              <p>Giờ nhận</p>
+              <h4>{{ booking?.checkInTime || '14:00' }}</h4>
+            </div>
+            <div class="time-mid">
+              <span>{{ bookingSummary.split(', ')[1] }}</span>
+            </div>
+            <div class="time-section">
+              <p>Giờ trả</p>
+              <h4>{{ booking?.checkOutTime || '15:00' }}</h4>
+            </div>
+          </div>
+
+          <div class="room-details">
+            <p><i class="bi bi-people-fill"></i> Số lượng: {{ roomInfo?.range || roomInfo?.capacity || '2-4 người' }}
+            </p>
+            <p class="free-cancel">
+              <i class="bi bi-check2-square"></i>
+              <span>
+                Miễn phí hủy trước
+                <strong>{{ booking?.cancelBefore | date: 'dd MMMM yyyy' : undefined : 'vi' }}</strong>
+              </span>
+            </p>
+            <p class="changeable">
+              <i class="bi bi-arrow-repeat"></i>
+              <span>
+                Có thể đổi lịch trước
+                <strong>{{ booking?.rescheduleBefore | date: 'dd MMMM yyyy' : undefined : 'vi' }}</strong>
+              </span>
+            </p>
+          </div>
+        </ng-template>
+      </div>
+
+
+      <!-- MÃ KHUYẾN MÃI -->
+      <div class="rules-card">
+        <h4 class="rules-title"><i class="bi bi-ticket-perforated"></i> Mã khuyến mãi</h4>
+        <form (ngSubmit)="applyCoupon()">
+          <div class="discount-box">
+            <input type="text" [(ngModel)]="promoCode" name="promoCode" placeholder="Nhập mã khuyến mãi"
+              class="form-control form-control-sm" (input)="onPromoCodeInput($event)" />
+            <button type="submit" class="btn btn-primary">Áp dụng</button>
+          </div>
+          <small *ngIf="discountMessage" [ngClass]="{ 'text-success': isCouponValid, 'text-danger': !isCouponValid }">
+            {{ discountMessage }}
+          </small>
+
+          <!-- 🟨 ADD REDEEM: ĐỔI XU (chỉ hiện khi đã đăng nhập) -->
+          <div *ngIf="isLoggedIn"
+            class="rewards-toggle mt-3 p-2 px-3 d-flex justify-content-between align-items-center border rounded-3">
+            <div class="d-flex align-items-center">
+              <i class="bi bi-coin text-warning me-2" style="font-size: 1.2rem"></i>
+              <div>
+                <strong>Đổi 50 Xu</strong>
+                <div class="small text-muted">Giảm 20.000 đ cho đơn này</div>
+              </div>
+            </div>
+            <div class="form-check form-switch m-0">
+              <input class="form-check-input" type="checkbox" id="usePoints" name="usePoints" [checked]="usePoints"
+                (change)="togglePoints($any($event.target).checked)" />
+            </div>
+          </div>
+          <small *ngIf="isLoggedIn" class="text-muted d-block mt-1">
+            Bạn đang có <strong>{{ availablePoints | number }} Xu</strong>
+          </small>
+          <small *ngIf="isLoggedIn" class="text-muted d-block">
+            Lưu ý: Đổi rồi sẽ không hoàn Xu.
+          </small>
+        </form>
+      </div>
+
+
+      <!-- CHI TIẾT GIÁ -->
+      <div class="rules-card price-card pb-3">
+        <div class="d-flex justify-content-between align-items-center" (click)="togglePriceDetails()"
+          style="cursor: pointer">
+          <h4 class="m-0">
+            <i class="bi bi-tag me-2 text-muted" style="font-size: 0.95rem"></i>Chi tiết giá
+          </h4>
+          <i class="bi" [class.bi-chevron-up]="showPriceDetails" [class.bi-chevron-down]="!showPriceDetails"></i>
+        </div>
+
+
+        <div class="price-details mt-3" *ngIf="showPriceDetails">
+          <!-- 🟩 UPDATED: Giá phòng LUÔN hiển thị ở trên cùng -->
+          <!-- Hiển thị giá từ nhiều bookings (nếu có) -->
+          <ng-container *ngIf="bookings.length > 0">
+            <!-- Hiển thị giá từng booking riêng -->
+            <div *ngFor="let bk of bookings; let i = index" class="mb-2"
+              [style.border-bottom]="bookings.length > 1 && i < bookings.length - 1 ? '1px solid #f0f0f0' : 'none'"
+              [style.padding-bottom]="bookings.length > 1 && i < bookings.length - 1 ? '12px' : '0'">
+
+              <!-- Tên phòng (chỉ hiện nếu có nhiều bookings) -->
+              <div *ngIf="bookings.length > 1" class="mb-2">
+                <strong class="text-primary">{{ bk.roomName || bk.room?.room_name }}</strong>
+                <small class="text-muted d-block">{{ bk.checkInTime }} - {{ bk.checkOutTime }}</small>
+              </div>
+
+              <!-- Giá phòng của booking này -->
+              <div class="price-line d-flex justify-content-between mb-2">
+                <span class="text-muted">Giá phòng{{ bookings.length > 1 ? ' (' + getBookingHours(bk) + ' giờ)' : ''
+                  }}</span>
+                <span>{{ bk.basePrice | number }} VND</span>
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- Fallback: Hiển thị giá phòng (nếu không có bookings) -->
+          <ng-container *ngIf="bookings.length === 0">
+            <div class="price-line d-flex justify-content-between mb-2">
+              <span class="text-muted">Giá phòng</span>
+              <span>{{ basePrice | number }} VND</span>
+            </div>
+          </ng-container>
+
+          <!-- 🟩 UPDATED: Dịch vụ hiển thị SAU giá phòng -->
+          <!-- Dịch vụ chuyên gia được chọn (từ UI) -->
+          <ng-container *ngIf="selectedExpertServices.length > 0">
+            <div class="price-line d-flex justify-content-between mb-2" *ngFor="let s of selectedExpertServices">
+              <span class="text-muted">{{ s.name }}</span>
+              <span>{{ s.price | number }} VND</span>
+            </div>
+          </ng-container>
+
+          <!-- Dịch vụ thuê thêm được chọn (từ UI) -->
+          <ng-container *ngIf="selectedExtraServices.length > 0">
+            <div class="price-line d-flex justify-content-between mb-2" *ngFor="let s of selectedExtraServices">
+              <span class="text-muted">{{ s.name }} x{{ s.quantity || 1 }}</span>
+              <span>{{ (s.price * (s.quantity || 1)) | number }} VND</span>
+            </div>
+          </ng-container>
+
+          <!-- Mã giảm giá (áp dụng cho tổng) -->
+          <div class="price-line d-flex justify-content-between mb-2" *ngIf="discountValue > 0">
+            <span class="text-muted">Mã giảm giá</span>
+            <span class="text-success">-{{ discountValue | number }} VND</span>
+          </div>
+
+          <!-- 🟨 ADDED: Hiển thị giảm giá từ Redeem Xu -->
+          <div class="price-line d-flex justify-content-between mb-2" *ngIf="usePoints && pointsDiscountValue > 0">
+            <span class="text-muted">Đổi 50 Xu</span>
+            <span class="text-success">-{{ pointsDiscountValue | number }} VND</span>
+          </div>
+        </div>
+
+
+        <div class="total-price d-flex justify-content-between align-items-center mt-3 pt-2 border-top">
+          <div>
+            <h5 class="m-0">Tổng cộng</h5>
+            <small class="text-muted">{{ bookingSummary }}</small>
+          </div>
+          <div class="text-end">
+            <span class="old-price text-decoration-line-through text-muted small"
+              *ngIf="originalPrice && totalPrice < originalPrice">{{ originalPrice | number }} VND</span>
+            <h5 class="text-primary m-0">{{ totalPrice | number }} VND</h5>
+            <!-- 🟨 ADDED: Hiển thị khi Redeem áp dụng thành công -->
+            <small *ngIf="usePoints && pointsDiscountValue > 0" class="text-success d-block">Đã trừ 20.000 đ (50
+              Xu)</small>
+          </div>
+        </div>
+
+
+        <button class="btn btn-primary w-100 mt-3 pay-btn" (click)="confirmBooking()">Tiếp tục</button>
+
+
+        <small class="text-muted d-block mt-2 policy-text">
+          Bằng cách thanh toán, bạn đồng ý với
+          <a class="policy-link" routerLink="/policy/termsofuse" target="_blank" rel="noopener noreferrer">Điều khoản &amp; Điều
+            kiện</a> và
+          <a class="policy-link" routerLink="/policy/operating" target="_blank" rel="noopener noreferrer">Chính sách hoạt
+            động</a>.
+        </small>
+
+
+        <div class="rewards-row pt-1">
+          <div class="reward-item d-flex align-items-center">
+            <span class="icon rounded-circle d-inline-flex align-items-center justify-content-center me-2"
+              style="background: #fff6e6; width: 30px; height: 30px">
+              <i class="bi bi-coin" style="color: #f59e0b; font-size: 1.05rem"></i>
+            </span>
+            <div><strong>Kiếm {{ rewardPoints | number }} Xu</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

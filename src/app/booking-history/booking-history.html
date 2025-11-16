@@ -1,0 +1,211 @@
+<div class="acc-point-wrapper container-fluid p-4">
+    <div class="row justify-content-center align-items-start g-4">
+        <!-- SIDEBAR -->
+        <div class="col-lg-3 col-md-4 mb-4">
+            <app-user-toolbar></app-user-toolbar>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="col-lg-9 col-md-8">
+            <div class="acc-point-card shadow-lg p-4">
+
+                <h2 class="text-center mb-4 title">Lịch sử đặt phòng</h2>
+
+                <!-- ====== NAV TABS ====== -->
+                <div class="order-tabs mb-3">
+                    <button class="tab-btn" [class.active]="activeTab==='all'" (click)="setTab('all')">Tất cả</button>
+                    <button class="tab-btn" [class.active]="activeTab==='pending'" (click)="setTab('pending')">Chờ xác
+                        nhận</button>
+                    <button class="tab-btn" [class.active]="activeTab==='confirmed'" (click)="setTab('confirmed')">Đã
+                        xác nhận</button>
+                    <button class="tab-btn" [class.active]="activeTab==='completed'" (click)="setTab('completed')">Hoàn
+                        thành</button>
+                    <button class="tab-btn" [class.active]="activeTab==='cancelled'" (click)="setTab('cancelled')">Đã
+                        hủy</button>
+                    <button class="tab-btn" [class.active]="activeTab==='no-show'" (click)="setTab('no-show')">Không
+                        đến</button>
+                </div>
+
+                <!-- ====== CARD LIST VIEW ====== -->
+                <div class="order-list" *ngIf="paginatedBookings.length > 0; else emptyState">
+                    <div class="order-card" *ngFor="let b of paginatedBookings" (click)="openModal(b)">
+                        <div class="order-head">
+                            <div class="order-id">Mã đơn: <strong>{{ b.id }}</strong></div>
+                            <span class="badge status-badge {{ getStatusClass(b.status) }}">
+                                {{ getStatusLabel(b.status) }}
+                            </span>
+                        </div>
+
+                        <div class="order-body">
+                            <div class="order-room">
+                                <div class="room-title">{{ getRoomName(b) }}</div>
+                                <div class="room-sub">{{ b.range }}</div>
+                            </div>
+                            <div class="order-time">
+                                <div class="label">Thời gian đặt phòng:</div>
+                                <div class="value">{{ b.startTime }} → {{ b.endTime }}</div>
+                            </div>
+                            <div class="order-price">
+                                <div class="label">Tổng tiền</div>
+                                <div class="value">{{ formatCurrency(b.totalPrice) }}</div>
+                            </div>
+                            <div class="order-action">
+                                <button type="button" class="btn btn-outline-primary btn-sm"
+                                    (click)="$event.stopPropagation(); openModal(b)">
+                                    Xem chi tiết
+                                </button>
+                                <button *ngIf="canPrintInvoice(b)" type="button"
+                                    class="btn btn-outline-success btn-sm ms-2"
+                                    (click)="$event.stopPropagation(); generateInvoice(b, $event)" title="In hóa đơn">
+                                    <i class="bi bi-file-earmark-pdf"></i> In hóa đơn
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PHÂN TRANG -->
+                <div class="pagination-wrapper mt-4" *ngIf="totalPages > 1">
+                    <div class="d-flex justify-content-center align-items-center gap-2">
+                        <button class="btn btn-outline-primary btn-sm" (click)="previousPage()"
+                            [disabled]="currentPage === 1">
+                            <i class="bi bi-chevron-left"></i> Trước
+                        </button>
+
+                        <div class="d-flex gap-1">
+                            <button *ngFor="let page of [].constructor(totalPages); let i = index" class="btn btn-sm"
+                                [class.btn-primary]="currentPage === (i + 1)"
+                                [class.btn-outline-primary]="currentPage !== (i + 1)" (click)="goToPage(i + 1)">
+                                {{ i + 1 }}
+                            </button>
+                        </div>
+
+                        <button class="btn btn-outline-primary btn-sm" (click)="nextPage()"
+                            [disabled]="currentPage === totalPages">
+                            Sau <i class="bi bi-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="text-center text-muted small mt-2">
+                        Trang {{ currentPage }} / {{ totalPages }} ({{ filteredBookings.length }} đơn hàng)
+                    </div>
+                </div>
+
+                <!-- EMPTY STATE -->
+                <ng-template #emptyState>
+                    <div class="order-empty text-center">
+                        <div class="empty-icon">🗒️</div>
+                        <div class="empty-text">Chưa có đơn hàng</div>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== MODAL POPUP ====== -->
+    <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()"></div>
+
+    <div class="modal-container" *ngIf="showModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Chi tiết đặt phòng</h4>
+                <button class="btn-close" (click)="closeModal()">×</button>
+            </div>
+
+            <div class="modal-body" *ngIf="selectedBooking">
+                <!-- 🔹 THÔNG TIN KHÁCH HÀNG -->
+                <div class="modal-section">
+                    <h5>Thông tin khách hàng</h5>
+                    <div class="info-row"><span>Tên:</span>
+                        <p>{{ selectedBooking.customerName }}</p>
+                    </div>
+                    <div class="info-row"><span>Email:</span>
+                        <p>{{ selectedBooking.customerEmail }}</p>
+                    </div>
+                    <div class="info-row"><span>Số điện thoại:</span>
+                        <p>{{ selectedBooking.customerPhone }}</p>
+                    </div>
+                </div>
+
+                <!-- 🔹 THÔNG TIN ĐẶT PHÒNG -->
+                <div class="modal-section">
+                    <h5>Thông tin đặt phòng</h5>
+                    <div class="info-row"><span>Mã đơn:</span>
+                        <p>{{ selectedBooking.id }}</p>
+                    </div>
+                    <div class="info-row"><span>Phòng:</span>
+                        <p>{{ getRoomName(selectedBooking) }}</p>
+                    </div>
+                    <div class="info-row"><span>Phạm vi:</span>
+                        <p>{{ selectedBooking.range }}</p>
+                    </div>
+                    <div class="info-row"><span>Giờ đặt:</span>
+                        <p>{{ selectedBooking.startTime }} → {{ selectedBooking.endTime }}</p>
+                    </div>
+                    <div class="info-row"><span>Giờ sử dụng thực tế:</span>
+                        <p>
+                            {{ selectedBooking.checkInTime || '—' }} → {{ selectedBooking.checkOutTime || '—' }}
+                        </p>
+                    </div>
+                    <div class="info-row"><span>Trạng thái:</span>
+                        <p><span class="badge status-badge {{ getStatusClass(selectedBooking.status) }}">
+                                {{ getStatusLabel(selectedBooking.status) }}</span></p>
+                    </div>
+                </div>
+
+                <!-- 🔹 DỊCH VỤ ĐI KÈM -->
+                <div class="modal-section">
+                    <h5>Dịch vụ đi kèm</h5>
+                    <ul *ngIf="selectedBooking.services.length > 0; else noService">
+                        <li *ngFor="let s of selectedBooking.services">
+                            {{ s.name }}
+                            <span *ngIf="s.quantity && s.quantity > 1">× {{ s.quantity }}</span>
+                            - {{ formatCurrency(getServiceTotalPrice(s)) }}
+                        </li>
+                    </ul>
+                    <ng-template #noService>
+                        <p class="text-muted">Không có dịch vụ thêm</p>
+                    </ng-template>
+                </div>
+
+                <!-- 🔹 VOUCHER & THANH TOÁN -->
+                <div class="modal-section">
+                    <h5>Voucher & Thanh toán</h5>
+                    <div class="info-row"><span>Giá phòng:</span>
+                        <p>{{ formatCurrency(selectedBooking.basePrice || 0) }}</p>
+                    </div>
+                    <div class="info-row"><span>Tổng dịch vụ:</span>
+                        <p>{{ formatCurrency(getTotalServicesPrice(selectedBooking)) }}</p>
+                    </div>
+                    <div class="info-row"><span>Tạm tính:</span>
+                        <p>{{ formatCurrency(getSubtotal(selectedBooking)) }}</p>
+                    </div>
+                    <div class="info-row"><span>Voucher:</span>
+                        <p>{{ selectedBooking.voucherCode || 'Không áp dụng' }}</p>
+                    </div>
+                    <div class="info-row"><span>Giảm giá:</span>
+                        <p>{{ selectedBooking.discountValue ? formatCurrency(selectedBooking.discountValue) : '0 ₫' }}
+                        </p>
+                    </div>
+                    <div class="info-row" *ngIf="hasUsedPoints(selectedBooking)">
+                        <span>Đổi Xu:</span>
+                        <p>Đã dùng 50 Xu - Giảm {{ formatCurrency(getPointsDiscountValue(selectedBooking)) }}</p>
+                    </div>
+                    <div class="info-row highlight"><span>Tổng thanh toán:</span>
+                        <p>{{ formatCurrency(selectedBooking.totalPrice) }}</p>
+                    </div>
+                    <div class="info-row"><span>Xu tích lũy:</span>
+                        <p>{{ selectedBooking.rewardPointsEarned || 0 }} điểm</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button *ngIf="selectedBooking && canPrintInvoice(selectedBooking)" class="btn btn-success me-2"
+                    (click)="generateInvoice(selectedBooking)">
+                    <i class="bi bi-file-earmark-pdf"></i> In hóa đơn
+                </button>
+                <button class="btn btn-primary" (click)="closeModal()">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

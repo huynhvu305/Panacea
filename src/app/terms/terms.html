@@ -1,0 +1,176 @@
+<!-- Banner -->
+<section class="banner">
+  <img src="assets/images/BACKGROUND.webp" alt="Panacea Banner" />
+  <div class="banner-inner container">
+    <nav class="breadcrumb" aria-label="breadcrumb">
+      <a routerLink="/">Trang chủ</a>
+      <span aria-hidden="true">›</span>
+      <span aria-current="page">Điều khoản &amp; Điều kiện</span>
+    </nav>
+    <h1>Điều khoản &amp; Điều kiện</h1>
+    <p class="subtitle">Cập nhật lần cuối: {{ updated }}</p>
+  </div>
+</section>
+
+<!-- Page Grid -->
+<section class="page container">
+  <!-- TOC -->
+  <aside class="toc" aria-label="Mục lục điều khoản">
+    <div class="toc-card">
+      <div class="toc-title">
+        <i class="bi bi-list-check" aria-hidden="true"></i>
+        Mục lục
+      </div>
+      <ul class="toc-list">
+        <li><a href="#intro">Giới thiệu</a></li>
+        <li><a href="#defs">Định nghĩa</a></li>
+        <li><a href="#user">Nghĩa vụ người dùng</a></li>
+        <li><a href="#booking">Đặt chỗ &amp; Sửa đổi</a></li>
+        <li><a href="#payment">Thanh toán &amp; Hoàn tiền</a></li>
+        <li><a href="#privacy">Quyền riêng tư</a></li>
+        <li><a href="#ip">Sở hữu trí tuệ</a></li>
+        <li><a href="#liability">Giới hạn trách nhiệm</a></li>
+        <li><a href="#law">Luật áp dụng</a></li>
+        <li><a href="#contact">Liên hệ</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <article class="content">
+    <!-- 1 -->
+    <h2 id="intro">1. Giới thiệu</h2>
+    <p>Chào mừng bạn đến với <b>Panacea</b> (gọi tắt là “<b>chúng tôi</b>”). Các <b>Điều khoản &amp; Điều kiện</b> này
+      (“<b>Điều khoản</b>”) điều chỉnh việc bạn truy cập và sử dụng website/ứng dụng cùng các dịch vụ đặt chỗ do Panacea
+      cung cấp (“<b>Nền tảng</b>”). Khi tạo tài khoản, sử dụng Nền tảng hoặc thực hiện bất kỳ đặt chỗ nào, bạn xác nhận
+      đã đọc, hiểu và đồng ý bị ràng buộc bởi Điều khoản này cùng <a routerLink="/policy/privacy">Chính sách Quyền
+        riêng
+        tư</a>.</p>
+    <p>Nếu bạn không đồng ý với bất kỳ nội dung nào trong Điều khoản, vui lòng ngừng sử dụng Nền tảng. Chúng tôi có thể
+      cập nhật Điều khoản theo thời gian; ngày “Cập nhật lần cuối” hiển thị trên banner. Việc tiếp tục sử dụng sau khi
+      cập nhật đồng nghĩa bạn chấp thuận phiên bản mới.</p>
+    <div class="note info">
+      <i class="bi bi-info-circle"></i>
+      <span>Các gói/sản phẩm có thể kèm <span class="chip"> điều kiện riêng</span> (hoàn hủy, đổi lịch, đặt cọc…). Khi
+        có mâu thuẫn, điều kiện riêng sẽ được ưu tiên áp dụng cho gói/sản phẩm tương ứng.</span>
+    </div>
+
+    <!-- 2 -->
+    <h2 id="defs">2. Định nghĩa</h2>
+    <ul>
+      <li><b>Người dùng/Bạn</b>: Cá nhân/tổ chức truy cập, đăng ký và/hoặc sử dụng Nền tảng.</li>
+      <li><b>Tài khoản</b>: Hồ sơ người dùng trên Nền tảng để quản lý thông tin, đặt chỗ, thanh toán và lịch sử.</li>
+      <li><b>Nhà cung cấp</b>: Bên thứ ba độc lập cung cấp dịch vụ (lưu trú, trị liệu, di chuyển, trải nghiệm…).</li>
+      <li><b>Đặt chỗ</b>: Yêu cầu mua/giữ chỗ dịch vụ của Nhà cung cấp thông qua Nền tảng.</li>
+      <li><b>Điều kiện giá/Rate Rules</b>: Tập hợp quy định đi kèm sản phẩm (hoàn/đổi, phí phạt, không đến…).</li>
+      <li><b>Phí</b>: Giá dịch vụ cộng thuế, phụ phí, phí xử lý/thanh toán và phí chuyển đổi tiền tệ (nếu có).</li>
+      <li><b>Sự kiện bất khả kháng</b>: Sự kiện ngoài khả năng kiểm soát hợp lý (thiên tai, dịch bệnh, chiến tranh, gián
+        đoạn hệ thống, yêu cầu cơ quan nhà nước…).</li>
+    </ul>
+
+    <!-- 3 -->
+    <h2 id="user">3. Nghĩa vụ người dùng</h2>
+    <ul class="num">
+      <li><b>Độ tuổi &amp; năng lực:</b> Bạn xác nhận từ 18 tuổi trở lên và có năng lực hành vi dân sự; nếu đại diện tổ
+        chức, bạn có thẩm quyền ràng buộc tổ chức đó.</li>
+      <li><b>Thông tin chính xác:</b> Cung cấp dữ liệu trung thực, đầy đủ, cập nhật khi đăng ký/đặt chỗ; tự chịu trách
+        nhiệm với mọi sai lệch gây phát sinh chi phí/thiệt hại.</li>
+      <li><b>Bảo mật tài khoản:</b> Giữ bí mật thông tin đăng nhập; thông báo ngay khi có truy cập trái phép. Mọi giao
+        dịch phát sinh từ tài khoản được xem là do bạn thực hiện.</li>
+      <li><b>Sử dụng hợp pháp:</b> Không đăng tải nội dung vi phạm pháp luật/quyền bên thứ ba; không can thiệp hệ thống,
+        quét dữ liệu, phát tán mã độc, lạm dụng ưu đãi.</li>
+      <li><b>Tuân thủ chính sách:</b> Thực hiện đúng hướng dẫn của Panacea và quy định/“house rules” của Nhà cung cấp.
+        Vi phạm có thể bị từ chối phục vụ mà không hoàn tiền.</li>
+    </ul>
+
+    <!-- 4 -->
+    <h2 id="booking">4. Đặt chỗ &amp; Sửa đổi</h2>
+    <p><b>4.1 Xác nhận:</b> Đặt chỗ hoàn tất khi hiển thị trang xác nhận và/hoặc email có mã xác nhận. Không nhận được
+      xác nhận? Hãy liên hệ hỗ trợ trước khi đặt lại để tránh trùng lặp.</p>
+    <p><b>4.2 Điều kiện giá:</b> Mỗi sản phẩm/dịch vụ có điều kiện riêng (hoàn/đổi, phí phạt, yêu cầu đặt cọc…). Bằng
+      việc thanh toán, bạn được xem là đã chấp thuận các điều kiện hiển thị tại bước thanh toán.</p>
+    <p><b>4.3 Hủy/đổi:</b> Khả năng hủy/đổi và mức phí phụ thuộc Điều kiện giá. Một số hạng mục <b>không hoàn hủy</b>
+      hoặc <b>không đổi tên/đổi ngày</b>. Thực hiện qua Nền tảng hoặc theo hướng dẫn trong email xác nhận.</p>
+    <div class="note warn">
+      <i class="bi bi-exclamation-triangle"></i>
+      Không đến, đến trễ hoặc rút ngắn thời gian sử dụng có thể bị tính như hủy trễ và không được hoàn tiền
+      theo chính sách của Nhà cung cấp.
+    </div>
+    <p><b>4.4 Thay đổi từ Nhà cung cấp:</b> Khi quá tải/sự cố khiến Nhà cung cấp không thể đáp ứng, trách nhiệm đầu tiên
+      thuộc về Nhà cung cấp trong việc đề xuất phương án tương đương hoặc hoàn tiền theo chính sách. Panacea sẽ hỗ trợ
+      trong khả năng hợp lý.</p>
+    <p><b>4.5 Yêu cầu đặc biệt:</b> Các yêu cầu (loại phòng, suất ăn, giờ trị liệu…) là không đảm bảo, phụ thuộc tình
+      trạng thực tế.</p>
+    <p><b>4.6 Yêu cầu địa phương:</b> Có thể cần CCCD/Hộ chiếu, thẻ tín dụng đặt cọc hoặc thu phí địa phương tại chỗ.
+      Bạn có trách nhiệm tìm hiểu và chuẩn bị trước.</p>
+
+    <!-- 5 -->
+    <h2 id="payment">5. Thanh toán &amp; Hoàn tiền</h2>
+    <ul>
+      <li><b>Phương thức &amp; ủy quyền:</b> Chúng tôi chấp nhận thẻ, ví điện tử, chuyển khoản (tùy thời điểm). Khi nhập
+        thông tin thanh toán, bạn ủy quyền Panacea/đối tác xử lý thu toàn bộ Phí, bao gồm điều chỉnh hợp lệ.</li>
+      <li><b>Tiền tệ &amp; phí:</b> Giá có thể hiển thị theo nhiều đơn vị tiền. Ngân hàng/đơn vị phát hành có thể áp
+        dụng tỷ giá/phí riêng; Panacea không chịu trách nhiệm cho chênh lệch do bên thứ ba tính.</li>
+      <li><b>Thuế &amp; phụ phí địa phương:</b> Một số khoản thu có thể được Nhà cung cấp thu trực tiếp khi nhận dịch vụ
+        (resort fee, thuế địa phương, phí vệ sinh…).</li>
+      <li><b>Rà soát rủi ro:</b> Panacea có thể tạm giữ, từ chối hoặc hủy giao dịch/đặt chỗ nếu nghi ngờ gian lận; có
+        thể yêu cầu bổ sung xác minh.</li>
+      <li><b>Hoàn tiền:</b> Chỉ áp dụng khi Điều kiện giá cho phép. Tiền hoàn (nếu có) trả về đúng phương thức thanh
+        toán ban đầu; thời gian hoàn tùy ngân hàng (thường 5–15 ngày làm việc).</li>
+      <li><b>Tranh chấp thanh toán:</b> Nếu phát sinh chargeback trái Điều kiện giá, Panacea có quyền cung cấp bằng
+        chứng để phản hồi theo quy trình của tổ chức thanh toán.</li>
+    </ul>
+
+    <!-- 6 -->
+    <h2 id="privacy">6. Quyền riêng tư</h2>
+    <p>Việc thu thập, sử dụng, lưu trữ và chia sẻ dữ liệu cá nhân tuân thủ <a routerLink="/policy/operating">Chính sách
+        Quyền
+        riêng tư</a>. Chính sách nêu rõ loại dữ liệu, mục đích xử lý, căn cứ pháp lý, chuyển giao xuyên biên giới (nếu
+      có), thời hạn lưu trữ và quyền của bạn.</p>
+
+    <!-- 7 -->
+    <h2 id="ip">7. Quyền sở hữu trí tuệ</h2>
+    <p><b>Nội dung &amp; công nghệ:</b> Mọi mã nguồn, bố cục, giao diện, hình ảnh, biểu trưng, nhãn hiệu và tài liệu
+      trên Nền tảng thuộc sở hữu của Panacea hoặc được cấp phép hợp pháp. Cấm sao chép/sửa đổi/phân phối khi chưa có
+      chấp thuận bằng văn bản.</p>
+    <p><b>Giấy phép sử dụng hạn chế:</b> Bạn được cấp quyền cá nhân, không độc quyền, không chuyển nhượng và có thể bị
+      thu hồi để truy cập, sử dụng Nền tảng theo Điều khoản.</p>
+    <p><b>Nội dung do người dùng tạo:</b> Khi đăng đánh giá/hình ảnh/nhận xét, bạn cấp cho Panacea quyền sử dụng toàn
+      cầu, miễn phí bản quyền, có thể chuyển giao/sublicense để vận hành, quảng bá, cải tiến dịch vụ; bạn cam kết có đầy
+      đủ quyền với nội dung đã đăng.</p>
+
+    <!-- 8 -->
+    <h2 id="liability">8. Giới hạn trách nhiệm</h2>
+    <p><b>Bản chất trung gian:</b> Panacea là nền tảng kết nối; Nhà cung cấp là bên độc lập chịu trách nhiệm trực tiếp
+      về chất lượng/độ an toàn/tính sẵn có của dịch vụ.</p>
+    <p><b>Miễn trừ:</b> Nền tảng cung cấp “nguyên trạng” và “theo khả dụng”, không bảo đảm ngầm định nào vượt ngoài phạm
+      vi pháp luật cho phép.</p>
+    <p><b>Giới hạn:</b> Trong phạm vi tối đa pháp luật cho phép, Panacea không chịu trách nhiệm về thiệt hại gián tiếp,
+      hệ quả, đặc biệt, mất dữ liệu/lợi nhuận; tổng trách nhiệm (nếu có) không vượt quá số tiền bạn đã thanh toán cho
+      đơn liên quan.</p>
+    <p><b>Bồi thường:</b> Bạn đồng ý bồi thường/giữ cho Panacea và bên liên quan vô hại trước mọi khiếu nại, chi phí
+      phát sinh do bạn vi phạm Điều khoản, sử dụng sai mục đích hoặc xâm phạm quyền bên thứ ba.</p>
+
+    <!-- 9 -->
+    <h2 id="law">9. Luật áp dụng &amp; Giải quyết tranh chấp</h2>
+    <p>Điều khoản này chịu sự điều chỉnh của pháp luật Việt Nam. Các bên ưu tiên thương lượng/hòa giải trong 30 ngày.
+      Nếu không thành, tranh chấp được giải quyết tại Tòa án có thẩm quyền tại TP. Hồ Chí Minh.</p>
+    <p>Nếu bất kỳ điều khoản nào vô hiệu/không thể thực thi, phần còn lại vẫn có hiệu lực. Panacea có thể chuyển nhượng
+      quyền/nghĩa vụ; bạn không được chuyển nhượng nếu chưa có chấp thuận bằng văn bản.</p>
+
+    <!-- 10 -->
+    <h2 id="contact">10. Liên hệ</h2>
+    <p>Hỗ trợ và tiếp nhận yêu cầu:</p>
+    <ul>
+      <li>Email: <a href="mailto:hello@panacea.vn">support@panacea.vn</a></li>
+      <li>Hotline: +84 123 456 789</li>
+      <li>Địa chỉ: 60 Hai Bà Trưng, Bến Nghé, Quận 1, TP.HCM</li>
+    </ul>
+
+    <div class="cta">
+      <a routerLink="/" class="btn ghost"><i class="bi bi-arrow-left"></i> Về trang chủ</a>
+      <a *ngIf="!authService.isLoggedIn()" routerLink="/register" class="btn primary">Tạo tài khoản</a>
+      <a *ngIf="authService.isLoggedIn()" routerLink="/booking-history" class="btn primary">Quản lý đặt chỗ</a>
+    </div>
+  </article>
+</section>

@@ -1,0 +1,225 @@
+<section class="p-4">
+  <!-- ===== HEADER GIỐNG PAYMENT ===== -->
+  <div class="d-flex align-items-center justify-content-between mb-3 header-bar">
+    <div class="d-flex align-items-center">
+      <i class="bi bi-box-arrow-left" style="cursor: pointer; font-size: 1.05rem; margin-right: 0.75rem"
+        (click)="navigateBack()"></i>
+      <div>
+        <div class="h-100 d-flex align-items-center">
+          <h2 class="m-0">Đặt phòng</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex align-items-center steps">
+      <ng-container *ngFor="let s of headerSteps">
+        <div class="d-flex align-items-center me-3" 
+             [class.cursor-pointer]="s.id === 1"
+             (click)="s.id === 1 ? navigateToPayment() : null">
+          <div class="step-circle me-2" [ngClass]="{ active: s.id === currentStep }">
+            {{ s.id }}
+          </div>
+          <div class="small text-muted" [ngClass]="{ 'text-primary': s.id === currentStep }">
+            {{ s.name }}
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <!-- ===== NỘI DUNG CHÍNH TRANG BANKING ===== -->
+  <div class="container mt-4 qr-container">
+    <div class="row">
+      <!-- ===== CỘT TRÁI: QR THANH TOÁN ===== -->
+      <div class="col-md-7 qr-left">
+        <div class="qr-box-wrapper">
+          <div class="alert alert-primary text-center mb-3">
+            Chúng tôi đang giữ phòng này cho bạn! Hãy hoàn tất thanh toán trong
+            <strong class="text-success">{{ timeLeft }}</strong>
+          </div>
+
+          <h4 class="mb-2 text-center">Quét mã QR để thanh toán</h4>
+
+          <div class="alert alert-warning py-2 small">
+            Vui lòng hoàn tất thanh toán trước thời gian quy định.<br />
+            Nếu không, giao dịch sẽ được tự động hoàn trả trong vòng 10 ngày làm việc.
+          </div>
+
+          <div class="qr-box p-3 rounded">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <button class="btn btn-outline-primary btn-sm" (click)="downloadQR()">
+                Tải về mã QR
+              </button>
+            </div>
+
+            <div class="text-center mb-3">
+              <h5 class="fw-bold">{{ merchantName }}</h5>
+              <img [src]="qrCodeUrl" alt="QR Code thanh toán Panacea - Quét mã để thanh toán đặt phòng" 
+                title="QR Code thanh toán Panacea - Quét mã để thanh toán đặt phòng. Thanh toán trước: {{ expiredAt | date: 'HH:mm, dd/MM/yyyy' }}"
+                class="qr-image" />
+              <div class="text-muted small mt-2">
+                Thanh toán trước:
+                <strong>{{ expiredAt | date: 'HH:mm, dd/MM/yyyy' }}</strong>
+              </div>
+            </div>
+          </div>
+
+          <h5 class="mt-4">Hướng dẫn thanh toán QR</h5>
+          <div class="instructions p-3 rounded">
+            <ol class="mb-0">
+              <li>
+                Mở ví điện tử hoặc ứng dụng ngân hàng hỗ trợ VietQR, sau đó quét mã QR bên trên.
+              </li>
+              <li>
+                Đảm bảo số tiền và nội dung thanh toán khớp với đơn hàng, sau đó hoàn tất giao dịch.
+              </li>
+              <li>
+                Đơn đặt chỗ sẽ được xác nhận tự động sau khi thanh toán thành công.
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CỘT PHẢI: THÔNG TIN ĐẶT CHỖ ===== -->
+      <div class="col-md-5">
+        <div class="summary-box">
+          <h5 class="mb-3">
+            <i class="bi bi-receipt text-primary me-2"></i> Thông tin đặt chỗ
+          </h5>
+
+          <!-- ✅ Thông tin khách hàng -->
+          <p><strong>Khách hàng:</strong> {{ customer?.fullName }}</p>
+          <p><strong>Email:</strong> {{ customer?.email }}</p>
+          <p><strong>Số điện thoại:</strong> {{ customer?.phone }}</p>
+
+          <hr />
+
+          <!-- ✅ Thông tin phòng (hiển thị nhiều bookings nếu có) -->
+          <ng-container *ngIf="bookings.length > 0; else singleBookingInfo">
+            <div *ngFor="let bk of bookings; let i = index" [class]="bookings.length > 1 ? 'mb-3 pb-3' : ''"
+              [style.border-bottom]="bookings.length > 1 && i < bookings.length - 1 ? '1px solid #e0e0e0' : 'none'">
+              <p *ngIf="bookings.length > 1" class="text-primary fw-bold mb-2">
+                {{ bk.roomName || bk.room?.room_name || booking?.room?.name }}
+              </p>
+              <p><strong>Phòng:</strong> {{ bk.roomName || bk.room?.room_name || booking?.room?.name || 'N/A' }}</p>
+              <p><strong>Số lượng:</strong> {{ bk.room?.range || bk.room?.capacity || booking?.room?.capacity ||
+                booking?.range || 'N/A' }}</p>
+              <p *ngIf="bk.basePrice > 0">
+                <strong>Giá phòng{{ bookings.length > 1 ? ' (' + getBookingHours(bk) + ' giờ)' : '' }}:</strong>
+                <span> {{ bk.basePrice | number }} VND</span>
+              </p>
+              <p><strong>Ngày:</strong>
+                <span *ngIf="bk.checkInDate">
+                  {{ bk.checkInDate | date: 'EEEE, dd MMMM yyyy' : undefined : 'vi' }}
+                </span>
+                <span *ngIf="!bk.checkInDate">{{ bookingDate }}</span>
+              </p>
+              <p><strong>Giờ nhận:</strong> {{ bk.checkInTime || checkInTime }}</p>
+              <p><strong>Giờ trả:</strong> {{ bk.checkOutTime || checkOutTime }}</p>
+            </div>
+          </ng-container>
+
+          <ng-template #singleBookingInfo>
+            <p><strong>Phòng:</strong> {{ booking?.room?.name || booking?.roomName || 'N/A' }}</p>
+            <p><strong>Số lượng:</strong> {{ booking?.room?.capacity || booking?.range || 'N/A' }}</p>
+            <p *ngIf="roomPrice > 0">
+              <strong>Giá phòng:</strong>
+              <span> {{ roomPrice | number }} VND</span>
+            </p>
+            <p><strong>Ngày:</strong> {{ bookingDate }}</p>
+            <p><strong>Giờ nhận:</strong> {{ checkInTime }}</p>
+            <p><strong>Giờ trả:</strong> {{ checkOutTime }}</p>
+          </ng-template>
+
+          <hr />
+
+          <!-- ✅ Dịch vụ đi kèm (chia thành 2 phần: Dịch vụ chuyên gia và Dịch vụ thuê thêm) -->
+          <div class="mb-3">
+            <p class="fw-bold mb-2">Dịch vụ đi kèm:</p>
+
+            <!-- Dịch vụ chuyên gia -->
+            <div *ngIf="expertServices.length > 0" class="mb-3">
+              <p class="fw-semibold text-primary small mb-1">Dịch vụ chuyên gia:</p>
+              <ul class="list-unstyled ms-3 mb-0">
+                <li *ngFor="let ex of expertServices" class="small">
+                  {{ ex.name }} - {{ ex.price | number }} VND
+                </li>
+              </ul>
+            </div>
+
+            <!-- Dịch vụ thuê thêm -->
+            <div *ngIf="extraServices.length > 0" class="mb-3">
+              <p class="fw-semibold text-primary small mb-1">Dịch vụ thuê thêm:</p>
+              <ul class="list-unstyled ms-3 mb-0">
+                <li *ngFor="let s of extraServices" class="small">
+                  {{ s.name }} x{{ s.quantity || 1 }} - {{ (s.price * (s.quantity || 1)) | number }} VND
+                </li>
+              </ul>
+            </div>
+
+            <!-- Dịch vụ cũ (nếu có, từ booking.services) -->
+            <div
+              *ngIf="(!expertServices || expertServices.length === 0) && (!extraServices || extraServices.length === 0) && booking?.services?.length > 0">
+              <ul class="list-unstyled ms-3 mb-0">
+                <li *ngFor="let s of booking.services" class="small">
+                  {{ s.name }} - {{ s.price | number }} VND
+                </li>
+              </ul>
+            </div>
+
+            <!-- Không có dịch vụ -->
+            <p *ngIf="(!expertServices || expertServices.length === 0) && (!extraServices || extraServices.length === 0) && (!booking?.services || booking?.services.length === 0)"
+              class="text-muted small mb-0">
+              Không có dịch vụ kèm theo
+            </p>
+          </div>
+
+          <!-- ✅ Mã giảm giá (nếu có) -->
+          <div *ngIf="discountValue > 0" class="mb-2">
+            <p class="small mb-0">
+              <strong>Mã giảm giá:</strong>
+              <span class="text-success">-{{ discountValue | number }} VND</span>
+              <span *ngIf="promoCode" class="text-muted"> ({{ promoCode }})</span>
+            </p>
+          </div>
+
+          <!-- ✅ Đã dùng Xu (nếu có) -->
+          <div *ngIf="usePoints && pointsDiscountValue > 0" class="mb-2">
+            <p class="small mb-0">
+              <strong>50 xu:</strong>
+              <span class="text-success">-{{ pointsDiscountValue | number }} VND</span>
+            </p>
+          </div>
+
+          <hr />
+
+          <!-- ✅ Tổng tiền -->
+          <div class="text-end">
+            <p class="mb-1"><strong class="text-muted">Tổng cộng:</strong></p>
+
+            <!-- Hiển thị giá gốc nếu có voucher -->
+            <div *ngIf="originalPrice > totalPrice" class="text-muted small" style="text-decoration: line-through;">
+              {{ originalPrice | number }} VND
+            </div>
+
+            <!-- Hiển thị giá đã giảm -->
+            <h4 class="text-primary fw-bold">
+              {{ totalPrice | number }} VND
+            </h4>
+          </div>
+
+
+          <!-- ✅ PHẦN KIẾM XU (giống Payment) -->
+          <div class="rewards-row mt-3 d-flex align-items-center gap-2">
+            <span class="icon rounded-circle d-inline-flex align-items-center justify-content-center"
+              style="background:#fff6e6; width:28px; height:28px;">
+              <i class="bi bi-coin text-warning" style="font-size:1rem;"></i>
+            </span>
+            <strong style="color: #a66b00;">Kiếm {{ rewardPoints | number }} Xu</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

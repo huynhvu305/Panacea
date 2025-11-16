@@ -1,0 +1,83 @@
+<h1 class="sr-only">Cẩm Nang Panacea - Thông tin hay cần biết</h1>
+
+<!-- HERO -->
+<section class="blog-hero">
+    <img src="assets/images/BACKGROUND.webp" alt="Hình nền Panacea - Cẩm nang và thông tin hữu ích" />
+    <div class="banner-inner container">
+        <div class="hero-content">
+            <h1 class="hero-title">Cẩm Nang <span class="accent">Panacea</span></h1>
+            <p class="hero-subtitle">Thông tin hay cần biết khi đặt phòng Panacea</p>
+        </div>
+    </div>
+</section>
+
+<div class="container py-5">
+
+    <!-- Featured Section: Thông tin hay cần biết -->
+    <div class="featured-section mb-5">
+        <h3 class="section-title">
+            <i class="bi bi-info-circle me-2"></i>
+            Thông tin hay cần biết khi đặt phòng Panacea
+        </h3>
+        <div class="row g-4">
+            <div class="col-12 col-md-6 col-lg-4" *ngFor="let article of featuredArticles">
+                <div class="blog-card-elegant h-100">
+                    <a (click)="openModal(article); $event.preventDefault()" class="blog-card-link">
+                        <div class="blog-card-icon">
+                            <i [class]="article.icon"></i>
+                        </div>
+                        <div class="blog-card-body">
+                            <h5 class="blog-card-title">{{ article.title }}</h5>
+                            <p class="blog-card-description">{{ article.shortDescription }}</p>
+                            <span class="blog-card-read-more">
+                                Đọc thêm <i class="bi bi-arrow-right"></i>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- All Articles Section -->
+    <div class="all-articles-section">
+        <h3 class="section-title">
+            <i class="bi bi-journal-text me-2"></i>
+            Tất cả bài viết
+        </h3>
+        <div class="row g-4">
+            <div class="col-12 col-md-6 col-lg-4" *ngFor="let article of regularArticles">
+                <div class="blog-card-elegant h-100">
+                    <a (click)="openModal(article); $event.preventDefault()" class="blog-card-link">
+                        <div class="blog-card-icon">
+                            <i [class]="article.icon"></i>
+                        </div>
+                        <div class="blog-card-body">
+                            <h5 class="blog-card-title">{{ article.title }}</h5>
+                            <p class="blog-card-description">{{ article.shortDescription }}</p>
+                            <span class="blog-card-read-more">
+                                Đọc thêm <i class="bi bi-arrow-right"></i>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Blog Modal Popup -->
+<div class="blog-modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="blog-modal-content" (click)="$event.stopPropagation()">
+        <div class="blog-modal-header">
+            <div class="d-flex align-items-center">
+                <i [class]="selectedArticle?.icon" class="blog-modal-icon me-3"></i>
+                <h4 class="mb-0">{{ selectedArticle?.title }}</h4>
+            </div>
+            <button type="button" class="btn-close-modal" (click)="closeModal()" aria-label="Close">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+        <div class="blog-modal-body" [innerHTML]="getSafeHtml(selectedArticle?.fullContent)"></div>
+    </div>
+</div>

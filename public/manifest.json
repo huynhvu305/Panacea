@@ -1,0 +1,72 @@
+{
+  "name": "Panacea - A medicine from the stars",
+  "short_name": "Panacea",
+  "description": "Panacea - Không gian trị liệu và chữa lành tâm hồn",
+  "theme_color": "#132FBA",
+  "background_color": "#FFFEFA",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "start_url": "/",
+  "scope": "/",
+  "lang": "vi-VN",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon",
+      "purpose": "any"
+    },
+    {
+      "src": "favicon.ico",
+      "sizes": "192x192",
+      "type": "image/x-icon",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "favicon.ico",
+      "sizes": "512x512",
+      "type": "image/x-icon",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "categories": ["health", "lifestyle", "wellness"],
+  "shortcuts": [
+    {
+      "name": "Đặt phòng",
+      "short_name": "Đặt phòng",
+      "description": "Đặt phòng nhanh tại Panacea",
+      "url": "/room-list",
+      "icons": [
+        {
+          "src": "favicon.ico",
+          "sizes": "48x48"
+        }
+      ]
+    },
+    {
+      "name": "Tài khoản",
+      "short_name": "Tài khoản",
+      "description": "Quản lý tài khoản của bạn",
+      "url": "/customer-account",
+      "icons": [
+        {
+          "src": "favicon.ico",
+          "sizes": "48x48"
+        }
+      ]
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "GET",
+    "enctype": "application/x-www-form-urlencoded",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}
+

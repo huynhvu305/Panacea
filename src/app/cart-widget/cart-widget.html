@@ -1,0 +1,60 @@
+<!-- 🛒 GIỎ HÀNG NỔI -->
+<div class="cart-floating" *ngIf="shouldShowCart" (click)="toggleCart()">
+    <i class="bi bi-cart-fill"></i>
+    <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
+</div>
+
+<!-- POPUP GIỎ HÀNG -->
+<div class="cart-popup" *ngIf="isCartOpen && shouldShowCart" (click)="toggleCart()">
+    <div class="cart-popup-content" (click)="$event.stopPropagation()">
+        <h5 class="cart-title"><i class="bi bi-cart-check me-2"></i>Giỏ hàng</h5>
+
+        <div *ngIf="cart.length > 0; else emptyCart">
+            <!-- 🟩 UPDATED: Hiển thị items đã được gộp (theo phòng và giờ liên tiếp) -->
+            <div class="cart-item-group mb-3" *ngFor="let group of getGroupedCartItems(); let groupIndex = index">
+                <div class="cart-item">
+                    <img [src]="group.photo" [alt]="'Hình ảnh phòng ' + group.roomName + ' - Panacea'" 
+                      [title]="'Hình ảnh phòng ' + group.roomName + ' - ' + group.date + ' ' + group.time + ' - Panacea'"
+                      class="cart-img" />
+                    <div class="cart-info">
+                        <h6>{{ group.roomName }}</h6>
+                        <p>{{ group.date }} · {{ group.time }}</p>
+                        <div *ngIf="group.expertServices?.length">
+                            <small class="text-primary">Dịch vụ chuyên gia:</small>
+                            <ul>
+                                <li *ngFor="let ex of group.expertServices">{{ ex.name }} (+{{ ex.price | currency:'VND' }})
+                                </li>
+                            </ul>
+                        </div>
+                        <div *ngIf="group.extraServices?.length">
+                            <small class="text-primary">Dịch vụ thêm:</small>
+                            <ul>
+                                <li *ngFor="let s of group.extraServices">{{ s.name }} x{{ s.quantity || 1 }} (+{{ (s.price * (s.quantity || 1)) | currency:'VND' }})</li>
+                            </ul>
+                        </div>
+                        <span class="price">{{ group.totalPrice | currency:'VND' }}</span>
+                    </div>
+
+                    <button class="btn-remove" (click)="removeGroupFromCart(group)">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                
+                <!-- 🟩 ADDED: Nút thanh toán cho nhóm này -->
+                <div class="cart-item-payment mt-2">
+                    <button class="btn btn-primary w-100 fw-semibold" (click)="goToPaymentForGroup(group)">
+                        Thanh toán
+                    </button>
+                </div>
+                
+                <!-- Dòng phân cách giữa các nhóm -->
+                <hr *ngIf="groupIndex < getGroupedCartItems().length - 1" class="my-3">
+            </div>
+        </div>
+
+        <ng-template #emptyCart>
+            <p class="text-center text-muted">Chưa có phòng nào trong giỏ.</p>
+        </ng-template>
+    </div>
+</div>
+

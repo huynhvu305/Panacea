@@ -1,0 +1,632 @@
+/* ======= TOÀN TRANG ======= */
+.acc-point-wrapper {
+    background-color: #f8faff;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+}
+
+.acc-point-card {
+    background: #fff;
+    border: 1.5px solid #132fba;
+    border-radius: 1rem;
+    box-shadow: 0 6px 22px rgba(19, 47, 186, 0.12);
+    overflow: hidden;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.title {
+    color: #132fba;
+    font-weight: 700;
+}
+
+/* ======= TAB TRẠNG THÁI ======= */
+.order-tabs {
+    display: flex;
+    gap: 1rem;
+    border-bottom: 2px solid #edf0ff;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    padding: 0.75rem 0.25rem;
+    font-weight: 600;
+    color: #5a6bbd;
+    position: relative;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: color 0.25s ease;
+}
+
+.tab-btn::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: -100%;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #132fba, #f7941d);
+    border-radius: 2px;
+    transition: left 0.35s ease;
+}
+
+.tab-btn:hover {
+    color: #132fba;
+}
+
+.tab-btn:hover::after {
+    left: 0;
+}
+
+.tab-btn.active {
+    color: #132fba;
+}
+
+.tab-btn.active::after {
+    left: 0;
+}
+
+/* ======= DANH SÁCH ĐƠN ======= */
+.order-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.order-card {
+    background: #fff;
+    border: 1.5px solid #e3e8ff;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(19, 47, 186, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.order-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(19, 47, 186, 0.15);
+    border-color: #132fba;
+}
+
+.order-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem 1rem;
+    border-bottom: 1px dashed #dee3ff;
+}
+
+.order-head .order-id strong {
+    color: #132fba;
+    font-weight: 700;
+}
+
+.order-body {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 0.8fr auto;
+    column-gap: 0.5rem;
+    row-gap: 0.25rem;
+    align-items: center;
+    padding: 0.6rem 1rem;
+}
+
+.order-room .room-title {
+    font-weight: 700;
+    color: #132fba;
+    font-size: 1rem;
+}
+
+.order-room .room-sub {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.order-time .label {
+    color: #5a6bbd;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.order-time .value {
+    color: #1c1c1c;
+    font-weight: 600;
+    margin-top: -2px;
+}
+
+.order-price .label {
+    color: #5a6bbd;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.order-price .value {
+    color: #f7941d;
+    font-weight: 800;
+    font-size: 1rem;
+}
+
+.order-action {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.order-action .btn {
+    border-radius: 8px;
+    padding: 0.45rem 1rem;
+    font-weight: 600;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+.order-action .btn-danger {
+    background: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+.order-action .btn-danger:hover {
+    background: #c82333;
+    border-color: #bd2130;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 16px rgba(220, 53, 69, 0.25);
+}
+
+.order-action .btn-primary {
+    background: #132fba;
+    border-color: #132fba;
+    color: #fff;
+}
+
+.order-action .btn-primary:hover {
+    background: #132fba;
+    border-color: #132fba;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 16px rgba(19, 47, 186, 0.25);
+}
+
+/* ======= TRẠNG THÁI ======= */
+.status-badge {
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.status-confirmed {
+    background: #e8f2ff;
+    color: #132fba;
+}
+
+/* ======= EMPTY STATE ======= */
+.order-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #6875b4;
+}
+
+.order-empty .empty-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.order-empty .empty-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* ======= MODAL ======= */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(3px);
+    z-index: 1050;
+}
+
+.modal-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1060;
+    width: 90%;
+    max-width: 600px;
+}
+
+.modal-content {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #132fba, #f7da1d);
+    color: white;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-title {
+    font-weight: 700;
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s ease;
+}
+
+.btn-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.info-section {
+    background: #f8faff;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #e3e8ff;
+}
+
+.info-section p {
+    margin-bottom: 0.5rem;
+}
+
+.info-section p:last-child {
+    margin-bottom: 0;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-label {
+    display: block;
+    font-weight: 600;
+    color: #132fba;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e3e8ff;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.25s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #132fba;
+    box-shadow: 0 0 0 3px rgba(19, 47, 186, 0.1);
+}
+
+.modal-footer {
+    padding: 1rem 1.5rem;
+    background: #f8faff;
+    border-top: 1px solid #e3e8ff;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+}
+
+.modal-footer .btn {
+    padding: 0.55rem 1.25rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.25s ease;
+}
+
+.modal-footer .btn-secondary {
+    background: #6c757d;
+    border-color: #6c757d;
+    color: #fff;
+}
+
+.modal-footer .btn-secondary:hover {
+    background: #5a6268;
+    border-color: #545b62;
+    transform: translateY(-1px);
+}
+
+.modal-footer .btn-primary {
+    background: #132fba;
+    border-color: #132fba;
+    color: #fff;
+}
+
+.modal-footer .btn-primary:hover {
+    background: #132fba;
+    border-color: #132fba;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 16px rgba(19, 47, 186, 0.25);
+}
+
+/* ======= MODAL DETAIL STYLES (Copy from booking-history) ======= */
+.modal-content {
+    padding: 0;
+}
+
+/* BODY: khoảng đệm, chiều cao, scrollbar tinh tế */
+.modal-body {
+    padding: 18px 22px;
+    max-height: min(74vh, 760px);
+    overflow: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #132fba #eef2ff;
+}
+
+.modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+    background: #eef2ff;
+    border-radius: 8px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #132fba, #5c7cff);
+    border-radius: 8px;
+}
+
+/* SECTION: card nhẹ, nổi bật section đầu (Thông tin khách hàng) */
+.modal-section {
+    background: #fff;
+    border: 1px solid #eef2ff;
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 10px rgba(19, 47, 186, 0.05);
+}
+
+.modal-section:first-of-type {
+    background: linear-gradient(180deg, #f8faff, #ffffff 55%);
+    border: 1px solid #e5eaff;
+    box-shadow: inset 0 0 0 1px rgba(19, 47, 186, 0.05), 0 4px 12px rgba(19, 47, 186, 0.06);
+}
+
+/* Tiêu đề section + gạch nhấn xanh-cam */
+.modal-section h5 {
+    margin: 0 0 10px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #132fba;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.modal-section h5::after {
+    content: "";
+    height: 4px;
+    width: 28px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #132fba, #f7941d);
+    display: inline-block;
+}
+
+/* HÀNG THÔNG TIN: lưới 2 cột tự co, đường kẻ chấm nhẹ */
+.info-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px 14px;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px dashed #e9edff;
+}
+
+.info-row:last-child {
+    border-bottom: 0;
+}
+
+.info-row span {
+    color: #4d568c;
+    font-weight: 600;
+}
+
+.info-row p {
+    margin: 0;
+    color: #111826;
+    font-weight: 600;
+    text-align: right;
+}
+
+.info-row.highlight p {
+    color: #132fba;
+    font-weight: 800;
+}
+
+/* DANH SÁCH DỊCH VỤ */
+.modal-section ul {
+    margin: 6px 0 0;
+    padding-left: 1.3rem;
+}
+
+.modal-section ul li {
+    padding: 4px 0;
+    color: #2b2f3a;
+}
+
+/* ==== RESPONSIVE ==== */
+/* ✅ FIXED: Responsive cho màn hình nhỏ */
+@media (max-width: 992px) {
+    .acc-point-wrapper {
+        padding: 1rem 0.5rem;
+    }
+
+    .acc-point-card {
+        padding: 1.5rem !important;
+    }
+
+    .order-body {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .order-room,
+    .order-time,
+    .order-price {
+        margin-bottom: 0.5rem;
+    }
+
+    .order-action {
+        justify-content: flex-start;
+        margin-top: 0.5rem;
+    }
+
+    .order-action .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .title {
+        font-size: 1.3rem;
+    }
+
+    .order-tabs {
+        gap: 0.5rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .tab-btn {
+        padding: 0.6rem 0.5rem;
+        font-size: 0.9rem;
+        white-space: nowrap;
+    }
+
+    .order-card {
+        padding: 0.75rem;
+    }
+
+    .order-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding: 0.75rem;
+    }
+
+    .order-body {
+        padding: 0.75rem;
+    }
+
+    .order-room .room-title {
+        font-size: 0.95rem;
+    }
+
+    .order-room .room-sub {
+        font-size: 0.85rem;
+    }
+
+    .order-time .label,
+    .order-price .label {
+        font-size: 0.85rem;
+    }
+
+    .order-time .value,
+    .order-price .value {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .acc-point-wrapper {
+        padding: 0.75rem 0.25rem;
+    }
+
+    .acc-point-card {
+        padding: 1rem !important;
+        border-radius: 0.75rem;
+    }
+
+    .title {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+
+    .order-tabs {
+        margin-bottom: 1rem;
+    }
+
+    .tab-btn {
+        padding: 0.5rem 0.4rem;
+        font-size: 0.85rem;
+    }
+
+    .order-card {
+        border-radius: 0.75rem;
+    }
+
+    .order-head {
+        padding: 0.6rem;
+    }
+
+    .order-body {
+        padding: 0.6rem;
+    }
+
+    .order-action .btn {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .modal-container {
+        width: 94vw;
+        max-width: 94vw;
+    }
+
+    .modal-header {
+        padding: 12px 14px;
+    }
+
+    .modal-header h4 {
+        font-size: 1rem;
+    }
+
+    .modal-body {
+        padding: 14px;
+    }
+
+    .info-row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .info-row p {
+        text-align: left;
+    }
+
+    .modal-section {
+        padding: 12px 14px;
+    }
+
+    .modal-section h5 {
+        font-size: 0.95rem;
+    }
+}
+

@@ -1,0 +1,71 @@
+<!-- Thanh toolbar trôi nổi -->
+<div class="sidebar-container">
+    <!-- Nút menu cho mobile -->
+    <button class="menu-toggle d-lg-none" (click)="toggleSidebar()">
+        <i class="bi bi-list"></i>
+    </button>
+
+    <!-- SIDEBAR CHÍNH -->
+    <div class="sidebar" [class.active]="sidebarOpen">
+        <!-- PHẦN USER INFO -->
+        <div class="user-info">
+            <div class="user-header">
+                <div class="avatar-icon">
+                    <i class="bi bi-person-fill"></i>
+                </div>
+                <div class="username">{{ currentAccount?.full_name || "User name" }}</div>
+            </div>
+
+            <!-- THANH HIỂN THỊ CẤP BẬC -->
+            <div class="membership-bar {{ membershipClass }}-bar" (click)="openMembershipLink()">
+                <div class="membership-left">
+                    <img [src]="badgeUrl" class="badge-icon"
+                        [alt]="'Huy hiệu ' + getMembershipRank() + ' Priority - Panacea'"
+                        [title]="'Huy hiệu ' + getMembershipRank() + ' Priority - Bạn là thành viên ' + getMembershipRank() + ' Priority'"
+                        width="32px" height="35px" />
+                    <div class="membership-text">
+                        Bạn là thành viên<strong class="membership-rank">{{ getMembershipRank() }} Priority</strong>
+                    </div>
+                </div>
+                <div class="membership-right">
+                    <i class="bi bi-chevron-right"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- MENU ITEMS -->
+        <!-- Đưa "Tài khoản" lên đầu tiên -->
+        <button class="menu-item" type="button" [routerLink]="['/customer-account']" routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: false }">
+            <i class="bi bi-person-gear"></i>
+            <span>Tài khoản</span>
+        </button>
+
+        <button class="menu-item" type="button" [routerLink]="['/customer-star']" routerLinkActive="active">
+            <i class="bi bi-star-fill"></i>
+            <span>Sao Panacea: {{ currentAccount?.star || 0 }}</span>
+        </button>
+
+        <button class="menu-item" type="button" [routerLink]="['/customer-coin']" routerLinkActive="active">
+            <i class="bi bi-coin"></i>
+            <span>Xu Panacea: {{ currentAccount?.coin || 0 }}</span>
+        </button>
+
+        <button class="menu-item" type="button" [routerLink]="['/booking-history']" routerLinkActive="active">
+            <i class="bi bi-calendar-check"></i>
+            <span>Đặt chỗ của tôi</span>
+        </button>
+
+        <button class="menu-item" type="button" [routerLink]="['/customer-booking']" routerLinkActive="active">
+            <i class="bi bi-calendar-x"></i>
+            <span>Hủy lịch/ Đổi lịch</span>
+        </button>
+
+        <button class="menu-item logout-btn" type="button" (click)="logout()">
+            <i class="bi bi-power"></i>
+            <span>Đăng xuất</span>
+        </button>
+    </div>
+</div>

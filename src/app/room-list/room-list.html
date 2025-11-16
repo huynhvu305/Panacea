@@ -1,0 +1,265 @@
+<h1 class="sr-only">Danh Sách Phòng - Panacea</h1>
+
+<div class="header py-4">
+  <img src="assets/images/BannerRoomlist.webp"
+    alt="Banner danh sách phòng Panacea - Tìm và đặt phòng trị liệu, không gian chữa lành"
+    title="Banner danh sách phòng Panacea - Tìm và đặt phòng trị liệu, không gian chữa lành cùng Panacea" />
+
+  <!-- Text Overlay trên banner -->
+  <div class="banner-text-overlay">
+    <div class="container">
+      <h2 class="banner-headline">Tìm & đặt phòng trị liệu, không gian chữa lành cùng Panacea</h2>
+      <p class="banner-subheadline">Khám phá những không gian độc đáo, mang đến trải nghiệm thư giãn và phục hồi tâm hồn
+      </p>
+    </div>
+  </div>
+
+  <div class="banner-inner container">
+    <div class="search-widget shadow p-4 rounded-4">
+      <form class="search-form" (ngSubmit)="onSearchRooms()">
+        <!-- Tìm theo từ khóa -->
+        <div class="search-field">
+          <label for="location" class="field-label">Tìm theo từ khóa:</label>
+          <div class="input-wrapper">
+            <i class="bi bi-geo-alt-fill input-icon"></i>
+            <input type="text" id="location" name="keywordInput" class="form-control search-input"
+              [(ngModel)]="keywordInput" placeholder="Nhập từ khóa: Oasis, thư giãn, healing..." />
+          </div>
+        </div>
+
+        <div class="field-divider"></div>
+
+        <!-- Ngày đến -->
+        <div class="search-field">
+          <label for="checkin" class="field-label">Ngày đến:</label>
+          <div class="input-wrapper">
+            <i class="bi bi-calendar3 input-icon"></i>
+            <input type="date" id="checkin" name="checkinDate" class="form-control search-input"
+              [(ngModel)]="checkinDate" [min]="minDate" (change)="onDateChange()" />
+          </div>
+        </div>
+
+        <div class="field-divider"></div>
+
+        <!-- Nút tìm kiếm -->
+        <div class="search-button-wrapper">
+          <button type="submit" class="btn-search">
+            <i class="bi bi-search"></i>
+            <span>Tìm phòng</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-4">
+  <div class="row">
+
+    <!-- BỘ LỌC BÊN TRÁI -->
+    <div class="col-md-3">
+      <div class="filter-panel">
+        <div class="filter-title d-flex align-items-center gap-2 mb-3">
+          <h5 class="fw-bold m-0">Bộ lọc:</h5>
+          <i class="bi bi-sliders2-vertical fs-5 text-primary ms-auto" title="Tuỳ chỉnh bộ lọc"></i>
+        </div>
+
+        <!-- KHUNG 1: LỌC THEO GIÁ -->
+        <div class="filter-section p-3 rounded-4 shadow-sm">
+          <div class="filter-header d-flex justify-content-between align-items-center mb-2">
+            <span class="fw-semibold"><i class="bi bi-cash-coin me-1 text-primary"></i>Khoảng giá</span>
+            <button type="button" (click)="resetPrice($event)"
+              class="btn-reset-price text-decoration-none small text-primary border-0 bg-transparent p-0">Đặt
+              lại</button>
+          </div>
+
+          <!-- Range Slider cho giá -->
+          <div class="price-range-slider mb-3">
+            <input type="range" class="form-range" [min]="minPrice" [max]="maxPrice" [(ngModel)]="selectedMinPrice"
+              (input)="onPriceChange()" id="minPriceSlider">
+            <input type="range" class="form-range" [min]="minPrice" [max]="maxPrice" [(ngModel)]="selectedMaxPrice"
+              (input)="onPriceChange()" id="maxPriceSlider">
+          </div>
+
+          <!-- Input số cho giá -->
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="selectedMinPrice" [min]="minPrice"
+              [max]="selectedMaxPrice" (ngModelChange)="onPriceChange()" placeholder="Từ" />
+            <span class="fw-bold">–</span>
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="selectedMaxPrice"
+              [min]="selectedMinPrice" [max]="maxPrice" (ngModelChange)="onPriceChange()" placeholder="Đến" />
+          </div>
+
+          <div class="d-flex justify-content-between small text-muted mb-2">
+            <span>{{ formatCurrency(selectedMinPrice) }}</span>
+            <span>{{ formatCurrency(selectedMaxPrice) }}</span>
+          </div>
+
+          <hr>
+
+          <div class="filter-header mb-1"><i class="bi bi-sort-down-alt me-1 text-primary"></i>Sắp xếp theo</div>
+          <select class="form-select form-select-sm mb-2" [(ngModel)]="sortOrder" (change)="onFilterRooms()">
+            <option value="">-- Không sắp xếp --</option>
+            <option value="asc">Giá tăng dần</option>
+            <option value="desc">Giá giảm dần</option>
+          </select>
+
+        </div>
+
+        <!-- KHUNG 2: LỌC THEO KHU VƯỜN -->
+        <div class="filter-section">
+          <div class="filter-header">
+            <i class="bi bi-tree"></i>
+            <span>Khu vườn</span>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" [checked]="isAllGardensSelected()"
+              (change)="toggleAllGardens($event)" />
+            <label class="form-check-label fw-semibold">Chọn tất cả</label>
+          </div>
+
+          <div *ngFor="let garden of gardenTags">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" [checked]="selectedGardens.includes(garden)"
+                (change)="toggleGarden(garden)" />
+              <label class="form-check-label">{{ garden }}</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- KHUNG 3: LỌC THEO SỨC CHỨA -->
+        <div class="filter-section">
+          <div class="filter-header">
+            <i class="bi bi-people"></i>
+            <span>Sức chứa</span>
+          </div>
+          <select class="form-select" [(ngModel)]="guestCountFilter" (change)="onFilterRooms()">
+            <option value="">Tất cả</option>
+            <option value="2">1-2 người</option>
+            <option value="5">3-5 người</option>
+            <option value="10">6-10 người</option>
+          </select>
+        </div>
+
+        <!-- KHUNG 4: LOẠI HÌNH KHÔNG GIAN -->
+        <div class="filter-section">
+          <div class="filter-header d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-boxes"></i>
+              <span>Loại hình không gian</span>
+            </div>
+            <button class="btn btn-link p-0" (click)="toggleShowAllSpaceTags()" style="font-size: 13px;">
+              {{ showAllSpaceTags ? 'Thu gọn' : 'Xem tất cả' }}
+            </button>
+          </div>
+
+          <div *ngFor="let tag of visibleSpaceTags">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" [checked]="selectedSpaceTags.includes(tag)"
+                (change)="toggleSpaceTag(tag)" />
+              <label class="form-check-label">{{ tag }}</label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CỘT BÊN PHẢI -->
+    <div class="col-md-9">
+
+      <!-- Đánh dấu vị trí cuộn tới -->
+      <div class="room-list-results"></div>
+
+      <h2 class="sr-only">Kết quả tìm kiếm phòng</h2>
+
+      <!-- Nút xem ngang/dọc và Tất cả phòng -->
+      <div class="d-flex justify-content-end align-items-center gap-2 mb-3">
+        <button class="btn btn-primary" (click)="showAllRooms()">
+          <i class="bi bi-house-door"></i> Tất cả phòng
+        </button>
+        <div class="btn-group" role="group">
+          <button class="btn btn-outline-primary" [class.active]="viewMode === 'horizontal'"
+            (click)="setViewMode('horizontal')">
+            <i class="bi bi-grid-3x3-gap"></i> Xem ngang
+          </button>
+          <button class="btn btn-outline-primary" [class.active]="viewMode === 'vertical'"
+            (click)="setViewMode('vertical')">
+            <i class="bi bi-list-ul"></i> Xem dọc
+          </button>
+        </div>
+      </div>
+
+      <!-- XEM DỌC -->
+      <div *ngIf="viewMode === 'vertical'" class="d-flex flex-column gap-4">
+        <div *ngFor="let pkg of allPackages" class="d-flex border rounded overflow-hidden shadow-sm p-3 room-card"
+          (click)="goToRoomDetail(pkg)">
+          <!-- Ảnh -->
+          <div class="image-wrapper">
+            <img [src]="pkg.image" [alt]="'Hình ảnh phòng ' + pkg.room_name + ' - ' + pkg.range + ' - Panacea'"
+              [title]="'Hình ảnh phòng ' + pkg.room_name + ' - ' + pkg.range + '. Giá: ' + (pkg.price | number) + ' VND - Panacea'"
+              style="width: 200px; height: 150px; object-fit: cover;">
+          </div>
+
+          <!-- Thông tin -->
+          <div class="p-3 flex-grow-1">
+            <h5 class="fw-bold text-primary mb-2">{{ pkg.room_name }}</h5>
+            <p class="mb-1"><strong>Gói:</strong> {{ pkg.range }}</p>
+            <p class="text-muted small">{{ pkg.description }}</p>
+
+            <div class="d-flex flex-wrap gap-1">
+              <span *ngFor="let tag of pkg.tags" class="badge bg-secondary">{{ tag }}</span>
+            </div>
+          </div>
+
+          <!-- Giá -->
+          <div class="text-end d-flex flex-column justify-content-between align-items-end" style="min-width: 180px;">
+            <div>
+              <div class="text-danger fw-bold fs-5">{{ pkg.price | number }} VND</div>
+              <small class="text-muted">Đã bao gồm thuế</small>
+            </div>
+            <button class="btn btn-warning mt-2" (click)="goToRoomDetail(pkg); $event.stopPropagation()">Chọn phòng</button>
+          </div>
+        </div>
+
+        <div *ngIf="allPackages.length === 0" class="text-muted text-center">
+          Không tìm thấy gói phù hợp.
+        </div>
+      </div>
+
+      <!-- XEM NGANG (GRID 3 CỘT) -->
+      <div *ngIf="viewMode === 'horizontal'" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+        <div *ngFor="let pkg of allPackages" class="col">
+          <div class="card h-100 shadow-sm room-card" (click)="goToRoomDetail(pkg)">
+            <img [src]="pkg.image" class="card-img-top"
+              [alt]="'Hình ảnh phòng ' + pkg.room_name + ' - ' + pkg.range + ' - Panacea'"
+              [title]="'Hình ảnh phòng ' + pkg.room_name + ' - ' + pkg.range + '. Giá: ' + (pkg.price | number) + ' VND - Panacea'"
+              style="height: 150px; object-fit: cover;">
+            <div class="card-body d-flex flex-column justify-content-between">
+              <h5 class="card-title text-primary">{{ pkg.room_name }}</h5>
+              <p class="card-text"><strong>Gói:</strong> {{ pkg.range }}</p>
+              <p class="card-text text-muted small">{{ pkg.description }}</p>
+
+              <div class="mb-2">
+                <span *ngFor="let tag of pkg.tags" class="badge bg-secondary me-1">
+                  {{ tag }}
+                </span>
+              </div>
+
+              <div class="mt-auto">
+                <div class="fw-bold text-danger mb-1">{{ pkg.price | number }} VND</div>
+                <small class="text-muted">Đã bao gồm thuế</small>
+                <button class="btn btn-warning w-100 mt-2" (click)="goToRoomDetail(pkg); $event.stopPropagation()">Chọn phòng</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="allPackages.length === 0" class="text-muted text-center">
+          Không tìm thấy gói phù hợp.
+        </div>
+      </div>
+
+    </div>
+
+  </div>

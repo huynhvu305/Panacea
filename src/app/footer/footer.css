@@ -1,0 +1,129 @@
+:root{
+  --brand-900:#132FBA;     /* xanh chính */
+  --brand-500:#799CF0;     /* xanh phụ */
+  --cream-50:#FFFEFA;      /* nền kem */
+  --cream-100:#FFF6D2;     /* kem đậm */
+  --accent:#F7941D;        /* điểm nhấn */
+}
+
+.footer{
+  background: linear-gradient(180deg, rgba(19,47,186,.98), rgba(19,47,186,.98));
+  color:#e7edff;
+  padding:42px 0 26px;
+  position:relative;
+}
+.footer a{ color:#f4f7ff; text-decoration:none; }
+.footer a:hover{ color:var(--accent); text-decoration:underline; }
+h5{ color:#fff; margin-bottom:10px; }
+hr{ border-color:rgba(255,255,255,.14); border-width:2px; margin:20px 0; }
+
+.footer-row{ display:flex; flex-wrap:wrap; justify-content:center; }
+.footer-col{ flex:1; min-width:260px; padding:18px; }
+
+.brand-logo{ max-width:240px; width:80%; height:auto; margin-bottom: 20px; }
+.tagline{ color:#fff; opacity:.9; font-style:italic; letter-spacing:.2px; }
+
+/* Cert logos - Bộ Công Thương */
+.cert-logos{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+  align-items: flex-start;
+  min-height: 50px;
+}
+.cert-logo{
+  display: inline-block;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.cert-logo:hover{
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+.cert-img{
+  max-width: 140px;
+  height: auto;
+  display: block;
+  /* Tạm thời bỏ filter để test - nếu logo đã là màu trắng thì không cần filter */
+  /* filter: brightness(0) invert(1); */
+  opacity: 1;
+}
+.cert-logo:hover .cert-img{
+  opacity: 0.9;
+  transform: scale(1.02);
+  /* filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(255,255,255,0.3)); */
+}
+
+/* Responsive cho cert logos */
+@media (max-width: 912px){
+  .cert-logos{
+    align-items: center;
+    margin-top: 20px;
+  }
+  .cert-img{
+    max-width: 120px;
+  }
+}
+
+.social li a{
+  display:flex; align-items:center; gap:10px;
+  padding:6px 0; font-weight:600; transition:transform .15s ease, color .15s ease;
+}
+.social i{ font-size:18px; width:22px; text-align:center; color:var(--accent); }
+.social li a:hover{ transform:translateX(2px); }
+
+/* GRID logo thanh toán — đồng nhất kích thước */
+.pay-grid{
+  --cell-w: 76px;   /* khung logo */
+  --cell-h: 44px;
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--cell-w), 1fr));
+  gap:14px;
+  align-items:center;
+  max-width:720px;
+}
+.pay{
+  width:var(--cell-w); height:var(--cell-h);
+  margin:0 auto;
+  background:#fff; border-radius:10px;
+  box-shadow:0 8px 20px rgba(0,0,0,.18);
+  display:flex; align-items:center; justify-content:center;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.pay:hover{ transform: translateY(-2px); box-shadow:0 12px 26px rgba(0,0,0,.22); }
+.pay img{
+  max-width:80%; max-height:70%;
+  width:auto; height:auto; object-fit:contain;
+}
+
+/* Contact + Map */
+.contact li{ margin-bottom:6px; }
+.contact i{ color:var(--accent); margin-right:6px; }
+.map{
+  margin-top:10px; width:100%; height:190px; border-radius:12px;
+  overflow:hidden; box-shadow:0 12px 30px rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.12);
+}
+.map iframe{ width:100%; height:100%; border:0; }
+
+/* Bottom */
+.bottom .company{ color:#dbe6ff; margin-bottom:3px; }
+.copyright{ color:#fff; font-weight:600; }
+
+/* Back-to-top */
+.back-to-top{
+  position:fixed; right:18px; bottom:18px; z-index:2000;
+  width:44px; height:44px; border-radius:50%;
+  background:var(--accent); color:#1f1300; border:0; cursor:pointer;
+  display:inline-flex; align-items:center; justify-content:center;
+  box-shadow:0 12px 30px rgba(0,0,0,.4);
+  transition: transform .15s ease, filter .15s ease;
+}
+.back-to-top:hover{ transform:translateY(-2px); filter:brightness(1.05); }
+
+/* Responsive */
+@media (max-width: 912px){
+  .footer-col{ padding:12px; text-align:center; }
+  .brand-logo{ max-width:200px; }
+  .map{ height:220px; }
+}

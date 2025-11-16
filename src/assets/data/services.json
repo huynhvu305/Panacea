@@ -1,0 +1,185 @@
+{
+  "expertServices": [
+    {
+      "name": "Tư Vấn Tâm Lý 1:1",
+      "price": 500000,
+      "description": "Chuyên gia tâm lý sẽ thực hiện một phiên lắng nghe & tư vấn chuyên sâu trong không gian riêng tư bạn đã đặt",
+      "selected": false
+    },
+    {
+      "name": "Hướng Dẫn Thiền Định",
+      "price": 400000,
+      "description": "Chuyên gia hướng dẫn các kỹ thuật thở, thiền chánh niệm (mindfulness) để giảm căng thẳng. (Bao gồm: 2 gối thiền, 1 chuông xoay).",
+      "selected": false
+    },
+    {
+      "name": "Hướng Dẫn Yoga",
+      "price": 450000,
+      "description": "Phiên tập Yoga riêng tư, được thiết kế riêng theo thể trạng của bạn (cơ bản, trị liệu, hay nâng cao). (Bao gồm: 2 thảm tập cao cấp, 2 block tập).",
+      "selected": false
+    },
+    {
+      "name": "Workshop: Làm Bánh Kem Mini",
+      "price": 350000,
+      "description": "(Bao gồm 1 Hướng dẫn viên). Cung cấp: 2 cốt bánh cupcake/mini, các túi kem bơ (3 màu), kẹo trang trí, hộp đựng mang về.",
+      "selected": false
+    },
+        {
+      "name": "Workshop: Làm Trang Sức",
+      "price": 320000,
+      "description": "(Bao gồm 1 Hướng dẫn viên). Cung cấp: 1 bộ kìm, dây cước, hạt cườm, đá, charm, khoen móc để hoàn thành 2 sản phẩm (vòng tay/vòng cổ).",
+      "selected": false
+    },
+    {
+      "name": "Workshop: Decor Ốp Lưng/Chain",
+      "price": 300000,
+      "description": "(Bao gồm 1 Hướng dẫn viên). Cung cấp: 1 ốp lưng trong (theo dòng máy khách báo trước), keo, charm nổi, hạt nhựa, dây xỏ...",
+      "selected": false
+    },
+        {
+      "name": "Workshop: Đan Móc Len Cơ Bản",
+      "price": 280000,
+      "description": "(Bao gồm 1 Hướng dẫn viên). Cung cấp: 2 cuộn len (màu tự chọn), 1 bộ kim đan hoặc kim móc, kim khâu len. (Học đan/móc khăn hoặc túi đơn giản).",
+      "selected": false
+    },
+        {
+      "name": "Workshop: Tô Tượng Sáng Tạo",
+      "price": 250000,
+      "description": "(Bao gồm 1 Hướng dẫn viên). Cung cấp: 2 tượng thạch cao (size vừa), 1 bộ 12 màu acrylic, 2 cọ vẽ, 1 khay pha màu, 1 chai dầu bóng.",
+      "selected": false
+    },
+        {
+      "name": "Workshop: Làm Nến Thơm",
+      "price": 380000,
+      "description": "(Bao gồm 1 Hướng dẫn viên). Cung cấp: Sáp ong, bấc nến, 2 lọ thủy tinh, tinh dầu (3 mùi hương), hoa khô trang trí.",
+      "selected": false
+    },
+        {
+      "name": "Workshop: Tranh Đính Đá Mini",
+      "price": 260000,
+      "description": "(Bao gồm 1 Hướng dẫn viên). Cung cấp: 1 bức tranh (size 20x20), 1 bộ đá và dụng cụ đính đá.",
+      "selected": false
+    },
+        {
+      "name": "Workshop: Terrarium (Tiểu Cảnh)",
+      "price": 400000,
+      "description": "(Bao gồm 1 Hướng dẫn viên). Cung cấp: 1 bể kính mini, sỏi, than hoạt tính, đất, 3 cây sen đá (hoặc tương đương), phụ kiện trang trí.",
+      "selected": false
+    }
+  ],
+
+  "extraServices": [
+    {
+      "name": "Thuê Kính VR (Oculus Quest 2)",
+      "price": 100000,
+      "description": "Trải nghiệm các game VR giải trí, du lịch ảo, hoặc các app thiền định trong không gian ảo.",
+      "selected": false,
+      "quantity": 1
+    },
+     {
+      "name": "Thuê Máy chiếu Mini (Projector)",
+      "price": 80000,
+      "description": "Biến phòng của bạn thành một rạp phim mini. Bao gồm máy chiếu Full HD và màn chiếu di động.",
+      "selected": false,
+      "quantity": 1
+    },
+    {
+      "name": "Thuê Loa Bluetooth Karaoke",
+      "price": 70000,
+      "description": "Giải trí hát hò. Bao gồm 1 loa di động công suất vừa và 2 micro không dây.",
+      "selected": false,
+      "quantity": 1
+    },
+    {
+      "name": "Thuê Tay cầm chơi game (Controller)",
+      "price": 30000,
+      "description": "Thêm 1 tay cầm (ví dụ: Xbox/PS5) để chơi game 2 người trên PC (nếu phòng có) hoặc kết nối với điện thoại.",
+      "selected": false,
+      "quantity": 1
+    },
+    {
+      "name": "Thuê Máy ảnh Polaroid",
+      "price": 120000,
+      "description": "Ghi lại khoảnh khắc. Giá thuê máy chưa bao gồm film.",
+      "selected": false,
+      "quantity": 1
+    },
+    {
+      "name": "Hộp Film Polaroid (10 tấm)",
+      "price": 80000,
+      "description": "1 hộp 10 tấm film Instax Mini. Đây là vật phẩm tiêu hao, khách hàng được giữ lại ảnh..",
+      "selected": false,
+      "quantity": 1
+    },
+    {
+      "name": "Bộ Sáng Tạo Nội Dung",
+      "price": 60000,
+      "description": "Bao gồm 1 Tripod (giá đỡ 3 chân) cao 1.5m cho điện thoại và 1 Đèn Ring Light để quay video, chụp ảnh 'sống ảo'.",
+      "selected": false,
+      "quantity": 1
+    },
+    {
+      "name": "Bảng vẽ Wacom (di động)",
+      "price": 90000,
+      "description": "Dành cho khách ở các phòng (như Oasis) nhưng vẫn muốn vẽ kỹ thuật số. Kết nối với laptop cá nhân.",
+      "selected": false,
+      "quantity": 1
+    },
+    {
+      "name": "Thuê Máy Massage Cổ-Vai-Gáy",
+      "price": 70000,
+      "description": "Máy massage điện Shiatsu (loại cắm điện hoặc pin sạc) để khách tự thư giãn sâu.",
+      "selected": false,
+      "quantity": 1
+    },
+    {
+      "name": "Thuê Bộ Chuông Xoay Thiền",
+      "price": 50000,
+      "description": "Dành cho khách muốn tự thực hành thiền định. Bao gồm 1 chuông xoay Nepal và 1 chày gõ.",
+      "selected": false,
+      "quantity": 1
+    },
+    {
+      "name": "Thuê Chăn Nặng (Weighted Blanket)",
+      "price": 40000,
+      "description": "Chăn nặng 7kg giúp giảm lo âu, tạo cảm giác an toàn và thư giãn sâu.",
+      "selected": false,
+      "quantity": 1
+    },
+    {
+      "name": "Gói Board Game (Chọn 3 tựa)",
+      "price": 70000,
+      "description": "Khách hàng được chọn 3 game bất kỳ từ thư viện board game của Panacea (Mèo Nổ, Ma Sói, Catan, Uno...).",
+      "selected": false,
+      "quantity": 1
+    },
+    {
+      "name": "Thuê Đàn Guitar Acoustic",
+      "price": 500000,
+      "description": "Bao gồm 1 đàn guitar, 1 capo và 2 phím gảy.",
+      "selected": false,
+      "quantity": 1
+    },
+    {
+      "name": "Thuê Đàn Kalimba (Đàn Ngón)",
+      "price": 300000,
+      "description": "Đàn ngón 17 phím, dễ chơi và âm thanh thư giãn.",
+      "selected": false,
+      "quantity": 1
+    },
+    {
+      "name": "Rổ Đồ Đập Thêm (Tiêu chuẩn)",
+      "price": 800000,
+      "description": "Thêm 1 rổ đồ (chai lọ, gốm sứ...) để đập. (Chỉ áp dụng khi thuê phòng Mutiny).",
+      "selected": false,
+      "quantity": 1
+    },
+    {
+      "name": "Rổ Đồ Đập 'Văn Phòng'",
+      "price": 120000,
+      "description": "Thêm 1 rổ đồ bao gồm 1 bàn phím cũ, 1 chuột cũ và 1 màn hình CRT/LCD hỏng. (Chỉ áp dụng khi thuê phòng Mutiny).",
+      "selected": false,
+      "quantity": 1
+    }
+  ]
+}

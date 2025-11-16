@@ -1,0 +1,164 @@
+<div class="admin-wrapper container-fluid p-4">
+    <div class="row">
+        <!-- SIDEBAR -->
+        <div class="col-lg-2 col-md-3 mb-4">
+            <div class="admin-sidebar">
+                <h3 class="sidebar-title">Admin Panel</h3>
+                <nav class="admin-nav">
+                    <a routerLink="/admin-dashboard" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-speedometer2"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a routerLink="/admin-users" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-people"></i>
+                        <span>Quản lý Users</span>
+                    </a>
+                    <a routerLink="/admin-bookings" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-calendar-check"></i>
+                        <span>Quản lý Bookings</span>
+                    </a>
+                    <a routerLink="/admin-rooms" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-door-open"></i>
+                        <span>Quản lý Rooms</span>
+                    </a>
+                    <a routerLink="/admin-services" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-gear"></i>
+                        <span>Quản lý Services</span>
+                    </a>
+                    <a routerLink="/admin-exchange" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-gift"></i>
+                        <span>Quản lý Exchange</span>
+                    </a>
+                    <a routerLink="/admin-reviews" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-star"></i>
+                        <span>Quản lý Reviews</span>
+                    </a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button (click)="logout()" class="logout-btn">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Đăng xuất</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="col-lg-10 col-md-9">
+            <div class="admin-content">
+                <div class="page-header">
+                    <h1 class="page-title">Quản lý Reviews</h1>
+                    <div class="search-bar">
+                        <input type="text" 
+                               class="search-input" 
+                               placeholder="Tìm kiếm review..." 
+                               [(ngModel)]="searchTerm"
+                               (input)="onSearch()">
+                        <i class="bi bi-search search-icon"></i>
+                    </div>
+                </div>
+
+                <!-- RATING FILTER -->
+                <div class="rating-filter mb-3">
+                    <button class="filter-btn" [class.active]="ratingFilter === null" (click)="filterByRating(null)">Tất cả</button>
+                    <button class="filter-btn" [class.active]="ratingFilter === 5" (click)="filterByRating(5)">5 sao</button>
+                    <button class="filter-btn" [class.active]="ratingFilter === 4" (click)="filterByRating(4)">4 sao</button>
+                    <button class="filter-btn" [class.active]="ratingFilter === 3" (click)="filterByRating(3)">3 sao</button>
+                    <button class="filter-btn" [class.active]="ratingFilter === 2" (click)="filterByRating(2)">2 sao</button>
+                    <button class="filter-btn" [class.active]="ratingFilter === 1" (click)="filterByRating(1)">1 sao</button>
+                </div>
+
+                <!-- REVIEWS TABLE -->
+                <div class="table-container">
+                    <table class="reviews-table">
+                        <thead>
+                            <tr>
+                                <th>Review ID</th>
+                                <th>Người đánh giá</th>
+                                <th>Booking ID</th>
+                                <th>Đánh giá</th>
+                                <th>Nội dung</th>
+                                <th>Ngày tạo</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let review of filteredReviews">
+                                <td><strong>{{ review.id }}</strong></td>
+                                <td>{{ review.userName }}</td>
+                                <td>{{ review.bookingId }}</td>
+                                <td>
+                                    <div class="stars">
+                                        <i class="bi bi-star-fill" *ngFor="let star of getStars(review.rating)"></i>
+                                        <span class="rating-text">{{ review.rating }}/5</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="content-preview">{{ review.content.substring(0, 50) }}{{ review.content.length > 50 ? '...' : '' }}</div>
+                                </td>
+                                <td>{{ review.createdAt | date:'dd/MM/yyyy' }}</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-view" (click)="viewReview(review)" title="Xem chi tiết">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                        <button class="btn-delete" (click)="deleteReview(review)" title="Xóa">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="filteredReviews.length === 0">
+                                <td colspan="7" class="text-center">Không tìm thấy review nào</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- VIEW MODAL -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h4>Chi tiết Review</h4>
+            <button class="btn-close" (click)="closeModal()">&times;</button>
+        </div>
+        <div class="modal-body" *ngIf="selectedReview">
+            <div class="info-row">
+                <span>Review ID:</span>
+                <p><strong>{{ selectedReview.id }}</strong></p>
+            </div>
+            <div class="info-row">
+                <span>Người đánh giá:</span>
+                <p>{{ selectedReview.userName }}</p>
+            </div>
+            <div class="info-row">
+                <span>Booking ID:</span>
+                <p>{{ selectedReview.bookingId }}</p>
+            </div>
+            <div class="info-row">
+                <span>Room ID:</span>
+                <p>{{ selectedReview.roomId }}</p>
+            </div>
+            <div class="info-row">
+                <span>Đánh giá:</span>
+                <div class="stars">
+                    <i class="bi bi-star-fill" *ngFor="let star of getStars(selectedReview.rating)"></i>
+                    <span class="rating-text">{{ selectedReview.rating }}/5</span>
+                </div>
+            </div>
+            <div class="info-row">
+                <span>Nội dung:</span>
+                <p class="review-content">{{ selectedReview.content }}</p>
+            </div>
+            <div class="info-row">
+                <span>Ngày tạo:</span>
+                <p>{{ selectedReview.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,562 @@
+/* ===== HERO SECTION / BANNER ===== */
+.support-hero {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #132fba 0%, #4b6fff 100%);
+  color: #fff;
+}
+
+.support-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+.support-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.4) saturate(1.2);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.support-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(19, 47, 186, 0.8) 0%, rgba(19, 47, 186, 0.3) 50%, transparent 100%);
+  z-index: 1;
+}
+
+.support-hero .banner-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.support-hero .hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.support-hero .hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  animation: fadeInUp 0.8s ease-out;
+  color: #fff;
+}
+
+.support-hero .hero-title .accent {
+  background: linear-gradient(135deg, #ffa500, #ffd700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+}
+
+.support-hero .hero-subtitle {
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin-bottom: 2.5rem;
+  opacity: 0.95;
+  line-height: 1.6;
+  animation: fadeInUp 1s ease-out;
+  color: #fff;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .support-hero {
+    height: 300px;
+  }
+
+  .support-hero .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .support-hero .hero-subtitle {
+    font-size: 1.1rem;
+  }
+}
+.support-hero .hero-search {
+  max-width: 720px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  backdrop-filter: blur(2px);
+  animation: fadeInUp 1.2s ease-out;
+  margin-top: 1rem;
+}
+.support-hero .hero-search:focus-within {
+  outline: 2px solid #ffffff55;
+}
+.support-hero .hero-search .form-control::placeholder {
+  color: #ffffffcc;
+}
+.support-hero .hero-search .form-control {
+  color: #fff;
+}
+
+.search-btn {
+  border: 1px solid #dee2e6;
+  border-radius: 50px;
+  background: linear-gradient(to right, #ffffff, #f8f9fa);
+  color: #0d6efd;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.search-btn:hover {
+  background: linear-gradient(to right, #e9f0ff, #dbe5ff);
+  color: #0a58ca;
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.25);
+  transform: translateY(-1px);
+}
+
+/* List topic item */
+.topic-item {
+  transition: background-color .15s ease;
+}
+.topic-item:hover {
+  background-color: #f8fbff;
+}
+
+/* Category grid */
+.category-tile {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.06);
+  transition: transform .15s ease, box-shadow .2s ease, border-color .15s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px; /* ✅ Đảm bảo chiều cao tối thiểu */
+  height: 100%; /* ✅ Chiều cao bằng nhau */
+}
+
+/* ✅ FIXED: Đảm bảo các col có display flex để category-tile có height 100% */
+.row.g-3 > [class*="col-"] {
+  display: flex;
+}
+
+.category-tile:hover, .category-tile.active {
+  transform: translateY(-2px);
+  border-color: #b9d2ff;
+  box-shadow: 0 8px 18px rgba(13, 110, 253, .12);
+}
+.circle-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5ff;
+  color: #2d71ff;
+  font-size: 1.25rem;
+}
+
+/* Accordion visual */
+.accordion-button { cursor: pointer; }
+.accordion-collapse.collapse { display: none; }
+.accordion-collapse.show    { display: block; }
+
+/* Table polish */
+.table thead th {
+  background: #f8f9fa;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* Form inputs focus */
+.form-control, .form-select {
+  transition: box-shadow .15s ease, border-color .15s ease;
+}
+.form-control:focus, .form-select:focus {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 .2rem rgba(13, 110, 253, .15);
+}
+
+/* Validation helpers (in case Bootstrap CSS not loaded) */
+.is-invalid { border-color: #dc3545 !important; }
+.invalid-feedback { display: block; color: #dc3545; }
+
+/* Generic card polish */
+.card { border-radius: 1rem; }
+
+/* ✅ FIXED: Support Form Styling */
+.card-body h3 {
+  color: #132fba;
+  margin-bottom: 28px;
+  font-size: 1.5rem;
+}
+
+.card-body form .row.g-3 {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -12px;
+  margin-right: -12px;
+}
+
+.card-body form .row.g-3 > [class*="col-"] {
+  padding-left: 12px;
+  padding-right: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body form .form-label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.card-body form .form-control,
+.card-body form .form-select {
+  padding: 12px 16px;
+  border: 1.5px solid rgba(19, 47, 186, 0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  width: 100%;
+  height: 44px; /* ✅ Đảm bảo chiều cao bằng nhau */
+}
+
+.card-body form .form-control:focus,
+.card-body form .form-select:focus {
+  border-color: #132fba;
+  box-shadow: 0 0 0 3px rgba(19, 47, 186, 0.1);
+  outline: none;
+}
+
+.card-body form textarea.form-control {
+  min-height: 140px;
+  height: auto; /* ✅ Textarea không cần height cố định */
+  resize: vertical;
+  padding: 12px 16px;
+}
+
+.card-body form .invalid-feedback {
+  font-size: 13px;
+  margin-top: 6px;
+  display: block;
+}
+
+.card-body form .col-12 {
+  margin-bottom: 20px;
+}
+
+.card-body form .d-flex.gap-2 {
+  margin-top: 8px;
+  justify-content: flex-end; /* ✅ Đặt buttons ở góc bên phải */
+  width: 100%;
+}
+
+.card-body form .btn {
+  padding: 8px 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  font-size: 14px;
+  min-height: auto;
+  height: auto;
+  width: calc(25% - 8px); /* ✅ Bằng 1/4 chiều rộng form, trừ gap */
+  max-width: 150px; /* ✅ Giới hạn tối đa */
+  flex-shrink: 0;
+}
+
+/* ✅ Đảm bảo 2 cột thẳng hàng */
+@media (min-width: 768px) {
+  .card-body form .row.g-3 > .col-md-6 {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card-body form .row.g-3 > .col-md-6 > .form-label {
+    min-height: 22px; /* ✅ Labels có chiều cao bằng nhau */
+  }
+}
+
+@media (max-width: 767px) {
+  .card-body form .row.g-3 > [class*="col-"] {
+    margin-bottom: 20px;
+  }
+  
+  .card-body form .d-flex.gap-2 {
+    flex-direction: row; /* ✅ Giữ ngang trên mobile */
+    justify-content: flex-end; /* ✅ Vẫn ở bên phải */
+    width: 100%;
+  }
+  
+  .card-body form .d-flex.gap-2 .btn {
+    width: calc(50% - 8px); /* ✅ Mỗi button 50% trên mobile */
+    max-width: none;
+  }
+}
+
+/* ✅ FIXED: FAQ Navigation buttons */
+.faq-navigation {
+  flex-shrink: 0;
+}
+
+.faq-navigation .btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: all 0.2s ease;
+}
+
+.faq-navigation .btn:not(:disabled):hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
+}
+
+.faq-navigation .btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.faq-navigation .btn i {
+  font-size: 1.2rem;
+}
+
+/* ✅ FIXED: Responsive cho FAQ navigation */
+@media (max-width: 768px) {
+  .faq-navigation .btn {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .faq-navigation .btn i {
+    font-size: 1rem;
+  }
+}
+
+/* QR Image */
+.qr-image {
+  width: 240px;
+  height: 240px;
+  object-fit: contain;
+  border-radius: 12px;
+  display: block;
+  background: #f9fbff;
+  padding: 12px;
+}
+
+.qr-lg {
+  background: #f9fbff;
+  border: 1px solid #e2e6f0;
+}
+
+/* Responsive QR Code */
+@media (max-width: 768px) {
+  .qr-image {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .qr-image {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+/* ===== CONTACT SECTION STYLING ===== */
+.contact-title {
+  color: #132fba;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.contact-hours {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6c757d;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.contact-hours i {
+  color: #132fba;
+  font-size: 1.1rem;
+}
+
+.contact-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 1.5rem;
+}
+
+.contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #f8f9ff;
+  border: 1.5px solid rgba(19, 47, 186, 0.1);
+  border-radius: 8px;
+  color: #132fba;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+  background: #e8edff;
+  border-color: rgba(19, 47, 186, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(19, 47, 186, 0.15);
+  color: #0d1f7a;
+  text-decoration: none;
+}
+
+.contact-item i {
+  font-size: 1.1rem;
+  color: #132fba;
+}
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 1rem;
+}
+
+.btn-contact {
+  padding: 10px 24px;
+  font-weight: 600;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 140px;
+}
+
+.btn-contact:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(19, 47, 186, 0.25);
+}
+
+.btn-contact.btn-primary {
+  background: linear-gradient(135deg, #132fba 0%, #4b6fff 100%);
+  border: none;
+}
+
+.btn-contact.btn-primary:hover {
+  background: linear-gradient(135deg, #0d1f7a 0%, #3a5fef 100%);
+}
+
+.btn-contact.btn-outline-primary {
+  border: 2px solid #132fba;
+  color: #132fba;
+}
+
+.btn-contact.btn-outline-primary:hover {
+  background: #132fba;
+  color: #fff;
+  border-color: #132fba;
+}
+
+.contact-logged-in {
+  margin-top: 1rem;
+}
+
+.contact-logged-in .alert {
+  border-radius: 8px;
+  border: 1.5px solid rgba(19, 47, 186, 0.2);
+  background: linear-gradient(135deg, rgba(19, 47, 186, 0.05) 0%, rgba(75, 111, 255, 0.05) 100%);
+  color: #132fba;
+  padding: 14px 18px;
+}
+
+.contact-logged-in .alert i {
+  font-size: 1.2rem;
+  color: #132fba;
+}
+
+/* Responsive cho contact section */
+@media (max-width: 768px) {
+  .contact-title {
+    font-size: 1.3rem;
+  }
+
+  .contact-info {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .contact-item {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .contact-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-contact {
+    width: 100%;
+    min-width: auto;
+  }
+}

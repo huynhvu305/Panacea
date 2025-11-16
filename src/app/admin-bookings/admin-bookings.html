@@ -1,0 +1,195 @@
+<div class="admin-wrapper container-fluid p-4">
+    <div class="row">
+        <!-- SIDEBAR -->
+        <div class="col-lg-2 col-md-3 mb-4">
+            <div class="admin-sidebar">
+                <h3 class="sidebar-title">Admin Panel</h3>
+                <nav class="admin-nav">
+                    <a routerLink="/admin-dashboard" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-speedometer2"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a routerLink="/admin-users" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-people"></i>
+                        <span>Quản lý Users</span>
+                    </a>
+                    <a routerLink="/admin-bookings" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-calendar-check"></i>
+                        <span>Quản lý Bookings</span>
+                    </a>
+                    <a routerLink="/admin-rooms" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-door-open"></i>
+                        <span>Quản lý Rooms</span>
+                    </a>
+                    <a routerLink="/admin-services" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-gear"></i>
+                        <span>Quản lý Services</span>
+                    </a>
+                    <a routerLink="/admin-exchange" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-gift"></i>
+                        <span>Quản lý Exchange</span>
+                    </a>
+                    <a routerLink="/admin-reviews" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-star"></i>
+                        <span>Quản lý Reviews</span>
+                    </a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button (click)="logout()" class="logout-btn">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Đăng xuất</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="col-lg-10 col-md-9">
+            <div class="admin-content">
+                <div class="page-header">
+                    <h1 class="page-title">Quản lý Bookings</h1>
+                    <div class="search-bar">
+                        <input type="text" 
+                               class="search-input" 
+                               placeholder="Tìm kiếm booking..." 
+                               [(ngModel)]="searchTerm"
+                               (input)="onSearch()">
+                        <i class="bi bi-search search-icon"></i>
+                    </div>
+                </div>
+
+                <!-- TABS -->
+                <div class="order-tabs mb-3">
+                    <button class="tab-btn" [class.active]="activeTab === 'all'" (click)="setTab('all')">Tất cả</button>
+                    <button class="tab-btn" [class.active]="activeTab === 'pending'" (click)="setTab('pending')">Chờ xác nhận</button>
+                    <button class="tab-btn" [class.active]="activeTab === 'confirmed'" (click)="setTab('confirmed')">Đã xác nhận</button>
+                    <button class="tab-btn" [class.active]="activeTab === 'completed'" (click)="setTab('completed')">Hoàn thành</button>
+                    <button class="tab-btn" [class.active]="activeTab === 'cancelled'" (click)="setTab('cancelled')">Đã hủy</button>
+                    <button class="tab-btn" [class.active]="activeTab === 'no-show'" (click)="setTab('no-show')">Không đến</button>
+                </div>
+
+                <!-- BOOKINGS TABLE -->
+                <div class="table-container">
+                    <table class="bookings-table">
+                        <thead>
+                            <tr>
+                                <th>Mã đơn</th>
+                                <th>Khách hàng</th>
+                                <th>Phòng</th>
+                                <th>Thời gian</th>
+                                <th>Tổng tiền</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let booking of filteredBookings">
+                                <td><strong>{{ booking.id }}</strong></td>
+                                <td>
+                                    <div>{{ booking.customerName }}</div>
+                                    <div class="text-muted">{{ booking.customerEmail }}</div>
+                                </td>
+                                <td>
+                                    <div>{{ getRoomName(booking) }}</div>
+                                    <div class="text-muted">{{ booking.range }}</div>
+                                </td>
+                                <td>
+                                    <div>{{ booking.startTime }}</div>
+                                    <div class="text-muted">→ {{ booking.endTime }}</div>
+                                </td>
+                                <td><strong>{{ formatCurrency(booking.totalPrice) }}</strong></td>
+                                <td>
+                                    <span class="status-badge" [ngClass]="getStatusClass(booking.status)">
+                                        {{ getStatusLabel(booking.status) }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-view" (click)="viewBooking(booking)" title="Xem chi tiết">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                        <select class="status-select" [value]="booking.status" (change)="updateBookingStatus(booking, $any($event.target).value)">
+                                            <option value="pending">Chờ xác nhận</option>
+                                            <option value="confirmed">Đã xác nhận</option>
+                                            <option value="completed">Hoàn thành</option>
+                                            <option value="cancelled">Đã hủy</option>
+                                            <option value="no-show">Không đến</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="filteredBookings.length === 0">
+                                <td colspan="7" class="text-center">Không tìm thấy booking nào</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- VIEW MODAL -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h4>Chi tiết Booking</h4>
+            <button class="btn-close" (click)="closeModal()">&times;</button>
+        </div>
+        <div class="modal-body" *ngIf="selectedBooking">
+            <div class="info-row">
+                <span>Mã đơn:</span>
+                <p><strong>{{ selectedBooking.id }}</strong></p>
+            </div>
+            <div class="info-row">
+                <span>Phòng:</span>
+                <p>{{ getRoomName(selectedBooking) }} - {{ selectedBooking.range }}</p>
+            </div>
+            <div class="info-row">
+                <span>Thời gian:</span>
+                <p>{{ selectedBooking.startTime }} → {{ selectedBooking.endTime }}</p>
+            </div>
+            <div class="info-row">
+                <span>Khách hàng:</span>
+                <p>{{ selectedBooking.customerName }}</p>
+            </div>
+            <div class="info-row">
+                <span>Email:</span>
+                <p>{{ selectedBooking.customerEmail }}</p>
+            </div>
+            <div class="info-row">
+                <span>Số điện thoại:</span>
+                <p>{{ selectedBooking.customerPhone }}</p>
+            </div>
+            <div class="info-row">
+                <span>Giá phòng:</span>
+                <p><strong>{{ formatCurrency(selectedBooking.basePrice || 0) }}</strong></p>
+            </div>
+            <div class="info-row" *ngIf="selectedBooking.services && selectedBooking.services.length > 0">
+                <span>Dịch vụ:</span>
+                <div>
+                    <p *ngFor="let service of selectedBooking.services">
+                        {{ service.name }} ({{ service.quantity }}x) - {{ formatCurrency(service.price * (service.quantity || 1)) }}
+                    </p>
+                </div>
+            </div>
+            <div class="info-row" *ngIf="selectedBooking.discountValue">
+                <span>Giảm giá:</span>
+                <p><strong>-{{ formatCurrency(selectedBooking.discountValue) }}</strong></p>
+            </div>
+            <div class="info-row highlight">
+                <span>Tổng tiền:</span>
+                <p><strong>{{ formatCurrency(selectedBooking.totalPrice) }}</strong></p>
+            </div>
+            <div class="info-row">
+                <span>Trạng thái:</span>
+                <p>
+                    <span class="status-badge" [ngClass]="getStatusClass(selectedBooking.status)">
+                        {{ getStatusLabel(selectedBooking.status) }}
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+

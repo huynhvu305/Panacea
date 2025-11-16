@@ -1,0 +1,201 @@
+<div class="admin-wrapper container-fluid p-4">
+    <div class="row">
+        <!-- SIDEBAR -->
+        <div class="col-lg-2 col-md-3 mb-4">
+            <div class="admin-sidebar">
+                <h3 class="sidebar-title">Admin Panel</h3>
+                <nav class="admin-nav">
+                    <a routerLink="/admin-dashboard" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-speedometer2"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a routerLink="/admin-users" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-people"></i>
+                        <span>Quản lý Users</span>
+                    </a>
+                    <a routerLink="/admin-bookings" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-calendar-check"></i>
+                        <span>Quản lý Bookings</span>
+                    </a>
+                    <a routerLink="/admin-rooms" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-door-open"></i>
+                        <span>Quản lý Rooms</span>
+                    </a>
+                    <a routerLink="/admin-services" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-gear"></i>
+                        <span>Quản lý Services</span>
+                    </a>
+                    <a routerLink="/admin-exchange" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-gift"></i>
+                        <span>Quản lý Exchange</span>
+                    </a>
+                    <a routerLink="/admin-reviews" routerLinkActive="active" class="nav-item">
+                        <i class="bi bi-star"></i>
+                        <span>Quản lý Reviews</span>
+                    </a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button (click)="logout()" class="logout-btn">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Đăng xuất</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="col-lg-10 col-md-9">
+            <div class="admin-content">
+                <div class="page-header">
+                    <h1 class="page-title">Quản lý Rooms</h1>
+                    <div class="search-bar">
+                        <input type="text" 
+                               class="search-input" 
+                               placeholder="Tìm kiếm phòng..." 
+                               [(ngModel)]="searchTerm"
+                               (input)="onSearch()">
+                        <i class="bi bi-search search-icon"></i>
+                    </div>
+                </div>
+
+                <!-- ROOMS TABLE -->
+                <div class="table-container">
+                    <table class="rooms-table">
+                        <thead>
+                            <tr>
+                                <th>Room ID</th>
+                                <th>Tên phòng</th>
+                                <th>Sức chứa</th>
+                                <th>Giá</th>
+                                <th>Tags</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let room of filteredRooms">
+                                <td><strong>{{ room.room_id }}</strong></td>
+                                <td>{{ room.room_name }}</td>
+                                <td>{{ room.range }}</td>
+                                <td><strong>{{ formatCurrency(room.price) }}</strong></td>
+                                <td>
+                                    <div class="tags-container">
+                                        <span class="tag" *ngFor="let tag of room.tags.slice(0, 2)">{{ tag }}</span>
+                                        <span class="tag-more" *ngIf="room.tags.length > 2">+{{ room.tags.length - 2 }}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="status-badge" [ngClass]="getAvailableClass(room.available)">
+                                        {{ getAvailableLabel(room.available) }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-view" (click)="viewRoom(room)" title="Xem chi tiết">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                        <button class="btn-edit" (click)="editRoomDetails(room)" title="Chỉnh sửa">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                        <button class="btn-delete" (click)="deleteRoom(room)" title="Xóa">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="filteredRooms.length === 0">
+                                <td colspan="7" class="text-center">Không tìm thấy phòng nào</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- VIEW MODAL -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h4>Chi tiết Phòng</h4>
+            <button class="btn-close" (click)="closeModal()">&times;</button>
+        </div>
+        <div class="modal-body" *ngIf="selectedRoom">
+            <div class="info-row">
+                <span>Room ID:</span>
+                <p><strong>{{ selectedRoom.room_id }}</strong></p>
+            </div>
+            <div class="info-row">
+                <span>Tên phòng:</span>
+                <p>{{ selectedRoom.room_name }}</p>
+            </div>
+            <div class="info-row">
+                <span>Sức chứa:</span>
+                <p>{{ selectedRoom.range }}</p>
+            </div>
+            <div class="info-row">
+                <span>Giá:</span>
+                <p><strong>{{ formatCurrency(selectedRoom.price) }}</strong></p>
+            </div>
+            <div class="info-row">
+                <span>Tags:</span>
+                <p>
+                    <span class="tag" *ngFor="let tag of selectedRoom.tags">{{ tag }}</span>
+                </p>
+            </div>
+            <div class="info-row">
+                <span>Mô tả:</span>
+                <p>{{ selectedRoom.description }}</p>
+            </div>
+            <div class="info-row">
+                <span>Trạng thái:</span>
+                <p>
+                    <span class="status-badge" [ngClass]="getAvailableClass(selectedRoom.available)">
+                        {{ getAvailableLabel(selectedRoom.available) }}
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal-overlay" *ngIf="showEditModal" (click)="closeEditModal()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h4>Chỉnh sửa Phòng</h4>
+            <button class="btn-close" (click)="closeEditModal()">&times;</button>
+        </div>
+        <div class="modal-body" *ngIf="editRoom">
+            <div class="form-group">
+                <label>Tên phòng:</label>
+                <input type="text" [(ngModel)]="editRoom.room_name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Sức chứa:</label>
+                <input type="text" [(ngModel)]="editRoom.range" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Giá:</label>
+                <input type="number" [(ngModel)]="editRoom.price" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Mô tả:</label>
+                <textarea [(ngModel)]="editRoom.description" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Trạng thái:</label>
+                <select [(ngModel)]="editRoom.available" class="form-control">
+                    <option [ngValue]="true">Còn trống</option>
+                    <option [ngValue]="false">Hết phòng</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-cancel" (click)="closeEditModal()">Hủy</button>
+            <button class="btn btn-save" (click)="saveRoomChanges()">Lưu</button>
+        </div>
+    </div>
+</div>
+
