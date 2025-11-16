@@ -62,13 +62,20 @@ export class SEOService {
     this.updateOrCreateMetaTag('property', 'og:title', ogTitle);
     this.updateOrCreateMetaTag('property', 'og:description', ogDescription);
     this.updateOrCreateMetaTag('property', 'og:image', ogImage);
+    this.updateOrCreateMetaTag('property', 'og:image:secure_url', ogImage);
+    this.updateOrCreateMetaTag('property', 'og:image:type', 'image/webp');
+    this.updateOrCreateMetaTag('property', 'og:image:width', '1200');
+    this.updateOrCreateMetaTag('property', 'og:image:height', '630');
+    this.updateOrCreateMetaTag('property', 'og:image:alt', ogTitle);
     this.updateOrCreateMetaTag('property', 'og:url', ogUrl);
     this.updateOrCreateMetaTag('property', 'og:type', 'website');
+    this.updateOrCreateMetaTag('property', 'og:site_name', 'Panacea');
 
     this.updateOrCreateMetaTag('name', 'twitter:card', 'summary_large_image');
     this.updateOrCreateMetaTag('name', 'twitter:title', ogTitle);
     this.updateOrCreateMetaTag('name', 'twitter:description', ogDescription);
     this.updateOrCreateMetaTag('name', 'twitter:image', ogImage);
+    this.updateOrCreateMetaTag('name', 'twitter:image:alt', ogTitle);
 
     if (data.robots) {
       this.updateOrCreateMetaTag('name', 'robots', data.robots);
