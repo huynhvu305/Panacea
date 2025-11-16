@@ -19,16 +19,15 @@ import { SEOService } from '../services/seo.service';
 import { ReviewListItem } from '../interfaces/review';
 import { Booking as BookingInterface } from '../interfaces/booking';
 
-// Booking interface for UI display
 export interface BookingDisplay {
   id: string;
-  bookingId: string; // ID từ bookings.json
+  bookingId: string;
   hotelName: string;
   roomName: string;
-  dateFrom: string; // ISO date string
-  dateTo: string; // ISO date string
-  startTime: string; // Format: "12:00 10/11/2025"
-  endTime: string; // Format: "15:00 10/11/2025"
+  dateFrom: string;
+  dateTo: string;
+  startTime: string;
+  endTime: string;
   thumbnail: string;
   bookingRef: string;
   roomId: number;
@@ -47,25 +46,21 @@ export class ReviewRoom implements OnInit, OnDestroy {
   selectedFiles: File[] = [];
   imagePreviews: string[] = [];
   recentReviews: ReviewListItem[] = [];
-  displayedReviewsCount: number = 3; // Số lượng reviews hiển thị ban đầu
+  displayedReviewsCount: number = 3;
   isLoading = false;
   isSubmitting = false;
-  hoverRating: number = 0; // Để track hover state khi di chuột qua sao
-  
-  // Review modal properties
+  hoverRating: number = 0;
   showReviewModal = false;
   selectedReview: ReviewListItem | null = null;
   editReviewForm!: FormGroup;
   isEditing = false;
   isDeleting = false;
-  currentEditRating: number = 0; // Để track rating hiện tại trong form chỉnh sửa
-  originalRating: number = 0; // Lưu giá trị rating ban đầu khi bắt đầu chỉnh sửa
-
-  // Booking selector properties
+  currentEditRating: number = 0;
+  originalRating: number = 0;
   bookings: BookingDisplay[] = [];
-  allBookings: BookingInterface[] = []; // Tất cả bookings từ JSON
-  allReviews: any[] = []; // Tất cả reviews từ JSON
-  roomsMap: Map<number, any> = new Map(); // Map room_id -> room data
+  allBookings: BookingInterface[] = [];
+  allReviews: any[] = [];
+  roomsMap: Map<number, any> = new Map();
   selectedBooking: BookingDisplay | null = null;
   isLoadingBookings = false;
   currentUserId: string | null = null;
@@ -84,7 +79,6 @@ export class ReviewRoom implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // SEO - Set title ngay lập tức
     this.seoService.updateSEO({
       title: 'Đánh Giá Dịch Vụ - Panacea',
       description: 'Chia sẻ đánh giá và trải nghiệm của bạn về dịch vụ Panacea. Giúp chúng tôi cải thiện và phục vụ bạn tốt hơn.',
@@ -92,21 +86,17 @@ export class ReviewRoom implements OnInit, OnDestroy {
       image: '/assets/images/BACKGROUND.webp'
     });
     
-    // Lấy user ID hiện tại
     this.getCurrentUserId();
     
-    // Load dữ liệu: rooms -> bookings -> reviews
     this.loadRooms().then(() => {
       this.loadBookings().then(() => {
-        this.loadReviews(); // loadReviews sẽ tự động gọi filterBookingsForReview()
+        this.loadReviews();
       });
     });
     
-    // Lấy bookingId từ query params nếu có
     this.route.queryParams.pipe(takeUntil(this.destroy$)).subscribe((params) => {
       if (params['bookingId']) {
         this.reviewForm.patchValue({ bookingId: params['bookingId'] });
-        // Tự động chọn booking nếu có bookingId trong query params
         const booking = this.bookings.find(b => b.bookingId === params['bookingId']);
         if (booking) {
           this.selectBooking(booking);
@@ -114,19 +104,16 @@ export class ReviewRoom implements OnInit, OnDestroy {
       }
     });
 
-    // Load draft từ localStorage nếu có
     this.loadDraft();
     
-    // Subscribe để reload dữ liệu khi đăng nhập/đăng xuất
     this.authService.getCurrentAccount()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (account) => {
           if (account) {
-            // Reload user ID và bookings khi có thay đổi
             this.getCurrentUserId();
             this.loadBookings().then(() => {
-              this.loadReviews(); // Reload reviews để cập nhật danh sách
+              this.loadReviews();
             });
           } else {
             this.currentUserId = null;
@@ -142,7 +129,6 @@ export class ReviewRoom implements OnInit, OnDestroy {
       });
   }
 
-  /** Lấy user_id của user hiện tại đang đăng nhập */
   private getCurrentUserId(): void {
     try {
       const uid = localStorage.getItem('UID');
@@ -180,7 +166,6 @@ export class ReviewRoom implements OnInit, OnDestroy {
     }
   }
 
-  /** Load rooms.json để map room_id với room data */
   private async loadRooms(): Promise<void> {
     try {
       const response = await fetch('assets/data/rooms.json');
@@ -193,14 +178,12 @@ export class ReviewRoom implements OnInit, OnDestroy {
     }
   }
 
-  /** Load bookings.json và BOOKINGS_UPDATES từ localStorage */
   private async loadBookings(): Promise<void> {
     this.isLoadingBookings = true;
     try {
       const response = await fetch('assets/data/bookings.json');
       let bookings = await response.json();
       
-      // Load thêm từ localStorage.BOOKINGS_UPDATES
       const updatesStr = localStorage.getItem('BOOKINGS_UPDATES');
       if (updatesStr) {
         try {
@@ -219,14 +202,12 @@ export class ReviewRoom implements OnInit, OnDestroy {
     }
   }
 
-  /** Load reviews.json */
   private loadReviews(): void {
     this.isLoading = true;
     this.reviewService.getReviews()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (reviews) => {
-          // Merge reviews từ cả JSON và localStorage
           let allReviewsFromJSON = reviews || [];
           
           try {
@@ -234,15 +215,12 @@ export class ReviewRoom implements OnInit, OnDestroy {
             if (localReviews) {
               const parsedLocalReviews = JSON.parse(localReviews);
               
-              // Gộp tất cả reviews, loại bỏ trùng lặp dựa trên id
               const reviewMap = new Map();
               
-              // Thêm reviews từ JSON trước
               allReviewsFromJSON.forEach((r: any) => {
                 if (r.id) reviewMap.set(r.id, r);
               });
               
-              // Thêm/update reviews từ localStorage (ưu tiên hơn)
               parsedLocalReviews.forEach((r: any) => {
                 if (r.id) reviewMap.set(r.id, r);
               });
@@ -256,13 +234,12 @@ export class ReviewRoom implements OnInit, OnDestroy {
             this.allReviews = allReviewsFromJSON;
           }
           
-          // Chuyển đổi reviews sang ReviewListItem format và sắp xếp theo ngày mới nhất
           const userReviews = this.allReviews
             .filter((r: any) => r.userId === this.currentUserId)
             .sort((a: any, b: any) => {
               const dateA = new Date(a.createdAt || a.date || 0).getTime();
               const dateB = new Date(b.createdAt || b.date || 0).getTime();
-              return dateB - dateA; // Mới nhất trước
+              return dateB - dateA;
             })
             .map((r: any) => ({
               id: r.id,
@@ -276,16 +253,13 @@ export class ReviewRoom implements OnInit, OnDestroy {
             } as ReviewListItem));
           
           this.recentReviews = userReviews;
-          // Reset số lượng hiển thị về 3 khi load lại reviews
           this.displayedReviewsCount = 3;
           this.isLoading = false;
           
-          // Cập nhật selectedReview nếu đang mở modal
           if (this.selectedReview) {
             const updatedReview = this.recentReviews.find(r => r.id === this.selectedReview?.id);
             if (updatedReview) {
               this.selectedReview = updatedReview;
-              // Cập nhật lại form nếu đang ở chế độ chỉnh sửa
               if (this.isEditing && this.editReviewForm) {
                 this.editReviewForm.patchValue({
                   rating: updatedReview.rating,
@@ -296,51 +270,43 @@ export class ReviewRoom implements OnInit, OnDestroy {
             }
           }
           
-          // Sau khi load reviews xong, filter lại bookings để ẩn những booking đã có review
           this.filterBookingsForReview();
         },
         error: (error) => {
           this.isLoading = false;
           console.error('Error loading reviews:', error);
-          // Vẫn filter bookings ngay cả khi load reviews lỗi
           this.filterBookingsForReview();
         },
       });
   }
 
-  /** Lọc bookings: chỉ hiện những booking chưa có review */
   private filterBookingsForReview(): void {
     if (!this.currentUserId) {
       this.bookings = [];
       return;
     }
 
-    // Lấy danh sách bookingId đã có review (từ cả JSON và localStorage)
     const reviewedBookingIds = new Set(
       this.allReviews
         .filter((r: any) => r.userId === this.currentUserId && r.bookingId)
         .map((r: any) => r.bookingId)
     );
 
-    // Lọc bookings: chỉ lấy của user hiện tại, status completed (hoàn thành), và chưa có review
     const availableBookings = this.allBookings.filter((booking: BookingInterface) => {
-      // Kiểm tra booking.id có trong danh sách đã review không
       const isReviewed = reviewedBookingIds.has(booking.id);
       
       return (
         booking.userId === this.currentUserId &&
-        booking.status === 'completed' && // Chỉ lấy bookings đã hoàn thành
-        !isReviewed // Chỉ hiện booking chưa có review
+        booking.status === 'completed' &&
+        !isReviewed
       );
     });
 
-    // Chuyển đổi sang BookingDisplay format
     this.bookings = availableBookings.map((booking: BookingInterface) => {
       const room = this.roomsMap.get(typeof booking.roomId === 'string' 
         ? parseInt(booking.roomId.replace('R', '')) 
         : booking.roomId) || booking.room;
       
-      // Parse dates từ format "12:00 10/11/2025"
       const parseDate = (dateStr: string): Date => {
         const [time, date] = dateStr.split(' ');
         const [day, month, year] = date.split('/');
@@ -351,7 +317,6 @@ export class ReviewRoom implements OnInit, OnDestroy {
       const dateFrom = parseDate(booking.startTime);
       const dateTo = parseDate(booking.endTime);
 
-      // Tìm zone name từ room data (tags[0] thường là zone name)
       const zoneName = room?.tags?.[0] || 'Vườn An Nhiên';
       const roomName = room?.room_name || booking.range;
 
@@ -362,8 +327,8 @@ export class ReviewRoom implements OnInit, OnDestroy {
         roomName: roomName,
         dateFrom: dateFrom.toISOString(),
         dateTo: dateTo.toISOString(),
-        startTime: booking.startTime, // Giữ nguyên format "12:00 10/11/2025"
-        endTime: booking.endTime, // Giữ nguyên format "15:00 10/11/2025"
+        startTime: booking.startTime,
+        endTime: booking.endTime,
         thumbnail: room?.image || '/assets/default-room.webp',
         bookingRef: booking.id,
         roomId: typeof booking.roomId === 'string' 
@@ -386,7 +351,7 @@ export class ReviewRoom implements OnInit, OnDestroy {
       images: [[]],
       isPublic: [true],
       bookingId: [''],
-      bookingRef: [''], // Readonly field để hiển thị mã đặt phòng
+      bookingRef: [''],
     });
   }
 
@@ -436,9 +401,8 @@ export class ReviewRoom implements OnInit, OnDestroy {
 
   handleFiles(files: File[]): void {
     const maxFiles = 3;
-    const maxSize = 2 * 1024 * 1024; // 2MB
+    const maxSize = 2 * 1024 * 1024;
 
-    // Kiểm tra số lượng file
     if (this.selectedFiles.length + files.length > maxFiles) {
       Swal.fire({
         title: 'Lỗi',
@@ -449,13 +413,11 @@ export class ReviewRoom implements OnInit, OnDestroy {
       return;
     }
 
-    // Kiểm tra từng file
     for (const file of files) {
       if (this.selectedFiles.length >= maxFiles) {
         break;
       }
 
-      // Kiểm tra loại file
       if (!file.type.startsWith('image/')) {
         Swal.fire({
           title: 'Lỗi',
@@ -466,7 +428,6 @@ export class ReviewRoom implements OnInit, OnDestroy {
         continue;
       }
 
-      // Kiểm tra kích thước
       if (file.size > maxSize) {
         Swal.fire({
           title: 'Lỗi',
@@ -520,14 +481,13 @@ export class ReviewRoom implements OnInit, OnDestroy {
     formData.append('userId', UID);
     formData.append('rating', this.reviewForm.get('rating')?.value.toString());
     formData.append('content', this.reviewForm.get('content')?.value);
-    formData.append('isPublic', this.reviewForm.get('isPublic')?.value.toString());
+      formData.append('isPublic', this.reviewForm.get('isPublic')?.value.toString());
 
     const bookingId = this.reviewForm.get('bookingId')?.value;
     if (bookingId) {
       formData.append('bookingId', bookingId);
     }
 
-    // Append images
     this.selectedFiles.forEach((file, index) => {
       formData.append(`images`, file);
     });
@@ -536,7 +496,6 @@ export class ReviewRoom implements OnInit, OnDestroy {
   }
 
   submitReview(): void {
-    // Kiểm tra đăng nhập lại
     if (!this.currentUserId) {
       Swal.fire({
         title: 'Chưa đăng nhập',
@@ -556,7 +515,6 @@ export class ReviewRoom implements OnInit, OnDestroy {
     if (this.reviewForm.invalid) {
       this.reviewForm.markAllAsTouched();
       
-      // Hiển thị lỗi cụ thể
       if (this.rating?.hasError('required')) {
         Swal.fire({
           title: 'Lỗi',
@@ -586,7 +544,6 @@ export class ReviewRoom implements OnInit, OnDestroy {
       return;
     }
 
-    // Kiểm tra xem đã có review cho booking này chưa
     const existingReview = this.allReviews.find((r: any) => r.bookingId === bookingId && r.userId === this.currentUserId);
     if (existingReview) {
       Swal.fire({
@@ -600,7 +557,6 @@ export class ReviewRoom implements OnInit, OnDestroy {
 
     this.isSubmitting = true;
 
-    // Lấy tên user từ authService
     let userName = 'Ẩn danh';
     this.authService.getCurrentAccount().subscribe(account => {
       if (account) {
@@ -608,7 +564,6 @@ export class ReviewRoom implements OnInit, OnDestroy {
       }
     });
 
-    // Tạo review object
     const newReview = {
       id: `RV${Date.now()}`,
       bookingId: bookingId,
@@ -619,36 +574,29 @@ export class ReviewRoom implements OnInit, OnDestroy {
       rating: this.reviewForm.get('rating')?.value,
       comment: this.reviewForm.get('content')?.value,
       content: this.reviewForm.get('content')?.value,
-      images: this.imagePreviews, // Lưu base64 hoặc URL
+      images: this.imagePreviews,
       date: new Date().toISOString().split('T')[0],
       createdAt: new Date().toISOString()
     };
 
-    // Lưu vào reviews.json (localStorage hoặc gọi API)
     this.saveReviewToLocal(newReview).then(() => {
       this.isSubmitting = false;
       
-      // Cộng 50 Xu cho khách hàng
       this.userService.addPoints(50).subscribe({
         next: () => {
-          // Dispatch event để customer-coin refresh
           window.dispatchEvent(new CustomEvent('userPointsUpdated'));
           
-          // Xóa draft
           this.clearDraft();
 
-          // Hiển thị thông báo thành công với thông tin nhận Xu
           Swal.fire({
             title: 'Thành công!',
             html: 'Đánh giá của bạn đã được gửi thành công.<br><strong>Bạn đã nhận được 50 Xu!</strong>',
             icon: 'success',
             confirmButtonText: 'OK',
           }).then(() => {
-            // Refresh reviews và bookings
             this.loadReviews();
             this.filterBookingsForReview();
             
-            // Reset form
             this.reviewForm.reset();
             this.reviewForm.patchValue({ rating: 0, isPublic: true });
             this.selectedFiles = [];
@@ -658,7 +606,6 @@ export class ReviewRoom implements OnInit, OnDestroy {
         },
         error: (err) => {
           console.error('Error adding points:', err);
-          // Vẫn hiển thị thành công nhưng không có thông báo Xu
           Swal.fire({
             title: 'Thành công!',
             text: 'Đánh giá của bạn đã được gửi thành công.',
@@ -686,20 +633,15 @@ export class ReviewRoom implements OnInit, OnDestroy {
     });
   }
 
-  /** Lưu review vào reviews.json (localStorage) */
   private async saveReviewToLocal(review: any): Promise<void> {
     try {
-      // Load reviews hiện tại
       const response = await fetch('assets/data/reviews.json');
       const reviews = await response.json();
       
-      // Thêm review mới
       reviews.push(review);
       
-      // Lưu vào localStorage (hoặc có thể gọi API để lưu vào file)
       localStorage.setItem('REVIEWS', JSON.stringify(reviews));
       
-      // Cập nhật allReviews
       this.allReviews = reviews;
     } catch (error) {
       console.error('Error saving review:', error);
@@ -717,7 +659,6 @@ export class ReviewRoom implements OnInit, OnDestroy {
       };
       localStorage.setItem('reviewDraft', JSON.stringify(draft));
     } catch (e) {
-      // Ignore localStorage errors (e.g., in private browsing mode)
       console.warn('Could not save draft to localStorage:', e);
     }
   }
@@ -730,7 +671,6 @@ export class ReviewRoom implements OnInit, OnDestroy {
         this.reviewForm.patchValue(draft);
       }
     } catch (e) {
-      // Ignore parse errors or localStorage errors
       console.warn('Could not load draft from localStorage:', e);
     }
   }
@@ -739,7 +679,6 @@ export class ReviewRoom implements OnInit, OnDestroy {
     try {
       localStorage.removeItem('reviewDraft');
     } catch (e) {
-      // Ignore localStorage errors
       console.warn('Could not clear draft from localStorage:', e);
     }
   }
@@ -748,69 +687,56 @@ export class ReviewRoom implements OnInit, OnDestroy {
     window.open(imageUrl, '_blank');
   }
 
-  /** Mở modal để xem/chỉnh sửa/xóa review */
   openReviewModal(review: ReviewListItem): void {
     this.selectedReview = review;
     this.isEditing = false;
     this.showReviewModal = true;
     
-    // Tìm review đầy đủ từ allReviews
     const fullReview = this.allReviews.find((r: any) => r.id === review.id);
     if (fullReview) {
-      // Khởi tạo form chỉnh sửa
       this.editReviewForm = this.fb.group({
         rating: [review.rating, [Validators.required, this.ratingValidator]],
         content: [review.content, [Validators.required, Validators.minLength(20)]],
         images: [review.images || []]
       });
-      // Cập nhật currentEditRating
       this.currentEditRating = review.rating;
     }
   }
 
-  /** Đóng modal review */
   closeReviewModal(): void {
     this.showReviewModal = false;
     this.selectedReview = null;
     this.isEditing = false;
   }
 
-  /** Bật chế độ chỉnh sửa */
   enableEdit(): void {
     this.isEditing = true;
-    // Lưu giá trị rating ban đầu
     if (this.selectedReview) {
       this.originalRating = this.selectedReview.rating;
     }
-    // Cập nhật currentEditRating từ form
     if (this.editReviewForm) {
       this.currentEditRating = this.editReviewForm.get('rating')?.value || 0;
     }
   }
 
-  /** Hủy chỉnh sửa */
   cancelEdit(): void {
     this.isEditing = false;
     if (this.selectedReview) {
-      // Khôi phục lại giá trị ban đầu
       this.editReviewForm.patchValue({
         rating: this.originalRating,
         content: this.selectedReview.content,
         images: this.selectedReview.images || []
       });
       this.currentEditRating = this.originalRating;
-      // Đảm bảo selectedReview.rating không bị thay đổi (giữ nguyên giá trị ban đầu)
     }
   }
 
-  /** Lưu chỉnh sửa review */
   saveEditReview(): void {
     if (!this.selectedReview || !this.editReviewForm.valid) {
       this.editReviewForm.markAllAsTouched();
       return;
     }
 
-    // Tìm và cập nhật review trong allReviews
     const reviewIndex = this.allReviews.findIndex((r: any) => r.id === this.selectedReview?.id);
     if (reviewIndex !== -1) {
       const newRating = this.editReviewForm.get('rating')?.value;
@@ -827,17 +753,14 @@ export class ReviewRoom implements OnInit, OnDestroy {
 
       this.allReviews[reviewIndex] = updatedReview;
       
-      // Lưu vào localStorage
       localStorage.setItem('REVIEWS', JSON.stringify(this.allReviews));
       
-      // Cập nhật selectedReview ngay lập tức để UI cập nhật
       if (this.selectedReview) {
         this.selectedReview.rating = newRating;
         this.selectedReview.content = newContent;
         this.selectedReview.images = newImages;
       }
       
-      // Refresh danh sách
       this.loadReviews();
       
       Swal.fire({
@@ -851,7 +774,6 @@ export class ReviewRoom implements OnInit, OnDestroy {
     }
   }
 
-  /** Xóa review */
   deleteReview(): void {
     if (!this.selectedReview) return;
 
@@ -868,15 +790,12 @@ export class ReviewRoom implements OnInit, OnDestroy {
       if (result.isConfirmed) {
         this.isDeleting = true;
         
-        // Xóa review khỏi allReviews
         const reviewIndex = this.allReviews.findIndex((r: any) => r.id === this.selectedReview?.id);
         if (reviewIndex !== -1) {
           this.allReviews.splice(reviewIndex, 1);
           
-          // Lưu vào localStorage
           localStorage.setItem('REVIEWS', JSON.stringify(this.allReviews));
           
-          // Lưu vào DELETED_REVIEWS để customer-coin có thể load
           const deletedReview = {
             reviewId: this.selectedReview?.id || '',
             userId: this.currentUserId,
@@ -895,15 +814,12 @@ export class ReviewRoom implements OnInit, OnDestroy {
           deletedReviews.push(deletedReview);
           localStorage.setItem('DELETED_REVIEWS', JSON.stringify(deletedReviews));
           
-          // Trừ 50 Xu cho khách hàng
           this.userService.addPoints(-50).subscribe({
             next: () => {
-              // Dispatch event để customer-coin refresh
               window.dispatchEvent(new CustomEvent('userPointsUpdated'));
               
-              // Refresh danh sách
               this.loadReviews();
-              this.filterBookingsForReview(); // Refresh lại danh sách bookings để hiện booking đã xóa review
+              this.filterBookingsForReview();
               
               Swal.fire({
                 title: 'Đã xóa!',
@@ -917,7 +833,6 @@ export class ReviewRoom implements OnInit, OnDestroy {
             },
             error: (err) => {
               console.error('Error subtracting points:', err);
-              // Vẫn xóa review nhưng không trừ Xu
               this.loadReviews();
               this.filterBookingsForReview();
               
@@ -939,17 +854,10 @@ export class ReviewRoom implements OnInit, OnDestroy {
     });
   }
 
-  /** Set rating cho form chỉnh sửa */
   setEditRating(value: number): void {
-    // Cập nhật form control
     this.editReviewForm.patchValue({ rating: value });
     this.editReviewForm.get('rating')?.markAsTouched();
-    
-    // Cập nhật currentEditRating để UI cập nhật ngay lập tức
     this.currentEditRating = value;
-    
-    // KHÔNG cập nhật selectedReview.rating khi đang chỉnh sửa
-    // Chỉ cập nhật khi lưu thành công
   }
 
   get editRating() {
@@ -960,7 +868,6 @@ export class ReviewRoom implements OnInit, OnDestroy {
     return this.editReviewForm?.get('content');
   }
 
-  /** Cập nhật selectedReview khi thay đổi nội dung trong form chỉnh sửa */
   onEditContentChange(): void {
     if (this.selectedReview && this.editReviewForm) {
       const newContent = this.editReviewForm.get('content')?.value;
@@ -973,7 +880,6 @@ export class ReviewRoom implements OnInit, OnDestroy {
 
   selectBooking(booking: BookingDisplay): void {
     this.selectedBooking = booking;
-    // Patch form với bookingRef (hoặc bookingId nếu cần)
     this.reviewForm.patchValue({ 
       bookingId: booking.bookingId,
       bookingRef: booking.bookingRef 
@@ -997,7 +903,6 @@ export class ReviewRoom implements OnInit, OnDestroy {
     const formElement = document.getElementById('review-form');
     if (formElement) {
       formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // Focus vào rating để người dùng bắt đầu đánh giá
       setTimeout(() => {
         const ratingButton = formElement.querySelector('.rating-star') as HTMLElement;
         if (ratingButton) {
@@ -1007,22 +912,18 @@ export class ReviewRoom implements OnInit, OnDestroy {
     }
   }
 
-  /** Getter: Lấy danh sách reviews hiển thị (giới hạn theo displayedReviewsCount) */
   get displayedReviews(): ReviewListItem[] {
     return this.recentReviews.slice(0, this.displayedReviewsCount);
   }
 
-  /** Getter: Kiểm tra có còn reviews chưa hiển thị không */
   get hasMoreReviews(): boolean {
     return this.recentReviews.length > this.displayedReviewsCount;
   }
 
-  /** Get current date for sample review */
   getCurrentDate(): Date {
     return new Date();
   }
 
-  /** Method: Hiển thị thêm 3 reviews */
   loadMoreReviews(): void {
     this.displayedReviewsCount += 3;
   }

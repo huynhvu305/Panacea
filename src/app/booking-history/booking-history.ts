@@ -41,7 +41,6 @@ export class BookingHistoryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Kiểm tra và chặn admin truy cập
     if (this.authService.isLoggedIn() && this.authService.isAdmin()) {
       Swal.fire({
         icon: 'warning',
@@ -55,7 +54,6 @@ export class BookingHistoryComponent implements OnInit {
       return;
     }
 
-    // SEO
     this.seoService.updateSEO({
       title: 'Lịch Sử Đặt Phòng - Panacea',
       description: 'Xem lịch sử đặt phòng của bạn tại Panacea - Quản lý các đơn đặt phòng, xem chi tiết và in hóa đơn.',

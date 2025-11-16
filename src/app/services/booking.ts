@@ -15,7 +15,6 @@ export class BookingService {
 
   constructor(private http: HttpClient) { }
 
-  // ======= LẤY DỮ LIỆU JSON =======
   getRooms(): Observable<Room[]> {
     return this.http.get<Room[]>(this.ROOM_URL);
   }
@@ -38,7 +37,6 @@ export class BookingService {
     return this.http.get<Booking[]>(this.BOOKINGS_URL);
   }
 
-  // ======= TÍNH GIÁ & TÍNH ĐIỂM =======
   calculateTotal(
     roomPrice: number,
     selectedServices: ServiceItem[],
@@ -54,7 +52,6 @@ export class BookingService {
     return { originalPrice, totalPrice: total, rewardPoints };
   }
 
-  // ======= ÁP DỤNG MÃ GIẢM GIÁ =======
   applyVoucher(
     voucherCode: string | undefined,
     originalPrice: number,
@@ -84,15 +81,14 @@ export class BookingService {
     return { discountValue: discount, message: `✅ Giảm ${discount.toLocaleString()}đ` };
   }
 
-  // ======= TẠO ĐƠN ĐẶT PHÒNG =======
   buildBooking(d: {
     room: Room;
     services: ServiceItem[];
     range: string;
-    startTime: string;       // mm:hh dd/MM/yyyy
-    endTime: string;         // mm:hh dd/MM/yyyy
-    checkInTime: string;     // mm:hh dd/MM/yyyy
-    checkOutTime: string;    // mm:hh dd/MM/yyyy
+    startTime: string;
+    endTime: string;
+    checkInTime: string;
+    checkOutTime: string;
     customerName: string;
     customerPhone: string;
     customerEmail: string;
@@ -130,7 +126,6 @@ export class BookingService {
     return booking;
   }
 
-  // ======= LOCAL STORAGE =======
   saveBookingLocal(b: Booking): void {
     const key = 'bookings';
     const curr = this.getLocalBookings();

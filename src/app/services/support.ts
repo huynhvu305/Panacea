@@ -5,7 +5,6 @@ import { CreateTicketDto, FAQ, Ticket } from '../interfaces/support';
 
 @Injectable({ providedIn: 'root' })
 export class SupportService {
-  // Dữ liệu FAQs hardcode
   private readonly faqsData: FAQ[] = [
     {
       question: 'Cách đặt phòng tại Panacea?',
@@ -169,7 +168,6 @@ export class SupportService {
     }
   ];
 
-  // Dữ liệu Tickets hardcode
   private readonly initialTickets: Ticket[] = [
     {
       id: 'T-INIT-001',
@@ -195,9 +193,7 @@ export class SupportService {
 
   private ticketsSubject = new BehaviorSubject<Ticket[]>(this.initialTickets);
 
-  constructor() {
-    // Khởi tạo tickets với dữ liệu hardcode
-  }
+  constructor() { }
 
   getFaqs(): Observable<FAQ[]> {
     return of(this.faqsData);

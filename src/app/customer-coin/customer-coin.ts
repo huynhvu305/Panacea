@@ -39,10 +39,8 @@ export class CustomerCoinComponent implements OnInit, OnDestroy {
   // Tabs
   activeTab: CoinTab = 'all';
 
-  // Lịch sử giao dịch Xu (load từ bookings, exchanges, redeems)
   coinHistory: any[] = [];
   
-  // Phân trang
   currentPage: number = 1;
   itemsPerPage: number = 10;
 
@@ -53,7 +51,6 @@ export class CustomerCoinComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    // Kiểm tra và chặn admin truy cập
     if (this.authService.isLoggedIn() && this.authService.isAdmin()) {
       Swal.fire({
         icon: 'warning',
@@ -67,7 +64,6 @@ export class CustomerCoinComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // SEO
     this.seoService.updateSEO({
       title: 'Xu Của Tôi - Panacea',
       description: 'Quản lý Xu Panacea của bạn - Xem số dư, lịch sử giao dịch và đổi Xu lấy voucher, ưu đãi đặc biệt.',
@@ -75,7 +71,6 @@ export class CustomerCoinComponent implements OnInit, OnDestroy {
       robots: 'noindex, nofollow'
     });
     
-    // Subscribe để cập nhật khi có thay đổi
     this.authService.getCurrentAccount()
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => {
@@ -87,7 +82,6 @@ export class CustomerCoinComponent implements OnInit, OnDestroy {
       }
     });
     
-    // Load rooms map
     fetch('assets/data/rooms.json')
       .then(res => res.json())
       .then((rooms: any[]) => {
@@ -97,12 +91,9 @@ export class CustomerCoinComponent implements OnInit, OnDestroy {
       })
       .catch(err => console.error('Lỗi khi tải rooms:', err));
     
-    // Load lịch sử giao dịch Xu
     this.loadCoinHistory();
     
-    // Listen cho event khi Xu được cập nhật (từ payment, exchange-landing)
     window.addEventListener('userPointsUpdated', () => {
-      // Reload lịch sử và số dư Xu ngay lập tức
       this.loadUserData(this.currentAccount || {});
       this.loadCoinHistory();
     });
@@ -113,14 +104,12 @@ export class CustomerCoinComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  /** Load dữ liệu từ users.json */
   private loadUserData(account: any): void {
     try {
       const usersStr = localStorage.getItem('USERS');
       const uid = localStorage.getItem('UID');
       let userCoin = 0;
       
-      // Ưu tiên lấy từ USERS list
       if (usersStr && uid) {
         try {
           const users = JSON.parse(usersStr);
@@ -133,7 +122,6 @@ export class CustomerCoinComponent implements OnInit, OnDestroy {
         }
       }
       
-      // Nếu không tìm thấy, thử lấy từ CURRENT_USER
       if (userCoin === 0) {
         const currentUserStr = localStorage.getItem('CURRENT_USER');
         if (currentUserStr) {
@@ -146,8 +134,7 @@ export class CustomerCoinComponent implements OnInit, OnDestroy {
         }
       }
       
-      // Cập nhật currentAccount với coin từ users.json
-          this.currentAccount = {
+      this.currentAccount = {
             ...account,
             coin: userCoin
           };
@@ -155,8 +142,7 @@ export class CustomerCoinComponent implements OnInit, OnDestroy {
           this.membershipInfo = this.calculateMembership(star);
     } catch (e) {
       console.error('Error loading user data:', e);
-      // Fallback: sử dụng account từ authService
-        const star = account?.star ?? 0;
+      const star = account?.star ?? 0;
         this.currentAccount = account;
         this.membershipInfo = this.calculateMembership(star);
     }

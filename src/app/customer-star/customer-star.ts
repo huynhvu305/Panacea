@@ -85,7 +85,6 @@ export class CustomerStarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // Kiểm tra và chặn admin truy cập
     if (this.authService.isLoggedIn() && this.authService.isAdmin()) {
       Swal.fire({
         icon: 'warning',

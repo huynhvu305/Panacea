@@ -1,7 +1,5 @@
-<!-- H1 for SEO -->
 <h1 class="sr-only">Panacea - A medicine from the stars - Không gian trị liệu và chữa lành tâm hồn</h1>
 
-<!-- HOME VIDEO -->
 <div class="video-section">
   <div class="video-wrapper">
     <video class="hero-video" [poster]="videoPoster" [src]="videoSrc" autoplay muted loop playsinline preload="auto"
@@ -12,10 +10,8 @@
   </div>
 </div>
 
-<!-- SEARCH BAR -->
 <div class="sb-banner">
   <div class="container">
-    <!-- Tabs -->
     <div class="sb-tabs">
       <button class="sb-tab" [class.active]="isActive('book')" (click)="setTab('book')">
         <i class="bi bi-calendar2-check"></i> Đặt dịch vụ
@@ -25,9 +21,7 @@
       </a>
     </div>
 
-    <!-- Card -->
     <div class="sb-card" *ngIf="activeTab==='book'">
-      <!-- Khu vườn - Button chips -->
       <div class="sb-row sb-zones">
         <label class="sb-label">Khu vườn</label>
         <div class="sb-chips">
@@ -37,9 +31,7 @@
         </div>
       </div>
 
-      <!-- Search Bar lớn -->
       <div class="sb-search-container">
-        <!-- Price - Min Max -->
         <div class="sb-search-field-wrapper">
           <label class="sb-search-label">Khoảng giá</label>
           <div class="sb-search-field sb-price-range">
@@ -60,7 +52,6 @@
           </div>
         </div>
 
-        <!-- Date -->
         <div class="sb-search-field-wrapper">
           <label class="sb-search-label">Ngày</label>
           <div class="sb-search-field">
@@ -71,7 +62,6 @@
           </div>
         </div>
 
-        <!-- Capacity -->
         <div class="sb-search-field-wrapper">
           <label class="sb-search-label">Sức chứa</label>
           <div class="sb-search-field">
@@ -87,7 +77,6 @@
           </div>
         </div>
 
-        <!-- Search Button -->
         <div class="sb-search-button-wrapper">
           <button class="sb-search" (click)="onSearch()">
             <i class="bi bi-search"></i>
@@ -96,7 +85,6 @@
       </div>
     </div>
 
-    <!-- Guide tab placeholder -->
     <div class="sb-card sb-guide" *ngIf="activeTab==='guide'">
       <p><b>Cẩm nang Panacea</b> — mẹo thư giãn, bài tập thở, checklist chăm sóc bản thân, và thông tin từng khu vườn.
         (Section này bạn có thể gắn router sau.)</p>
@@ -104,9 +92,7 @@
   </div>
 </div>
 
-<!-- GARDENS - Lazy Load Section -->
 <div #gardensSection data-section="gardens" class="scroll-reveal" style="min-height: 100px;">
-  <!-- Placeholder/Skeleton khi chưa load -->
   <section class="gd container" *ngIf="!gardensLoaded">
     <header class="gd-head">
       <h2 class="gd-title">Bốn Khu Vườn</h2>
@@ -127,7 +113,6 @@
     </div>
   </section>
 
-  <!-- Nội dung thực khi đã load -->
   <section class="gd container" *ngIf="gardensLoaded">
     <header class="gd-head">
       <h2 class="gd-title">Bốn Khu Vườn</h2>
@@ -136,13 +121,10 @@
 
     <div class="gd-grid">
       <article class="gd-card" *ngFor="let g of gardens; trackBy: trackByKey">
-        <!-- Ảnh cover -->
         <div class="gd-cover" [style.--img]="'url('+ g.cover +')'">
-          <!-- vignette/overlay chỉ nhẹ để hài hoà, không làm tối -->
           <div class="gd-vignette"></div>
         </div>
 
-        <!-- Nội dung -->
         <div class="gd-body">
           <div class="gd-badge">
             <span class="gd-icon" [ngClass]="g.key"></span>
@@ -154,7 +136,6 @@
 
           <p class="gd-desc">{{ g.desc }}</p>
 
-          <!-- CTA cam (quan trọng) -->
           <a class="gd-cta" href="#" (click)="goToRoomList(g, $event)">
             Xem phòng <i class="bi bi-arrow-right-short"></i>
           </a>
@@ -164,10 +145,8 @@
   </section>
 </div>
 
-<!-- TWO COLUMN INTRO SECTION -->
 <section #introSection class="intro-hero-section scroll-reveal">
   <div class="intro-container">
-    <!-- Column 1: Text & Stats -->
     <div class="intro-content">
       <h1 class="intro-headline-1">Find Your Balance. Find Your Panacea.</h1>
       <h2 class="intro-headline-2">Tái Tạo Năng Lượng. Phục Hồi Tâm Trí.</h2>
@@ -188,7 +167,6 @@
       </div>
     </div>
 
-    <!-- Column 2: Banner Image -->
     <div class="intro-banner">
       <img src="../../assets/images/bannerhomepage.webp" alt="Panacea Banner - Không gian trị liệu và chữa lành tâm hồn"
         title="Banner Panacea - Find Your Balance. Find Your Panacea. Tái Tạo Năng Lượng. Phục Hồi Tâm Trí."
@@ -197,12 +175,10 @@
   </div>
 </section>
 
-<!-- REASONS -->
 <section class="reasons container scroll-reveal">
   <h2 class="reasons-title">LÝ DO CHỌN PANACEA?</h2>
 
   <div class="reasons-grid">
-    <!-- 1. Giá/ưu đãi minh bạch -->
     <article class="reason-card">
       <div class="card-icon i-price" aria-hidden="true"></div>
       <div class="card-content">
@@ -211,7 +187,6 @@
       </div>
     </article>
 
-    <!-- 2. Tích điểm Priority -->
     <article class="reason-card">
       <div class="card-icon i-priority" aria-hidden="true"></div>
       <div class="card-content">
@@ -220,7 +195,6 @@
       </div>
     </article>
 
-    <!-- 3. Đặt chỗ/đổi lịch linh hoạt -->
     <article class="reason-card">
       <div class="card-icon i-flex" aria-hidden="true"></div>
       <div class="card-content">
@@ -231,9 +205,7 @@
   </div>
 </section>
 
-<!-- PRIORITY - Lazy Load Section -->
 <div #prioritySection data-section="priority" class="scroll-reveal" style="min-height: 100px; position: relative;">
-  <!-- Placeholder khi chưa load -->
   <section class="priority-section" *ngIf="!priorityLoaded">
     <div class="container">
       <div class="priority-intro">
@@ -247,10 +219,8 @@
     </div>
   </section>
 
-  <!-- Nội dung thực khi đã load -->
   <section class="priority-section" *ngIf="priorityLoaded">
     <div class="container">
-      <!-- INTRO -->
       <div class="priority-intro">
         <h2 class="priority-title">PANACEA PRIORITY</h2>
         <p class="priority-description">
@@ -259,9 +229,7 @@
         </p>
       </div>
 
-      <!-- CARDS -->
       <div class="priority-cards">
-        <!-- BRONZE -->
         <div class="priority-card bronze">
           <div class="shine-container"></div>
           <img src="assets/images/dong.webp" alt="Biểu tượng Bronze Priority - Hạng đồng Panacea"
@@ -280,7 +248,6 @@
           </div>
         </div>
 
-        <!-- SILVER -->
         <div class="priority-card silver">
           <div class="shine-container"></div>
           <img src="assets/images/bac.webp" alt="Biểu tượng Silver Priority - Hạng bạc Panacea"
@@ -303,7 +270,6 @@
           </div>
         </div>
 
-        <!-- GOLD -->
         <div class="priority-card gold">
           <div class="shine-container"></div>
           <img src="assets/images/vang.webp" alt="Biểu tượng Gold Priority - Hạng vàng Panacea"
@@ -330,7 +296,6 @@
           </div>
         </div>
 
-        <!-- PLATINUM -->
         <div class="priority-card platinum">
           <div class="shine-container"></div>
           <img src="assets/images/bachkim.webp" alt="Biểu tượng Platinum Priority - Hạng bạch kim Panacea"
@@ -361,7 +326,6 @@
           </div>
         </div>
 
-        <!-- DIAMOND -->
         <div class="priority-card diamond">
           <div class="shine-container"></div>
           <img src="assets/images/kimcuong.webp" alt="Biểu tượng Diamond Priority - Hạng kim cương Panacea"
@@ -397,7 +361,6 @@
         </div>
       </div>
 
-      <!-- CTA -->
       <div class="priority-button-container">
         <a routerLink="/support/star" class="btn btn-lg rounded-4 btn-join">
           <i class="bi bi-stars"></i> THAM GIA PANACEA PRIORITY
@@ -407,9 +370,7 @@
   </section>
 </div>
 
-<!-- FEEDBACK - Lazy Load Section -->
 <div #feedbackSection data-section="feedback" class="scroll-reveal" style="min-height: 100px; position: relative;">
-  <!-- Placeholder khi chưa load -->
   <section class="fb-section" *ngIf="!feedbackLoaded">
     <div class="container">
       <div class="fb-header">
@@ -423,7 +384,6 @@
     </div>
   </section>
 
-  <!-- Nội dung thực khi đã load -->
   <section class="fb-section" *ngIf="feedbackLoaded">
     <div class="container">
       <div class="fb-header">

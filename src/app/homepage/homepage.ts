@@ -44,17 +44,13 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('feedbackSection') feedbackSectionRef!: ElementRef<HTMLElement>;
   @ViewChild('dateInput') dateInputRef!: ElementRef<HTMLInputElement>;
 
-  // Flags để track sections đã load
   gardensLoaded = false;
   priorityLoaded = false;
   feedbackLoaded = false;
 
-  // Stats counter animation
   private statsObserver?: IntersectionObserver;
   private statsAnimated = false;
-  // Giá trị số thực tế để đếm
   statNumbers: number[] = [4, 20, 10];
-  // Giá trị hiện tại đang đếm
   currentStatValues: number[] = [0, 0, 0];
 
   private observer?: IntersectionObserver;
@@ -78,14 +74,12 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
       image: '/assets/images/BACKGROUND.webp'
     });
 
-    // Thêm preload link cho video để trình duyệt tải sớm (tối ưu LCP)
     this.addVideoPreload();
   }
 
   private addVideoPreload(): void {
     const head = this.document.getElementsByTagName('head')[0];
     if (head) {
-      // Kiểm tra xem link đã tồn tại chưa
       const existingLink = head.querySelector('link[rel="preload"][as="video"][href*="panacea.webm"]');
       if (!existingLink) {
         this.preloadLink = this.document.createElement('link');
@@ -109,14 +103,11 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
     if (this.heroVideoRef?.nativeElement) {
       const video = this.heroVideoRef.nativeElement;
       
-      // Đảm bảo video luôn muted
       video.muted = true;
       video.volume = 0;
       
-      // Tối ưu loading: load video ngay lập tức
       video.load();
       
-      // Đảm bảo video tự động play khi component load
       const playPromise = video.play();
       if (playPromise !== undefined) {
         playPromise.catch(err => {
@@ -124,7 +115,6 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
         });
       }
       
-      // Đảm bảo video luôn muted khi có sự kiện
       video.addEventListener('volumechange', () => {
         if (!video.muted) {
           video.muted = true;
@@ -133,10 +123,8 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
       });
     }
 
-    // Setup Intersection Observer cho lazy loading sections
     this.setupIntersectionObserver();
     
-    // Setup Intersection Observer cho scroll reveal animation
     setTimeout(() => {
       this.setupScrollReveal();
       this.setupStatsObserver();
@@ -144,7 +132,6 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // Cleanup observers
     if (this.observer) {
       this.observer.disconnect();
     }
@@ -155,15 +142,14 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
       this.statsObserver.disconnect();
     }
     
-    // Xóa preload link khi component bị destroy
     this.removeVideoPreload();
   }
 
   private setupIntersectionObserver() {
     const options: IntersectionObserverInit = {
       root: null,
-      rootMargin: '200px', // Load trước 200px khi scroll đến để mượt hơn
-      threshold: 0.01 // Trigger ngay khi 1% section vào viewport
+      rootMargin: '200px',
+      threshold: 0.01
     };
 
     this.observer = new IntersectionObserver((entries) => {
@@ -194,19 +180,14 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
               break;
           }
 
-          // Unobserve sau khi đã load
           this.observer?.unobserve(target);
         }
       });
     }, options);
 
-    // Observe các sections - tạo sentinel elements thay vì observe sections trực tiếp
     setTimeout(() => {
-      // Tạo sentinel cho gardens section
       this.createSentinel('gardens', this.gardensSectionRef);
-      // Tạo sentinel cho priority section
       this.createSentinel('priority', this.prioritySectionRef);
-      // Tạo sentinel cho feedback section
       this.createSentinel('feedback', this.feedbackSectionRef);
     }, 100);
   }
@@ -214,12 +195,10 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
   private createSentinel(sectionId: string, sectionRef: ElementRef<HTMLElement> | undefined) {
     if (!sectionRef?.nativeElement) return;
 
-    // Observe section trực tiếp (đơn giản và hiệu quả hơn)
     this.observer?.observe(sectionRef.nativeElement);
   }
 
   private loadGardenImages() {
-    // Preload garden images khi section vào viewport
     this.gardens.forEach(garden => {
       const img = new Image();
       img.src = garden.cover;
@@ -236,13 +215,11 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('revealed');
-          // Unobserve sau khi đã animate để tối ưu performance
           this.scrollRevealObserver?.unobserve(entry.target);
         }
       });
     }, options);
 
-    // Tìm tất cả các elements cần animate
     const elementsToReveal = document.querySelectorAll('.scroll-reveal');
     elementsToReveal.forEach(el => {
       this.scrollRevealObserver?.observe(el);
@@ -586,20 +563,16 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
         this.statNumbers.forEach((target, index) => {
           this.currentStatValues[index] = target;
         });
-        return; // Dừng animation
+        return;
       }
       
-      // Sử dụng easing để đếm nhanh ở đầu, chậm lại ở cuối
       const easedProgress = this.easeOutQuart(progress);
       
-      // Cập nhật tất cả các số cùng lúc
       this.statNumbers.forEach((target, index) => {
         const currentValue = Math.round(target * easedProgress);
-        // Đảm bảo không vượt quá giá trị đích
         this.currentStatValues[index] = Math.min(currentValue, target);
       });
 
-      // Tiếp tục animation
       requestAnimationFrame(animate);
     };
 

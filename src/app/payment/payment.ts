@@ -1442,24 +1442,20 @@ export class Payment implements OnInit, OnDestroy {
 
   isCouponValid: boolean = false;
 
-  /** Xử lý khi người dùng nhập mã giảm giá - tự động chuyển thành chữ in hoa */
   onPromoCodeInput(event: any): void {
     const input = event.target;
     const value = input.value.toUpperCase();
     this.promoCode = value;
-    // Cập nhật giá trị trong input
     input.value = value;
   }
 
   applyCoupon(): void {
   const code = (this.promoCode || '').trim().toUpperCase();
 
-  // Reset trạng thái
   this.discountValue = 0;
   this.discountMessage = '';
   this.isCouponValid = false;
 
-  // Nếu không nhập mã
   if (!code) {
     this.originalPrice = 0;
     this.calculateTotal();
