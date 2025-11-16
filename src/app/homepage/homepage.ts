@@ -200,10 +200,9 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
 
   // ========== HOME VIDEO ==========
   videoSrc = 'assets/video/panacea.webm';
-  // TODO: Tối ưu poster - Ảnh hiện tại (3556x2000px, 129.1 KiB) quá lớn so với kích thước hiển thị (1335x751px)
-  // Khuyến nghị: Tạo ảnh poster mới 1920x1080px hoặc 1600x900px với WebP quality 80-85% (~15-25 KiB)
-  // Đặt tên: BACKGROUND-poster.webp và cập nhật đường dẫn bên dưới
-  videoPoster = 'assets/images/BACKGROUND.webp';
+  // ✅ Tối ưu: Ảnh poster đã được resize từ 3556x2000px (129.07 KB) xuống 1920x1080px (69.33 KB)
+  // Tiết kiệm: 59.74 KB (46.3%) - Giảm đáng kể thời gian tải trang
+  videoPoster = 'assets/images/BACKGROUND-poster.webp';
 
   // ========== SEARCH BAR ==========
   activeTab: 'book' | 'guide' = 'book';
