@@ -31,6 +31,7 @@ import { AdminExchange } from './admin-exchange/admin-exchange';
 import { AdminReviews } from './admin-reviews/admin-reviews';
 import { adminGuard } from './guards/admin.guard';
 import { CustomerBookingComponent } from './customer-booking/customer-booking';
+import { ContactComponent } from './contact/contact';
 
 export const routes: Routes = [
   { 
@@ -67,6 +68,7 @@ export const routes: Routes = [
   { path: 'policy/privacy', component: PrivacyComponent },
   { path: 'about/about-us', component: AboutUsComponent },
   { path: 'about/panacea-story', component: StoryComponent },
+  { path: 'about/contact', component: ContactComponent },
   { path: 'policy/termsofuse', component: TermsComponent },
   { path: 'admin-dashboard', component: AdminDashboard, canActivate: [adminGuard] },
   { path: 'admin-users', component: AdminUsers, canActivate: [adminGuard] },

@@ -77,6 +77,7 @@
           <a routerLink="/about/panacea-story" role="menuitem" aria-label="Cốt truyện Panacea"
             (click)="closeAboutDropdown()">Cốt
             truyện Panacea</a>
+          <a routerLink="/about/contact" role="menuitem" aria-label="Liên hệ" (click)="closeAboutDropdown()">Liên hệ</a>
         </div>
       </div>
 
@@ -269,6 +270,10 @@
           </a>
           <a routerLink="/about/panacea-story" (click)="closeMenu()" class="drawer-link drawer-link-sub">
             <span>Cốt truyện Panacea</span>
+            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+          </a>
+          <a routerLink="/about/contact" (click)="closeMenu()" class="drawer-link drawer-link-sub">
+            <span>Liên hệ</span>
             <i class="bi bi-chevron-right" aria-hidden="true"></i>
           </a>
         </div>

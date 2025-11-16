@@ -97,9 +97,11 @@
 
           <hr>
 
-          <div class="filter-header mb-1"><i class="bi bi-sort-down-alt me-1 text-primary" aria-hidden="true"></i>Sắp xếp theo</div>
+          <div class="filter-header mb-1"><i class="bi bi-sort-down-alt me-1 text-primary" aria-hidden="true"></i>Sắp
+            xếp theo</div>
           <label for="sort-order" class="sr-only">Sắp xếp phòng</label>
-          <select id="sort-order" class="form-select form-select-sm mb-2" [(ngModel)]="sortOrder" (change)="onFilterRooms()" aria-label="Sắp xếp phòng">
+          <select id="sort-order" class="form-select form-select-sm mb-2" [(ngModel)]="sortOrder"
+            (change)="onFilterRooms()" aria-label="Sắp xếp phòng">
             <option value="">-- Không sắp xếp --</option>
             <option value="asc">Giá tăng dần</option>
             <option value="desc">Giá giảm dần</option>
@@ -135,7 +137,8 @@
             <span>Sức chứa</span>
           </div>
           <label for="guest-count-filter" class="sr-only">Lọc theo sức chứa</label>
-          <select id="guest-count-filter" class="form-select" [(ngModel)]="guestCountFilter" (change)="onFilterRooms()" aria-label="Lọc theo sức chứa">
+          <select id="guest-count-filter" class="form-select" [(ngModel)]="guestCountFilter" (change)="onFilterRooms()"
+            aria-label="Lọc theo sức chứa">
             <option value="">Tất cả</option>
             <option value="2">1-2 người</option>
             <option value="5">3-5 người</option>
@@ -220,7 +223,8 @@
               <div class="text-danger fw-bold fs-5">{{ pkg.price | number }} VND</div>
               <small class="text-muted">Đã bao gồm thuế</small>
             </div>
-            <button class="btn btn-warning mt-2" (click)="goToRoomDetail(pkg); $event.stopPropagation()">Chọn phòng</button>
+            <button class="btn btn-warning mt-2" (click)="goToRoomDetail(pkg); $event.stopPropagation()">Chọn
+              phòng</button>
           </div>
         </div>
 
@@ -251,7 +255,8 @@
               <div class="mt-auto">
                 <div class="fw-bold text-danger mb-1">{{ pkg.price | number }} VND</div>
                 <small class="text-muted">Đã bao gồm thuế</small>
-                <button class="btn btn-warning w-100 mt-2" (click)="goToRoomDetail(pkg); $event.stopPropagation()">Chọn phòng</button>
+                <button class="btn btn-warning w-100 mt-2" (click)="goToRoomDetail(pkg); $event.stopPropagation()">Chọn
+                  phòng</button>
               </div>
             </div>
           </div>

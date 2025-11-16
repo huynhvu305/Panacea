@@ -1,0 +1,112 @@
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+  <div class="container">
+    <a routerLink="/">Trang chủ</a>
+    <span class="separator">/</span>
+    <span>Liên hệ</span>
+  </div>
+</div>
+
+<!-- Contact Section -->
+<section class="contact-section">
+  <div class="container">
+    <div class="contact-grid">
+      <!-- Left: Contact Information & Form -->
+      <div class="contact-left">
+        <!-- Contact Information -->
+        <div class="contact-info">
+          <h2>Thông tin liên hệ</h2>
+          <div class="info-item">
+            <i class="bi bi-geo-alt-fill" aria-hidden="true"></i>
+            <div class="info-content">
+              <strong>Địa chỉ</strong>
+              <p>60 Hai Bà Trưng, Bến Nghé, Quận 1, TP.HCM</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="bi bi-telephone-fill" aria-hidden="true"></i>
+            <div class="info-content">
+              <strong>Điện thoại</strong>
+              <p>+84 123 456 789</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="bi bi-calendar-check" aria-hidden="true"></i>
+            <div class="info-content">
+              <strong>Thời gian làm việc</strong>
+              <p>Từ 8h00 đến 22h00</p>
+              <p>Tất cả các ngày trong tuần</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="bi bi-envelope-fill" aria-hidden="true"></i>
+            <div class="info-content">
+              <strong>Email</strong>
+              <p>support@panacea.vn</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form-wrapper">
+          <h2>Gửi thắc mắc cho chúng tôi</h2>
+          <p class="form-intro">Nếu bạn có thắc mắc gì, có thể gửi yêu cầu cho chúng tôi, và chúng tôi sẽ liên lạc lại
+            với bạn sớm nhất có thể.</p>
+
+          <form class="contact-form" (ngSubmit)="onSubmit()" #contactForm="ngForm">
+            <div class="form-group">
+              <label for="name">Tên của bạn</label>
+              <input type="text" id="name" name="name" [(ngModel)]="formData.name" required
+                placeholder="Nhập tên của bạn">
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email của bạn</label>
+              <input type="email" id="email" name="email" [(ngModel)]="formData.email" required
+                placeholder="Nhập email của bạn">
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Số điện thoại của bạn</label>
+              <input type="tel" id="phone" name="phone" [(ngModel)]="formData.phone" required
+                placeholder="Nhập số điện thoại của bạn">
+            </div>
+
+            <div class="form-group">
+              <label for="message">Nội dung</label>
+              <textarea id="message" name="message" [(ngModel)]="formData.message" required rows="5"
+                placeholder="Nhập nội dung thắc mắc của bạn"></textarea>
+            </div>
+
+            <div class="recaptcha-notice">
+              <small>This site is protected by reCAPTCHA and the Google
+                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy
+                  Policy</a>
+                and
+                <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Terms of
+                  Service</a>
+                apply.</small>
+            </div>
+
+            <button type="submit" class="btn-submit" [disabled]="!contactForm.valid || isSubmitting">
+              <span *ngIf="!isSubmitting">GỬI CHO CHÚNG TÔI</span>
+              <span *ngIf="isSubmitting">Đang gửi...</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right: Google Map -->
+      <div class="contact-right">
+        <div class="map-container">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.4424138075674!2d106.70188231113816!3d10.77738798932712!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f49cdf6b8c9%3A0x64131640f79cf497!2zNjAgSGFpIELDoCBUcsawbmcsIELhur9uIE5naMOpLCBRdeG6rW4gMSwgVGjDoG5oIHBo4buRIEjhu5MgQ2jDrSBNaW5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1763289567502!5m2!1svi!2s"
+            width="100%" height="70%" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            aria-label="Bản đồ Panacea - 60 Hai Bà Trưng, Bến Nghé, Quận 1, TP.HCM">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
