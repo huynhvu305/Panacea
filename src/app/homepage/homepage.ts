@@ -198,16 +198,13 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  // ========== HOME VIDEO ==========
   videoSrc = 'assets/video/panacea.webm';
   videoPoster = 'assets/images/BACKGROUND-poster.webp';
 
-  // ========== SEARCH BAR ==========
   activeTab: 'book' | 'guide' = 'book';
   isActive(tab: string) { return this.activeTab === tab as any; }
   setTab(tab: 'book' | 'guide') { this.activeTab = tab; }
 
-  // Khu vườn - dùng checkbox như room-list
   gardenTags: string[] = ['Oasis', 'Catharis', 'Genii', 'Mutiny'];
   selectedGardens: string[] = [];
   
@@ -233,7 +230,6 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
   promo: string = '';
   guestCountFilter: string = '';
   
-  // Filter properties - đơn giản hóa
   minPrice: number = 200000;
   maxPrice: number = 1250000;
   selectedMinPrice: any = this.minPrice;
@@ -249,10 +245,8 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
   }
   
   onPriceInput(event: any, type: 'min' | 'max') {
-    // Chỉ lưu số thô khi đang gõ, không format
-    let value = event.target.value.replace(/\D/g, ''); // Chỉ giữ số
+    let value = event.target.value.replace(/\D/g, '');
     
-    // Giới hạn số tối đa là 9.999.999
     if (value) {
       const numValue = parseInt(value);
       if (numValue > 9999999) {
@@ -262,7 +256,6 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
       }
     }
     
-    // Lưu số thô khi đang gõ (không format)
     if (type === 'min') {
       this.selectedMinPrice = value;
     } else {
@@ -271,7 +264,6 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
   }
   
   onPriceBlur(event: any, type: 'min' | 'max') {
-    // Format với dấu chấm khi blur (rời khỏi input)
     let value = event.target.value.replace(/\D/g, '');
     
     if (value) {
@@ -290,7 +282,6 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
   }
   
   onPriceKeyDown(event: any, type: 'min' | 'max') {
-    // Format khi nhấn Enter
     if (event.key === 'Enter') {
       event.preventDefault();
       let value = event.target.value.replace(/\D/g, '');
@@ -327,16 +318,13 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
   selectZone(zoneKey: string) {
     this.zone = zoneKey;
     if (zoneKey === 'all') {
-      // Chọn tất cả gardens
       this.selectedGardens = [...this.gardenTags];
     } else {
-      // Chọn garden tương ứng
       const zoneGarden = this.zones.find(z => z.key === zoneKey)?.garden;
       if (zoneGarden) {
         this.selectedGardens = [zoneGarden];
       }
     }
-    // Reset service khi đổi zone
     if (zoneKey !== 'all') {
       const list = this.servicesMap[zoneKey] || [];
       this.service = list[0] ?? '';
@@ -361,10 +349,8 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openDatePicker() {
-    // Mở date picker khi click vào icon calendar
     if (this.dateInputRef?.nativeElement) {
       const input = this.dateInputRef.nativeElement;
-      // Thử dùng showPicker() nếu có, nếu không thì dùng click()
       if (input.showPicker) {
         try {
           input.showPicker();
@@ -378,32 +364,25 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSearch() {
-    // Chuyển đến trang room-list với query params
     const queryParams: any = {};
     
-    // Truyền gardens filter
     if (this.selectedGardens.length > 0 && this.zone !== 'all') {
       queryParams.gardens = this.selectedGardens.join(',');
     }
     
-    // Truyền guest count filter
     if (this.guestCountFilter) {
       queryParams.guests = this.guestCountFilter;
     }
     
-    // Truyền price filter (chuyển từ format có dấu chấm về số)
     const minPriceValue = this.getPriceValue(this.selectedMinPrice);
     const maxPriceValue = this.getPriceValue(this.selectedMaxPrice);
     
-    // Luôn truyền giá để room-list có thể set filter
     queryParams.minPrice = minPriceValue || this.minPrice;
     queryParams.maxPrice = maxPriceValue || this.maxPrice;
     
-    // Navigate đến room-list với query params
     this.router.navigate(['/room-list'], { queryParams });
   }
 
-  // ========== GARDENS ==========
   gardens: Garden[] = [
     {
       key: 'an-nhien',
@@ -441,7 +420,6 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
 
   trackByKey = (_: number, g: Garden) => g.key;
 
-  // Map key sang tên garden trong room-list
   getGardenName(key: string): string {
     const map: Record<string, string> = {
       'an-nhien': 'Oasis',
@@ -464,8 +442,6 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-
-  // ========== FEEDBACK ==========
   feedbackItems: Feedback[] = [
     {
       name: 'Ngọc Anh',
@@ -490,7 +466,6 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
     }
   ];
 
-  // Setup Intersection Observer cho stats counter
   private setupStatsObserver() {
     this.statsObserver = new IntersectionObserver(
       (entries) => {
@@ -503,35 +478,30 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
         });
       },
       {
-        threshold: 0.3, // Kích hoạt khi 30% section hiển thị
+        threshold: 0.3,
         rootMargin: '0px'
       }
     );
 
-    // Quan sát intro section
     if (this.introSectionRef?.nativeElement) {
       this.statsObserver.observe(this.introSectionRef.nativeElement);
     }
   }
 
-  // Hàm easing để animation mượt mà hơn (easeOutQuart)
   private easeOutQuart(t: number): number {
     return 1 - Math.pow(1 - t, 4);
   }
 
-  // Hàm đếm số từ 0 đến giá trị cuối
   private animateStats() {
-    const duration = 1800; // 1.8 giây
+    const duration = 1800;
     const startTime = performance.now();
 
     const animate = () => {
       const elapsed = performance.now() - startTime;
       let progress = elapsed / duration;
       
-      // Đảm bảo progress không vượt quá 1
       if (progress >= 1) {
         progress = 1;
-        // Set giá trị cuối cùng ngay lập tức khi hoàn thành
         this.statNumbers.forEach((target, index) => {
           this.currentStatValues[index] = target;
         });
@@ -548,11 +518,9 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
       requestAnimationFrame(animate);
     };
 
-    // Bắt đầu animation ngay lập tức
     requestAnimationFrame(animate);
   }
 
-  // Hàm format số để hiển thị (thêm dấu +)
   formatStatValue(index: number): string {
     const value = this.currentStatValues[index];
     return value.toString() + '+';

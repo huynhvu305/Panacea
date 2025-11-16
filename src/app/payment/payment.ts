@@ -426,8 +426,6 @@ export class Payment implements OnInit, OnDestroy {
             // Cập nhật giá phòng (chưa bao gồm dịch vụ)
             this.basePrice = bookingInfo.basePrice || roomFromData.price || roomFromData.pricePerHour || 0;
             this.originalPrice = this.basePrice;
-            // Lưu ý: totalPrice sẽ được tính lại trong calculateTotal() sau khi đồng bộ dịch vụ
-            // Tạm thời set giá phòng cơ bản
             this.totalPrice = this.basePrice;
 
             // Tính ngày hủy / đổi miễn phí
@@ -1404,18 +1402,14 @@ export class Payment implements OnInit, OnDestroy {
     }
 
     if (this.isCouponValid && this.discountValue > 0) {
-      // Có voucher ➜ luôn hiển thị gạch giá gốc = tổng trước giảm
       this.originalPrice = preDiscount;
       let after = preDiscount - this.discountValue;
       if (after < 0) after = 0;
       this.totalPrice = after;
     } else {
-      // Không có voucher ➜ không hiển thị giá gốc
       this.originalPrice = 0;
       this.totalPrice = preDiscount;
     }
-    
-    // Lưu ý: Không áp dụng Redeem Xu ở đây, sẽ được áp dụng trong calculateTotal() sau khi wrap
   }
 
   calculateTotal(): void {
@@ -1490,7 +1484,7 @@ export class Payment implements OnInit, OnDestroy {
   this.isCouponValid = true;
 
   this.calculateTotal();
-  this.cdr.detectChanges(); // 🔥 cập nhật view ngay lập tức
+  this.cdr.detectChanges();
 }
 
 
@@ -1536,7 +1530,6 @@ export class Payment implements OnInit, OnDestroy {
     }, 100);
   }
 
-  // ===== Đăng nhập / Đăng ký Popup =====
   async openLoginPopup(event: any): Promise<void> {
     if (!event.target.checked) return;
 
@@ -1933,7 +1926,6 @@ export class Payment implements OnInit, OnDestroy {
   }
 
  confirmBooking(): void {
-  // 1️⃣ Kiểm tra đã đồng ý quy định chưa
   if (!this.agreedRules) {
     this.showAgreeRequired = true;
     this.scrollToAgreeRules();
@@ -1943,8 +1935,6 @@ export class Payment implements OnInit, OnDestroy {
   // Reset error state khi đã đồng ý
   this.showAgreeRequired = false;
 
-  // 2️⃣ Nếu chưa đăng nhập → bắt buộc nhập thông tin liên hệ
-  // Kiểm tra các trường có giá trị và đúng format
   if (!this.isLoggedIn) {
     const formValue = this.contactForm.value;
     const fullName = (formValue.fullName || '').trim();
@@ -1985,8 +1975,6 @@ export class Payment implements OnInit, OnDestroy {
     }
   }
 
-  // 3️⃣ Nếu đã đăng nhập và KHÔNG tick "Tôi đặt phòng cho chính mình" 
-  // → Kiểm tra xem có nhập thông tin liên hệ chưa và đúng format
   if (this.isLoggedIn && !this.isSelfBooking) {
     const formValue = this.contactForm.value;
     const fullName = (formValue.fullName || '').trim();
@@ -2056,8 +2044,6 @@ export class Payment implements OnInit, OnDestroy {
     }
   }
 
-  // 4️⃣ Nếu qua hết các điều kiện → tạo dữ liệu booking gửi qua trang banking
-  // Cập nhật danh sách dịch vụ đã chọn trước khi lưu
   this.updateSelectedServices();
   
   const payload = {
@@ -2097,7 +2083,6 @@ export class Payment implements OnInit, OnDestroy {
   
   this.savePaymentState();
 
-  // 5️⃣ Tạo booking mới và lưu vào lịch sử đặt phòng với trạng thái "chờ xác nhận"
   this.createNewBooking();
   
   // Dispatch event để customer-coin refresh và hiển thị booking mới (status: "Đang xử lý")
@@ -2376,14 +2361,7 @@ export class Payment implements OnInit, OnDestroy {
       return `${rooms} phòng, ${hours} giờ`;
     }
   }
-
-  // ====================== REDEEM XU (ADDED) ======================
-  
-  // Bọc lại calculateTotal để luôn áp dụng giảm 20.000đ sau voucher/dịch vụ
-  // Lưu ý: Logic Redeem đã được tích hợp trực tiếp vào calculateTotal() để tránh vòng lặp
   private patchRedeemRecalculation(): void {
-    // Không cần wrap nữa vì đã tích hợp trực tiếp vào calculateTotal()
-    // Giữ lại hàm này để tương thích với code cũ (nếu có)
   }
 
   // Toggle dùng 50 Xu
@@ -2428,7 +2406,6 @@ export class Payment implements OnInit, OnDestroy {
         return;
       }
 
-      // Đủ điểm ➜ trừ 50 Xu và giảm 20.000đ NGAY LẬP TỨC (ngay sau khi xác nhận)
       if (!this.pointsApplied) {
         const newPoints = Math.max(0, this.userPoints - 50);
         this.userPoints = newPoints;
@@ -2536,7 +2513,6 @@ export class Payment implements OnInit, OnDestroy {
         showConfirmButton: false,
       });
     } else {
-      // Tắt Redeem ➜ hoàn lại Xu và tính lại
       if (this.pointsApplied) {
         const newPoints = this.userPoints + 50;
         this.userPoints = newPoints;

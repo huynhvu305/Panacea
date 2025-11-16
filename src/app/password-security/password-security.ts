@@ -21,13 +21,11 @@ export class PasswordSecurityComponent implements OnInit {
 
   twoFactorEnabled: boolean = false;
 
-  // ====== NEW: UI state ======
   showCurrent = false;
   showNew = false;
   showConfirm = false;
   showTips = false;
 
-  // ====== NEW: validation flags (bind qua getter) ======
   hasMinLength = false;
   hasLetter = false;
   hasNumber = false;

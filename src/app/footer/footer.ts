@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [CommonModule, RouterModule],               // để dùng *ngIf, ngClass, routerLink...
+  imports: [CommonModule, RouterModule],
   templateUrl: './footer.html',
   styleUrls: ['./footer.css']
 })

@@ -88,8 +88,7 @@ export class PdfService {
     // Thử load font Arial Unicode MS nếu chưa load
     this.loadArialUnicodeFont(doc);
     
-    // ========== MÀU SẮC PANACEA ==========
-    const primaryBlue: [number, number, number] = [19, 47, 186]; // #132FBA
+    const primaryBlue: [number, number, number] = [19, 47, 186];
     const accentOrange: [number, number, number] = [247, 148, 29]; // #F7941D
     const textDark: [number, number, number] = [30, 36, 48]; // #1e2430
     const textLight: [number, number, number] = [100, 100, 100]; // #646464
@@ -102,8 +101,6 @@ export class PdfService {
     
     let yPos = 20;
     
-    // ========== HEADER - LOGO & TITLE ==========
-    // Logo (Bên trái) - Thêm logo nếu có
     const logoWidth = 40;
     const logoHeight = 12;
     const logoX = margin;
@@ -143,7 +140,6 @@ export class PdfService {
     doc.line(margin, yPos, margin + contentWidth, yPos);
     yPos += 10;
     
-    // ========== THÔNG TIN ĐƠN HÀNG ==========
     doc.setFontSize(10);
     doc.setTextColor(textDark[0], textDark[1], textDark[2]);
     
@@ -171,7 +167,6 @@ export class PdfService {
     this.addText(doc, invoiceDate, valueX, yPos);
     yPos += 10;
     
-    // ========== THÔNG TIN KHÁCH HÀNG ==========
     doc.setFontSize(11);
     this.setFont(doc, 'bold');
     doc.setTextColor(primaryBlue[0], primaryBlue[1], primaryBlue[2]);
@@ -204,7 +199,6 @@ export class PdfService {
     this.addText(doc, customerPhone, valueX, yPos);
     yPos += 10;
     
-    // ========== THÔNG TIN ĐẶT PHÒNG ==========
     doc.setFontSize(11);
     this.setFont(doc, 'bold');
     doc.setTextColor(primaryBlue[0], primaryBlue[1], primaryBlue[2]);
@@ -253,7 +247,6 @@ export class PdfService {
     this.addText(doc, statusLabel, valueX, yPos);
     yPos += 12;
     
-    // ========== BẢNG CHI TIẾT ĐƠN HÀNG ==========
     doc.setFontSize(11);
     this.setFont(doc, 'bold');
     doc.setTextColor(primaryBlue[0], primaryBlue[1], primaryBlue[2]);
@@ -387,13 +380,6 @@ export class PdfService {
       yPos = 20;
     }
     
-    // ========== TÓM TẮT THANH TOÁN ==========
-    // Số tiền khách hàng phải thanh toán (totalPrice) đã bao gồm VAT 10%
-    // Ví dụ: totalPrice = 1.300.000 VND (đã bao gồm VAT)
-    // → Subtotal = 1.300.000 / 1.1 = 1.181.818 VND
-    // → VAT 10% = 1.181.818 * 0.1 = 118.182 VND
-    // → Total = 1.181.818 + 118.182 = 1.300.000 VND
-    
     const discount = booking.discountValue || 0;
     
     // Lấy totalPrice từ booking (đã bao gồm VAT)
@@ -462,8 +448,6 @@ export class PdfService {
       this.addText(doc, `Reward Points: ${booking.rewardPointsEarned} points`, summaryX, yPos);
     }
     
-    // ========== FOOTER ==========
-    // Tính toán vị trí footer động dựa trên yPos hiện tại
     let footerY = Math.max(yPos + 20, 270);
     
     // Nếu footer quá gần cuối trang, xuống trang mới
@@ -493,7 +477,6 @@ export class PdfService {
     doc.setFontSize(8);
     this.addText(doc, 'This electronic invoice is legally valid according to Decree 119/2018/ND-CP', pageWidth / 2, footerY + 21, { align: 'center' });
     
-    // ========== LƯU FILE ==========
     const fileName = `Invoice-${booking.id}-${new Date().toISOString().split('T')[0]}.pdf`;
     doc.save(fileName);
   }

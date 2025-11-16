@@ -49,12 +49,9 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     
     this.isAdmin = this.authService.isAdmin();
     
-    // Sử dụng bubbling phase (mặc định) để chạy SAU các handler khác
     document.addEventListener('click', (event) => {
       const target = event.target as HTMLElement;
       
-      // Bỏ qua nếu click vào user-info-wrapper, user-drop, menu-item, dropdown-arrow, hoặc user-header
-      // (các phần tử này đã có handler riêng và đã gọi stopPropagation)
       const clickedInsideUserDropdown = 
         target.closest('.user-info-wrapper') || 
         target.closest('.user-drop') || 
@@ -66,8 +63,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
         return;
       }
       
-      // Chỉ đóng user dropdown nếu click ra ngoài hoàn toàn
-      // Delay một chút để đảm bảo các click handler khác đã chạy xong
       setTimeout(() => {
         if (this.isDropdownOpen) {
           const mouseEvent = event as MouseEvent;
@@ -130,9 +125,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
 
-    // Listen cho event khi Xu được cập nhật (từ payment hoặc exchange-landing)
     window.addEventListener('userPointsUpdated', () => {
-      // Reload account để cập nhật số Xu mới nhất NGAY LẬP TỨC
       this.loadAccount();
     });
 
@@ -156,7 +149,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   loadAccount(): void {
-    // Đảm bảo lấy dữ liệu mới nhất từ USERS list (đã được sync từ users.json trong AuthService.login())
     const usersStr = localStorage.getItem('USERS');
     const uid = localStorage.getItem('UID');
     
@@ -165,8 +157,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
         const users = JSON.parse(usersStr);
         const user = users.find((u: any) => u.user_id === uid);
         if (user) {
-          // Đảm bảo không dùng dữ liệu cũ, luôn lấy từ users.json
-          // Ưu tiên lấy coin, nếu không có thì lấy point
           const coinValue = user.coin !== undefined ? user.coin : (user.point !== undefined ? user.point : 0);
           const account = {
             id: parseInt(user.user_id?.replace('US', '') || '0') || 0,
@@ -201,8 +191,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     if (currentUserStr) {
       try {
         const user = JSON.parse(currentUserStr);
-        // Đảm bảo lấy đúng dữ liệu từ CURRENT_USER (đã được sync từ users.json)
-        // Ưu tiên lấy coin, nếu không có thì lấy point
         const coinValue = user.coin !== undefined ? user.coin : (user.point !== undefined ? user.point : 0);
         const account = {
           id: parseInt(user.user_id?.replace('US', '') || '0') || 0,
@@ -211,7 +199,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
           phone_number: user.phone_number || '',
           diem_tich_luy: user.star || 0,
           diem_kha_dung: coinValue,
-          coin: coinValue, // Thêm field coin để đảm bảo hiển thị đúng
+          coin: coinValue,
           star: user.star || 0
         };
         this.currentAccount = account;
@@ -484,7 +472,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   calculateMembership(diem: number): void {
-    // Theo hình ảnh: Diamond (100 sao), Platinum (50 sao), Gold (20 sao), Silver (5 sao), Bronze (0 sao)
     if (diem >= 100) { this.membership = 'DIAMOND PRIORITY'; this.membershipClass = 'diamond'; }
     else if (diem >= 50) { this.membership = 'PLATINUM PRIORITY'; this.membershipClass = 'platinum-20m'; }
     else if (diem >= 20) { this.membership = 'GOLD PRIORITY'; this.membershipClass = 'gold'; }

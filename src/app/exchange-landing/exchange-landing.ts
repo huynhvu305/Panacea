@@ -35,16 +35,13 @@ export class ExchangeLanding implements OnInit, OnDestroy, AfterViewInit {
     private seoService: SEOService
   ) {}
 
-  // ===== DỮ LIỆU NGƯỜI DÙNG =====
   userPoints: number = 0;
   currentUser: any = null;
   isLoggedIn: boolean = false;
 
-  // ===== DỮ LIỆU VOUCHER & ITEM =====
   vouchers: Voucher[] = (vouchersData as any[]).map(v => ({ ...v, status: v.status || 'Còn hiệu lực' }));
   items: Items[] = itemsData as Items[];
   
-  // ===== BỘ LỌC & TÌM KIẾM =====
   searchQuery: string = '';
   selectedCategory: string = 'all';
   pointsSort: string = 'none';
@@ -53,11 +50,9 @@ export class ExchangeLanding implements OnInit, OnDestroy, AfterViewInit {
   filteredVouchers: Voucher[] = [];
   filteredItems: Items[] = [];
   
-  // ===== LIGHTBOX (Xem ảnh phóng to) =====
   lightboxImage: string | null = null;
   lightboxTitle: string = '';
 
-  // ===== DANH SÁCH TỈNH & HUYỆN =====
   provinces = [
     { name: 'TP. Hồ Chí Minh', districts: ['Quận 1', 'Quận 3', 'Quận 5', 'Quận 7', 'TP. Thủ Đức'] },
     { name: 'Hà Nội', districts: ['Hoàn Kiếm', 'Cầu Giấy', 'Hà Đông', 'Nam Từ Liêm'] },
@@ -66,7 +61,6 @@ export class ExchangeLanding implements OnInit, OnDestroy, AfterViewInit {
     { name: 'Bình Dương', districts: ['Thủ Dầu Một', 'Dĩ An', 'Thuận An'] }
   ];
 
-  // ===== LANDING PAGE DATA =====
   features = [
     {
       icon: 'bi-coin',

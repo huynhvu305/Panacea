@@ -74,10 +74,8 @@ export class RoomDetail implements OnInit, OnDestroy {
   ngOnInit(): void {
   window.scrollTo(0, 0);
 
-  // 1️⃣ Lấy slug phòng từ URL
   const slug = this.route.snapshot.paramMap.get('slug') || '';
 
-  // 2️⃣ Gọi dữ liệu phòng và tìm theo slug
   this.http.get<Room[]>('assets/data/rooms.json').subscribe((rooms) => {
     // Tìm phòng theo slug (slugify từ room_name)
     this.room = rooms.find((r) => this.slugify(r.room_name) === slug)!;
@@ -122,19 +120,16 @@ export class RoomDetail implements OnInit, OnDestroy {
       this.router.navigate(['/room-detail', correctSlug], { replaceUrl: true });
     }
     
-    // 5️⃣ Gọi dữ liệu đánh giá từ file JSON và localStorage (sau khi room đã được load)
     if (this.room) {
       this.loadReviews(this.room.room_id);
     }
   });
 
-  // 3️⃣ Gọi dữ liệu dịch vụ (chuyên gia + thuê thêm)
   this.serviceData.getServices().subscribe((data) => {
     this.expertServices = data.expertServices;
     this.extraServices = data.extraServices;
   });
 
-  // 4️⃣ Bắt sự kiện phím tắt (ESC, mũi tên)
   window.addEventListener('keydown', this.handleKeyEvents.bind(this));
 
   this.loadCart();
@@ -148,7 +143,6 @@ export class RoomDetail implements OnInit, OnDestroy {
     const sections = ['overview', 'policy', 'reviews'];
     const scrollOffset = 120; // Offset để trigger sớm hơn (tính cả navbar height)
     
-    // Hàm update activeSection dựa trên vị trí scroll
     const updateActiveSection = () => {
       const scrollPosition = window.scrollY + scrollOffset;
       let currentSection = 'overview';
@@ -299,7 +293,6 @@ export class RoomDetail implements OnInit, OnDestroy {
     if (e.key === 'Escape') this.closePopup();
   }
 
-  // Hàm chọn phòng (Thanh toán ngay)
 selectRoom(): void {
   if (!this.selectedDate || !this.selectedTime) {
     Swal.fire({
@@ -532,7 +525,6 @@ private proceedToPaymentNow(): void {
   onTimeChange(): void {
   }
 
-  // 🕐 Hàm tạo danh sách khung giờ (chỉ giờ chẵn, không có giờ lẻ 30 phút)
 generateTimeSlots(): void {
   const startHour = 8;
   const endHour = 22;
@@ -550,9 +542,8 @@ generateTimeSlots(): void {
 
 updateTotal(): void {
   this.totalPrice = this.room?.price || 0;
-}
+  }
 
-  // 🧮 Load reviews từ reviews.json và localStorage
   loadReviews(roomId: number): void {
     // Load từ reviews.json trước
     this.reviewService.getReviews().subscribe((data: any[]) => {
@@ -595,14 +586,12 @@ updateTotal(): void {
     });
   }
 
-  // 🧮 Tính trung bình sao (làm tròn 1 chữ số)
   calculateAverageRating(): number {
     if (this.reviews.length === 0) return 0;
     const sum = this.reviews.reduce((acc, r) => acc + (r.rating || 0), 0);
     return parseFloat((sum / this.reviews.length).toFixed(1));
   }
 
-  // 🧮 Tính số sao hiển thị (4 hoặc 5)
   getDisplayStars(): number {
     if (this.averageRating < 4.5) {
       return 4;
@@ -804,7 +793,6 @@ private async checkBookingConflict(roomId: number, date: string, time: string, s
     // Chỉ kiểm tra các booking có trạng thái "chờ xác nhận" hoặc "đã xác nhận"
     const activeStatuses = ['pending', 'confirmed'];
     
-    // Hàm helper để kiểm tra overlap
     const checkTimeOverlap = (start1: Date, end1: Date, start2: Date, end2: Date): boolean => {
       // Overlap xảy ra khi: start1 < end2 VÀ end1 > start2
       return start1.getTime() < end2.getTime() && end1.getTime() > start2.getTime();
@@ -1119,7 +1107,6 @@ goToPaymentForGroup(group: any): void {
  * Hàm nội bộ để chuyển đến payment (sau khi đã kiểm tra trùng lịch)
  */
 private proceedToPaymentForGroup(groupItems: any[]): void {
-  // Đảm bảo chỉ lấy dữ liệu từ cart, không bị xung đột với "Thanh toán ngay"
   localStorage.removeItem('paymentState');
   localStorage.removeItem('selectedBooking');
   
@@ -1312,9 +1299,8 @@ private mergeConsecutiveBookings(cart: any[]): any[] {
   });
   
   return merged;
-}
+  }
 
-// 🚀 Điều hướng sang trang thanh toán (thanh toán tất cả items)
 goToPayment(): void {
   this.isCartOpen = false;
   

@@ -86,8 +86,8 @@
     right: 0;
     width: 160px;
     height: 80px;
-    background: url('https://example.com/fake-wave.webp') no-repeat;
-    background-size: contain;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border-radius: 50% 0 0 0;
     opacity: 0.25;
     pointer-events: none;
 }

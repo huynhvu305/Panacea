@@ -19,7 +19,7 @@ export class SEOService {
   private defaultTitle = 'Panacea - A medicine from the stars';
   private defaultDescription = 'Không gian trị liệu và chữa lành tâm hồn - Panacea cung cấp các dịch vụ thiền, yoga, tư vấn tâm lý và nhiều hoạt động chữa lành khác.';
   private defaultKeywords = 'Panacea, trị liệu, chữa lành, thiền, yoga, tư vấn tâm lý, không gian thư giãn';
-  private defaultImage = '/assets/images/BACKGROUND.webp';
+  private defaultImage = '/assets/images/ogimg.webp';
 
   constructor(
     private titleService: Title,

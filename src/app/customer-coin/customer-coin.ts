@@ -199,7 +199,6 @@ export class CustomerCoinComponent implements OnInit, OnDestroy {
     return Math.min(((star - prev) / (next - prev)) * 100, 100);
   }
 
-  // ====== Actions (giữ nguyên modal) ======
   openAboutPoint(): void { this.showAboutModal = true; document.body.style.overflow = 'hidden'; }
   closeAboutPoint(): void { this.showAboutModal = false; document.body.style.overflow = ''; }
   openLearnHow(): void { window.open('/support/coin', '_blank'); }
@@ -434,7 +433,6 @@ export class CustomerCoinComponent implements OnInit, OnDestroy {
     }
   }
 
-  // ====== Tabs + Filter ======
   mapStatus(item: any): 'processing' | 'done' {
     const s = (item?.status || '').toLowerCase();
     if (s.includes('xử lý')) return 'processing';

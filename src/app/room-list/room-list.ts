@@ -193,8 +193,6 @@ get visibleSpaceTags(): string[] {
       }
 
       // 2. Lọc theo ngày đến (nếu có)
-      // Note: Hiện tại rooms.json không có thông tin về availability theo ngày
-      // Tạm thời cho phép tất cả nếu chưa có dữ liệu availability
       let matchesDate = true;
       if (selectedDate) {
         // Có thể thêm logic kiểm tra availability theo ngày ở đây

@@ -1,20 +1,17 @@
-<!-- ✅ FIXED: Scrolling Banner -->
 <div class="scrolling-banner">
   <div class="scrolling-wrapper">
     <div class="scrolling-text">
-      <span>Chào mừng bạn đến với PANACEA – A medicine from the starts</span>
+      <span>Chào mừng bạn đến với <strong class="panacea-brand">PANACEA</strong> – A medicine from the stars</span>
     </div>
   </div>
 </div>
 
 <header [class.scrolled]="scrolled">
   <div class="inner">
-    <!-- Logo -->
     <a class="brand" routerLink="/" (click)="closeMenu()" aria-label="Panacea - Trang chủ">
-      <img src="../../assets/images/SUBLOGO.webp" alt="Panacea - Logo không gian trị liệu và chữa lành tâm hồn" />
+      <img src="assets/images/SUBLOGO.webp" alt="Panacea - Logo không gian trị liệu và chữa lành tâm hồn" />
     </a>
 
-    <!-- Desktop nav -->
     <nav class="nav-desktop" aria-label="Menu chính">
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
         [attr.aria-current]="isActiveRoute('/') ? 'page' : null">Trang chủ</a>
@@ -23,7 +20,6 @@
       <a routerLink="/exchange-landing" routerLinkActive="active"
         [attr.aria-current]="isActiveRoute('/exchange-landing') ? 'page' : null">Ưu đãi</a>
 
-      <!-- ✅ FIXED: Hỗ trợ có dropdown với 3 items -->
       <div class="dropdown support-dropdown" [class.open]="isSupportDropdownOpen" (mouseenter)="openSupportDropdown()"
         (mouseleave)="closeSupportDropdown()" tabindex="0" role="button" [attr.aria-haspopup]="true"
         [attr.aria-expanded]="isSupportDropdownOpen" (keydown.enter)="toggleSupportDropdown($event)"
@@ -81,7 +77,6 @@
         </div>
       </div>
 
-      <!-- Tablet: More menu (ẩn một vài link khi màn hình nhỏ) -->
       <div class="dropdown more-dropdown d-none d-md-block d-lg-none" [class.open]="isMoreDropdownOpen"
         (mouseenter)="openMoreDropdown()" (mouseleave)="closeMoreDropdown()" tabindex="0" role="button"
         [attr.aria-haspopup]="true" [attr.aria-expanded]="isMoreDropdownOpen"
@@ -99,7 +94,6 @@
       </div>
     </nav>
 
-    <!-- Actions -->
     <div class="actions" *ngIf="!authService.isLoggedIn()">
       <a class="btn ghost d-none d-lg-block" routerLink="/login">Đăng nhập</a>
       <a class="btn primary d-none d-lg-block" routerLink="/register">Đăng ký</a>
@@ -109,11 +103,9 @@
       </button>
     </div>
 
-    <!-- Logged in -->
     <div class="actions user" *ngIf="authService.isLoggedIn()">
       <div class="user-info-wrapper d-none d-lg-block" (mouseenter)="openDropdown()"
         (mouseleave)="closeDropdownOnLeave($event)" (click)="handleUserWrapperClick($event)">
-        <!-- Header với tên, xu và mũi tên -->
         <div class="user-header">
           <div class="user-header-left">
             <i class="bi bi-person-circle user-icon" aria-hidden="true"></i>
@@ -130,11 +122,9 @@
             </button>
           </div>
         </div>
-        <!-- Dropdown mở khi click hoặc hover -->
         <div class="user-drop" [class.open]="isDropdownOpen" (mouseenter)="openDropdown()"
           (mouseleave)="closeDropdownOnLeave($event)">
           <div class="panel">
-            <!-- Menu items -->
             <div class="menu-items" (click)="$event.stopPropagation()">
               <a class="menu-item" routerLink="/customer-account/account-information"
                 (click)="closeDropdown(); $event.stopPropagation()">
@@ -177,7 +167,6 @@
     </div>
   </div>
 
-  <!-- Mobile/Tablet Drawer -->
   <div class="drawer-overlay" *ngIf="isOpen" (click)="closeMenu()" [attr.aria-hidden]="!isOpen" role="presentation">
   </div>
 
@@ -185,7 +174,7 @@
     [attr.aria-hidden]="!isOpen" (click)="$event.stopPropagation()">
     <div class="drawer-header">
       <a class="drawer-logo" routerLink="/" (click)="closeMenu()" aria-label="Panacea - Trang chủ">
-        <img src="../../assets/images/SUBLOGO.webp" alt="Panacea Logo - Không gian trị liệu và chữa lành tâm hồn"
+        <img src="assets/images/SUBLOGO.webp" alt="Panacea Logo - Không gian trị liệu và chữa lành tâm hồn"
           title="Panacea Logo - Không gian trị liệu và chữa lành tâm hồn" />
         <span>Panacea</span>
       </a>
@@ -212,7 +201,6 @@
         <i class="bi bi-chevron-right" aria-hidden="true"></i>
       </a>
 
-      <!-- ✅ FIXED: Hỗ trợ expandable trên mobile -->
       <div class="drawer-dropdown">
         <button class="drawer-dropdown-toggle" (click)="toggleMobileSupportDropdown()"
           [attr.aria-expanded]="isMobileSupportDropdownOpen" aria-label="Mở menu Hỗ trợ" type="button">
@@ -256,7 +244,6 @@
         <i class="bi bi-chevron-right" aria-hidden="true"></i>
       </a>
 
-      <!-- ✅ FIXED: Về chúng tôi expandable trên mobile -->
       <div class="drawer-dropdown drawer-dropdown-about">
         <button class="drawer-dropdown-toggle" (click)="toggleMobileAboutDropdown()"
           [attr.aria-expanded]="isMobileAboutDropdownOpen" aria-label="Mở menu Về chúng tôi" type="button">
@@ -280,7 +267,6 @@
       </div>
     </nav>
 
-    <!-- Contact Block -->
     <div class="drawer-contact">
       <h3 class="drawer-contact-title">Liên hệ</h3>
       <div class="drawer-contact-info">
@@ -295,7 +281,6 @@
       </div>
     </div>
 
-    <!-- User Actions -->
     <div class="drawer-actions">
       <div *ngIf="!authService.isLoggedIn()" class="drawer-auth-buttons">
         <a class="drawer-btn drawer-btn-primary" routerLink="/login" (click)="closeMenu()">Đăng nhập</a>

@@ -232,7 +232,6 @@ export class CartWidget implements OnInit, OnDestroy {
     const [start1, end1] = time1.split(' - ').map(t => this.timeToMinutes(t));
     const [start2] = time2.split(' - ').map(t => this.timeToMinutes(t));
     
-    // Liên tiếp nếu end1 === start2
     return end1 === start2;
   }
 

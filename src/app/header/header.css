@@ -53,6 +53,11 @@
   flex-shrink: 0;
 }
 
+.scrolling-text .panacea-brand {
+  color: #132FBA;
+  font-weight: 700;
+}
+
 @keyframes scroll-left {
   0% {
     transform: translateX(100vw);
@@ -150,11 +155,13 @@ header.scrolled{
 }
 
 .brand img{ 
-  height: 40px; 
-  width:auto; 
+  height: 60px; 
+  width: auto; 
+  max-width: 300px;
   object-fit: contain;
   filter: drop-shadow(0 2px 8px rgba(19, 47, 186, 0.2));
   transition: filter 0.3s ease;
+  display: block;
 }
 
 .brand:hover img {
@@ -974,9 +981,11 @@ header.scrolled{
 }
 
 .drawer-logo img {
-  height: 36px;
+  height: 50px;
   width: auto;
+  max-width: 250px;
   object-fit: contain;
+  display: block;
 }
 
 .drawer-logo span {
@@ -1379,7 +1388,7 @@ header.scrolled{
   }
   
   .brand img {
-    height: 32px;
+    height: 48px;
   }
   
   /* Đảm bảo burger button hiển thị trên mobile */
@@ -1424,7 +1433,7 @@ header.scrolled{
   }
   
   .brand img {
-    height: 28px;
+    height: 40px;
   }
   
   .actions {

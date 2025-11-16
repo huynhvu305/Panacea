@@ -219,8 +219,6 @@ export class BookingHistoryComponent implements OnInit {
     this.selectedBooking = null;
   }
 
-  // ====== ADD BELOW (outside class helpers OK, but keep inside component) ======
-
   activeTab: BookingStatusTab = 'all';
   
   // Phân trang

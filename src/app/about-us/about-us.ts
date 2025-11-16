@@ -83,9 +83,9 @@ export class AboutUsComponent implements OnInit, AfterViewInit, OnDestroy {
   team = [
     { name: 'Phan Hồng Ngọc', role: 'Project Lead & Strategist', avatar: 'assets/images/hongngoc.webp' },
     { name: 'Trương Quốc Bảo', role: 'Business Analyst', avatar: 'assets/images/quocbao.webp' },
-    { name: 'Lương Hoàng Thái', role: 'UI/UX & Concept Designer', avatar: 'assets/images/SUBLOGO.webp' },
+    { name: 'Lương Hoàng Thái', role: 'UI/UX & Concept Designer', avatar: 'assets/images/hoangthai.webp' },
     { name: 'Huỳnh Văn Vũ', role: 'Front-end Developer - Angular', avatar: 'assets/images/vanvu.webp' },
-    { name: 'Lâm Thùy Dung', role: 'Database & Integration Developer', avatar: 'assets/images/SUBLOGO.webp' },
+    { name: 'Lâm Thùy Dung', role: 'Database & Integration Developer', avatar: 'assets/images/thuydung.webp' },
   ];
 
   constructor(
