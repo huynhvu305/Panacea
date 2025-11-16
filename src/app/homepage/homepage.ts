@@ -56,8 +56,6 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
   private observer?: IntersectionObserver;
   private scrollRevealObserver?: IntersectionObserver;
 
-  private preloadLink?: HTMLLinkElement;
-
   constructor(
     private router: Router,
     private seoService: SEOService,
@@ -73,30 +71,6 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
       keywords: 'Panacea, trị liệu, chữa lành, thiền, yoga, tư vấn tâm lý, không gian thư giãn, Catharsis, Oasis, Genii, Mutiny',
       image: '/assets/images/BACKGROUND.webp'
     });
-
-    this.addVideoPreload();
-  }
-
-  private addVideoPreload(): void {
-    const head = this.document.getElementsByTagName('head')[0];
-    if (head) {
-      const existingLink = head.querySelector('link[rel="preload"][as="video"][href*="panacea.webm"]');
-      if (!existingLink) {
-        this.preloadLink = this.document.createElement('link');
-        this.preloadLink.rel = 'preload';
-        this.preloadLink.as = 'video';
-        this.preloadLink.href = 'assets/video/panacea.webm';
-        this.preloadLink.setAttribute('fetchpriority', 'high');
-        head.appendChild(this.preloadLink);
-      }
-    }
-  }
-
-  private removeVideoPreload(): void {
-    if (this.preloadLink && this.preloadLink.parentNode) {
-      this.preloadLink.parentNode.removeChild(this.preloadLink);
-      this.preloadLink = undefined;
-    }
   }
 
   ngAfterViewInit() {
@@ -141,8 +115,6 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
     if (this.statsObserver) {
       this.statsObserver.disconnect();
     }
-    
-    this.removeVideoPreload();
   }
 
   private setupIntersectionObserver() {
