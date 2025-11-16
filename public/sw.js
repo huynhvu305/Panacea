@@ -1,8 +1,8 @@
 // Service Worker cho Panacea PWA
-// Version: 1.0.0
+// Version: 1.0.1
 
-const CACHE_NAME = 'panacea-v1.0.0';
-const RUNTIME_CACHE = 'panacea-runtime-v1.0.0';
+const CACHE_NAME = 'panacea-v1.0.1';
+const RUNTIME_CACHE = 'panacea-runtime-v1.0.1';
 
 // Assets cần cache ngay khi install
 const PRECACHE_ASSETS = [
@@ -78,54 +78,75 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request)
-      .then((cachedResponse) => {
-        // Nếu có trong cache, trả về từ cache
-        if (cachedResponse) {
-          console.log('[Service Worker] Serving from cache:', event.request.url);
-          return cachedResponse;
-        }
-
-        // Nếu không có trong cache, fetch từ network
-        return fetch(event.request)
-          .then((response) => {
-            // Kiểm tra response hợp lệ
-            if (!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-
-            // Clone response để cache
+  // Network-first strategy cho HTML files để luôn có bản mới nhất
+  const isHtmlRequest = event.request.headers.get('accept')?.includes('text/html');
+  
+  if (isHtmlRequest) {
+    // Cho HTML: Network first, fallback to cache
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          if (response && response.status === 200) {
             const responseToCache = response.clone();
-
-            // Cache response cho lần sau
             caches.open(RUNTIME_CACHE)
               .then((cache) => {
-                console.log('[Service Worker] Caching new resource:', event.request.url);
+                console.log('[Service Worker] Caching HTML:', event.request.url);
                 cache.put(event.request, responseToCache);
               });
-
             return response;
-          })
-          .catch((error) => {
-            console.error('[Service Worker] Fetch failed:', error);
-            
-            // Nếu là request HTML và offline, trả về offline page
-            if (event.request.headers.get('accept')?.includes('text/html')) {
+          }
+          throw new Error('Network response was not ok');
+        })
+        .catch(() => {
+          // Fallback to cache nếu network fail
+          return caches.match(event.request)
+            .then((cachedResponse) => {
+              if (cachedResponse) {
+                console.log('[Service Worker] Serving HTML from cache:', event.request.url);
+                return cachedResponse;
+              }
               return caches.match('/index.html');
-            }
-            
-            // Trả về error response
-            return new Response('Offline - Không thể kết nối', {
-              status: 503,
-              statusText: 'Service Unavailable',
-              headers: new Headers({
-                'Content-Type': 'text/plain'
-              })
             });
-          });
-      })
-  );
+        })
+    );
+  } else {
+    // Cho assets khác: Cache first, fallback to network
+    event.respondWith(
+      caches.match(event.request)
+        .then((cachedResponse) => {
+          if (cachedResponse) {
+            console.log('[Service Worker] Serving from cache:', event.request.url);
+            return cachedResponse;
+          }
+
+          return fetch(event.request)
+            .then((response) => {
+              if (!response || response.status !== 200 || response.type !== 'basic') {
+                return response;
+              }
+
+              const responseToCache = response.clone();
+              caches.open(RUNTIME_CACHE)
+                .then((cache) => {
+                  console.log('[Service Worker] Caching new resource:', event.request.url);
+                  cache.put(event.request, responseToCache);
+                });
+
+              return response;
+            })
+            .catch((error) => {
+              console.error('[Service Worker] Fetch failed:', error);
+              return new Response('Offline - Không thể kết nối', {
+                status: 503,
+                statusText: 'Service Unavailable',
+                headers: new Headers({
+                  'Content-Type': 'text/plain'
+                })
+              });
+            });
+        })
+    );
+  }
 });
 
 // Message event - Xử lý message từ client
