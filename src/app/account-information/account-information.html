@@ -29,10 +29,10 @@
         <!-- Hàng: Giới tính + Ngày sinh -->
         <div class="grid-2">
             <div class="form-col">
-                <label class="form-label">Giới tính</label>
+                <label class="form-label" for="gender-select">Giới tính</label>
                 <div class="select-wrapper">
-                    <select class="form-control custom-select" name="gender" [(ngModel)]="editableUser.gender"
-                        [disabled]="!isEditing">
+                    <select id="gender-select" class="form-control custom-select" name="gender" [(ngModel)]="editableUser.gender"
+                        [disabled]="!isEditing" aria-label="Chọn giới tính">
                         <option value="" disabled>— Chọn giới tính —</option>
                         <option value="Nam">Nam</option>
                         <option value="Nữ">Nữ</option>

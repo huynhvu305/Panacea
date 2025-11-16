@@ -118,8 +118,9 @@
           <div class="filter-group-content">
             <!-- Sắp xếp theo điểm -->
             <div class="filter-item">
-              <i class="bi bi-coin"></i>
-              <select [(ngModel)]="pointsSort" (change)="changePointsSort(pointsSort)" class="filter-select">
+              <i class="bi bi-coin" aria-hidden="true"></i>
+              <label for="points-sort" class="sr-only">Sắp xếp theo điểm</label>
+              <select id="points-sort" [(ngModel)]="pointsSort" (change)="changePointsSort(pointsSort)" class="filter-select" aria-label="Sắp xếp theo điểm">
                 <option value="none">Sắp xếp điểm</option>
                 <option value="low">Điểm: Thấp → Cao</option>
                 <option value="high">Điểm: Cao → Thấp</option>
@@ -128,8 +129,9 @@
             <div class="filter-divider"></div>
             <!-- Sắp xếp theo tên -->
             <div class="filter-item">
-              <i class="bi bi-sort-alpha-down"></i>
-              <select [(ngModel)]="nameSort" (change)="changeNameSort(nameSort)" class="filter-select">
+              <i class="bi bi-sort-alpha-down" aria-hidden="true"></i>
+              <label for="name-sort" class="sr-only">Sắp xếp theo tên</label>
+              <select id="name-sort" [(ngModel)]="nameSort" (change)="changeNameSort(nameSort)" class="filter-select" aria-label="Sắp xếp theo tên">
                 <option value="none">Sắp xếp tên</option>
                 <option value="asc">Tên: A → Z</option>
                 <option value="desc">Tên: Z → A</option>
@@ -138,8 +140,9 @@
             <div class="filter-divider"></div>
             <!-- Lọc theo điểm -->
             <div class="filter-item">
-              <i class="bi bi-funnel-fill"></i>
-              <select [(ngModel)]="pointsFilter" (change)="changePointsFilter(pointsFilter)" class="filter-select">
+              <i class="bi bi-funnel-fill" aria-hidden="true"></i>
+              <label for="points-filter" class="sr-only">Lọc theo điểm</label>
+              <select id="points-filter" [(ngModel)]="pointsFilter" (change)="changePointsFilter(pointsFilter)" class="filter-select" aria-label="Lọc theo điểm">
                 <option value="all">Tất cả điểm</option>
                 <option value="0-200">0-200 Xu</option>
                 <option value="200-400">200-400 Xu</option>

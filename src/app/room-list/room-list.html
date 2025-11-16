@@ -97,8 +97,9 @@
 
           <hr>
 
-          <div class="filter-header mb-1"><i class="bi bi-sort-down-alt me-1 text-primary"></i>Sắp xếp theo</div>
-          <select class="form-select form-select-sm mb-2" [(ngModel)]="sortOrder" (change)="onFilterRooms()">
+          <div class="filter-header mb-1"><i class="bi bi-sort-down-alt me-1 text-primary" aria-hidden="true"></i>Sắp xếp theo</div>
+          <label for="sort-order" class="sr-only">Sắp xếp phòng</label>
+          <select id="sort-order" class="form-select form-select-sm mb-2" [(ngModel)]="sortOrder" (change)="onFilterRooms()" aria-label="Sắp xếp phòng">
             <option value="">-- Không sắp xếp --</option>
             <option value="asc">Giá tăng dần</option>
             <option value="desc">Giá giảm dần</option>
@@ -130,10 +131,11 @@
         <!-- KHUNG 3: LỌC THEO SỨC CHỨA -->
         <div class="filter-section">
           <div class="filter-header">
-            <i class="bi bi-people"></i>
+            <i class="bi bi-people" aria-hidden="true"></i>
             <span>Sức chứa</span>
           </div>
-          <select class="form-select" [(ngModel)]="guestCountFilter" (change)="onFilterRooms()">
+          <label for="guest-count-filter" class="sr-only">Lọc theo sức chứa</label>
+          <select id="guest-count-filter" class="form-select" [(ngModel)]="guestCountFilter" (change)="onFilterRooms()" aria-label="Lọc theo sức chứa">
             <option value="">Tất cả</option>
             <option value="2">1-2 người</option>
             <option value="5">3-5 người</option>
