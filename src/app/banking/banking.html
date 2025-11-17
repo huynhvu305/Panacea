@@ -88,14 +88,14 @@
             <i class="bi bi-receipt text-primary me-2"></i> Thông tin đặt chỗ
           </h5>
 
-          <!-- ✅ Thông tin khách hàng -->
+          <!-- Thông tin khách hàng -->
           <p><strong>Khách hàng:</strong> {{ customer?.fullName }}</p>
           <p><strong>Email:</strong> {{ customer?.email }}</p>
           <p><strong>Số điện thoại:</strong> {{ customer?.phone }}</p>
 
           <hr />
 
-          <!-- ✅ Thông tin phòng (hiển thị nhiều bookings nếu có) -->
+          <!-- Thông tin phòng (hiển thị nhiều bookings nếu có) -->
           <ng-container *ngIf="bookings.length > 0; else singleBookingInfo">
             <div *ngFor="let bk of bookings; let i = index" [class]="bookings.length > 1 ? 'mb-3 pb-3' : ''"
               [style.border-bottom]="bookings.length > 1 && i < bookings.length - 1 ? '1px solid #e0e0e0' : 'none'">
@@ -134,7 +134,7 @@
 
           <hr />
 
-          <!-- ✅ Dịch vụ đi kèm (chia thành 2 phần: Dịch vụ chuyên gia và Dịch vụ thuê thêm) -->
+          <!-- Dịch vụ đi kèm (chia thành 2 phần: Dịch vụ chuyên gia và Dịch vụ thuê thêm) -->
           <div class="mb-3">
             <p class="fw-bold mb-2">Dịch vụ đi kèm:</p>
 
@@ -175,7 +175,7 @@
             </p>
           </div>
 
-          <!-- ✅ Mã giảm giá (nếu có) -->
+          <!-- Mã giảm giá (nếu có) -->
           <div *ngIf="discountValue > 0" class="mb-2">
             <p class="small mb-0">
               <strong>Mã giảm giá:</strong>
@@ -184,7 +184,7 @@
             </p>
           </div>
 
-          <!-- ✅ Đã dùng Xu (nếu có) -->
+          <!-- Đã dùng Xu (nếu có) -->
           <div *ngIf="usePoints && pointsDiscountValue > 0" class="mb-2">
             <p class="small mb-0">
               <strong>50 xu:</strong>
@@ -194,7 +194,7 @@
 
           <hr />
 
-          <!-- ✅ Tổng tiền -->
+          <!-- Tổng tiền -->
           <div class="text-end">
             <p class="mb-1"><strong class="text-muted">Tổng cộng:</strong></p>
 
@@ -210,7 +210,7 @@
           </div>
 
 
-          <!-- ✅ PHẦN KIẾM XU (giống Payment) -->
+          <!-- PHẦN KIẾM XU (giống Payment) -->
           <div class="rewards-row mt-3 d-flex align-items-center gap-2">
             <span class="icon rounded-circle d-inline-flex align-items-center justify-content-center"
               style="background:#fff6e6; width:28px; height:28px;">

@@ -260,7 +260,7 @@
           <span>Bạn có lựa chọn <strong>tuyệt vời</strong> cho tâm hồn của bạn</span>
         </div>
 
-        <!-- 🟩 UPDATED: Hiển thị nhiều bookings trong cùng 1 khung (tách riêng) -->
+        <!-- UPDATED: Hiển thị nhiều bookings trong cùng 1 khung (tách riêng) -->
         <ng-container *ngIf="bookings.length > 0; else singleBooking">
           <div *ngFor="let bk of bookings; let i = index" [class]="bookings.length > 1 ? 'mb-3 pb-3' : ''"
             [style.border-bottom]="bookings.length > 1 && i < bookings.length - 1 ? '1px solid #e0e0e0' : 'none'">
@@ -366,7 +366,7 @@
             {{ discountMessage }}
           </small>
 
-          <!-- 🟨 ADD REDEEM: ĐỔI XU (chỉ hiện khi đã đăng nhập) -->
+          <!-- ADD REDEEM: ĐỔI XU (chỉ hiện khi đã đăng nhập) -->
           <div *ngIf="isLoggedIn"
             class="rewards-toggle mt-3 p-2 px-3 d-flex justify-content-between align-items-center border rounded-3">
             <div class="d-flex align-items-center">
@@ -403,7 +403,7 @@
 
 
         <div class="price-details mt-3" *ngIf="showPriceDetails">
-          <!-- 🟩 UPDATED: Giá phòng LUÔN hiển thị ở trên cùng -->
+          <!-- UPDATED: Giá phòng LUÔN hiển thị ở trên cùng -->
           <!-- Hiển thị giá từ nhiều bookings (nếu có) -->
           <ng-container *ngIf="bookings.length > 0">
             <!-- Hiển thị giá từng booking riêng -->
@@ -434,7 +434,7 @@
             </div>
           </ng-container>
 
-          <!-- 🟩 UPDATED: Dịch vụ hiển thị SAU giá phòng -->
+          <!-- UPDATED: Dịch vụ hiển thị SAU giá phòng -->
           <!-- Dịch vụ chuyên gia được chọn (từ UI) -->
           <ng-container *ngIf="selectedExpertServices.length > 0">
             <div class="price-line d-flex justify-content-between mb-2" *ngFor="let s of selectedExpertServices">
@@ -457,7 +457,7 @@
             <span class="text-success">-{{ discountValue | number }} VND</span>
           </div>
 
-          <!-- 🟨 ADDED: Hiển thị giảm giá từ Redeem Xu -->
+          <!-- ADDED: Hiển thị giảm giá từ Redeem Xu -->
           <div class="price-line d-flex justify-content-between mb-2" *ngIf="usePoints && pointsDiscountValue > 0">
             <span class="text-muted">Đổi 50 Xu</span>
             <span class="text-success">-{{ pointsDiscountValue | number }} VND</span>
@@ -474,7 +474,7 @@
             <span class="old-price text-decoration-line-through text-muted small"
               *ngIf="originalPrice && totalPrice < originalPrice">{{ originalPrice | number }} VND</span>
             <h5 class="text-primary m-0">{{ totalPrice | number }} VND</h5>
-            <!-- 🟨 ADDED: Hiển thị khi Redeem áp dụng thành công -->
+            <!-- ADDED: Hiển thị khi Redeem áp dụng thành công -->
             <small *ngIf="usePoints && pointsDiscountValue > 0" class="text-success d-block">Đã trừ 20.000 đ (50
               Xu)</small>
           </div>

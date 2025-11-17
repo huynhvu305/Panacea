@@ -28,7 +28,7 @@
             <div class="col-12 col-lg-7">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h2 class="h4 fw-bold mb-0">Chủ đề phổ biến</h2>
-                    <!-- ✅ FIXED: Navigation buttons -->
+                    <!-- FIXED: Navigation buttons -->
                     <div class="faq-navigation d-flex gap-2" *ngIf="filteredFaqs.length > itemsPerPage">
                         <button type="button" class="btn btn-outline-primary btn-sm rounded-circle p-2"
                             [disabled]="!canGoPrev" (click)="goToPrev()" [attr.aria-label]="'Xem câu hỏi trước'"
@@ -43,12 +43,12 @@
                     </div>
                 </div>
 
-                <!-- ✅ FIXED: Empty state -->
+                <!-- FIXED: Empty state -->
                 <div class="p-3 text-muted small bg-white rounded-4 shadow-sm" *ngIf="!filteredFaqs.length">
                     Không tìm thấy kết quả.
                 </div>
 
-                <!-- ✅ FIXED: Inline Accordion for details - chỉ hiển thị 7 items mỗi lần -->
+                <!-- FIXED: Inline Accordion for details - chỉ hiển thị 7 items mỗi lần -->
                 <div class="accordion mt-3" id="faqInline" *ngIf="filteredFaqs.length > 0">
                     <div class="accordion-item rounded-3 mb-2" *ngFor="let item of paginatedFaqs; index as i">
                         <h2 class="accordion-header">
@@ -70,7 +70,7 @@
                     </div>
                 </div>
 
-                <!-- ✅ FIXED: Page indicator -->
+                <!-- FIXED: Page indicator -->
                 <div class="text-center mt-3 text-muted small" *ngIf="filteredFaqs.length > itemsPerPage">
                     Trang {{ currentPage + 1 }} / {{ totalPages }} ({{ filteredFaqs.length }} câu hỏi)
                 </div>

@@ -1,4 +1,4 @@
-<!-- 🛒 GIỎ HÀNG NỔI -->
+<!-- GIỎ HÀNG NỔI -->
 <div class="cart-floating" *ngIf="shouldShowCart" (click)="toggleCart()">
     <i class="bi bi-cart-fill"></i>
     <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
@@ -10,7 +10,7 @@
         <h5 class="cart-title"><i class="bi bi-cart-check me-2"></i>Giỏ hàng</h5>
 
         <div *ngIf="cart.length > 0; else emptyCart">
-            <!-- 🟩 UPDATED: Hiển thị items đã được gộp (theo phòng và giờ liên tiếp) -->
+            <!-- UPDATED: Hiển thị items đã được gộp (theo phòng và giờ liên tiếp) -->
             <div class="cart-item-group mb-3" *ngFor="let group of getGroupedCartItems(); let groupIndex = index">
                 <div class="cart-item">
                     <img [src]="group.photo" [alt]="'Hình ảnh phòng ' + group.roomName + ' - Panacea'" 
@@ -40,7 +40,7 @@
                     </button>
                 </div>
                 
-                <!-- 🟩 ADDED: Nút thanh toán cho nhóm này -->
+                <!-- ADDED: Nút thanh toán cho nhóm này -->
                 <div class="cart-item-payment mt-2">
                     <button class="btn btn-primary w-100 fw-semibold" (click)="goToPaymentForGroup(group)">
                         Thanh toán
