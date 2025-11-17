@@ -232,77 +232,47 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
   
   minPrice: number = 200000;
   maxPrice: number = 1250000;
-  selectedMinPrice: any = this.minPrice;
-  selectedMaxPrice: any = this.maxPrice;
+  selectedMinPrice: number = this.minPrice;
+  selectedMaxPrice: number = this.maxPrice;
   
   formatCurrency(value: number): string {
     return value.toLocaleString('vi-VN') + ' VND';
   }
   
   resetPrice() {
-    this.selectedMinPrice = this.minPrice.toLocaleString('vi-VN');
-    this.selectedMaxPrice = this.maxPrice.toLocaleString('vi-VN');
+    this.selectedMinPrice = this.minPrice;
+    this.selectedMaxPrice = this.maxPrice;
   }
   
-  onPriceInput(event: any, type: 'min' | 'max') {
-    let value = event.target.value.replace(/\D/g, '');
-    
-    if (value) {
-      const numValue = parseInt(value);
-      if (numValue > 9999999) {
-        value = '9999999';
-      } else {
-        value = numValue.toString();
-      }
-    }
-    
+  onPriceSliderChange(type: 'min' | 'max') {
+    // Đảm bảo min không lớn hơn max và ngược lại
     if (type === 'min') {
-      this.selectedMinPrice = value;
+      if (this.selectedMinPrice > this.selectedMaxPrice) {
+        this.selectedMinPrice = this.selectedMaxPrice;
+      }
+      if (this.selectedMinPrice < this.minPrice) {
+        this.selectedMinPrice = this.minPrice;
+      }
     } else {
-      this.selectedMaxPrice = value;
-    }
-  }
-  
-  onPriceBlur(event: any, type: 'min' | 'max') {
-    let value = event.target.value.replace(/\D/g, '');
-    
-    if (value) {
-      const numValue = parseInt(value);
-      if (numValue > 9999999) {
-        value = '9999999';
+      if (this.selectedMaxPrice < this.selectedMinPrice) {
+        this.selectedMaxPrice = this.selectedMinPrice;
       }
-      const formatted = numValue.toLocaleString('vi-VN');
-      
-      if (type === 'min') {
-        this.selectedMinPrice = formatted;
-      } else {
-        this.selectedMaxPrice = formatted;
+      if (this.selectedMaxPrice > this.maxPrice) {
+        this.selectedMaxPrice = this.maxPrice;
       }
     }
   }
   
-  onPriceKeyDown(event: any, type: 'min' | 'max') {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      let value = event.target.value.replace(/\D/g, '');
-      
-      if (value) {
-        const numValue = parseInt(value);
-        if (numValue > 9999999) {
-          value = '9999999';
-        }
-        const formatted = numValue.toLocaleString('vi-VN');
-        
-        if (type === 'min') {
-          this.selectedMinPrice = formatted;
-        } else {
-          this.selectedMaxPrice = formatted;
-        }
-      }
-    }
+  getMinPercent(): number {
+    return ((this.selectedMinPrice - this.minPrice) / (this.maxPrice - this.minPrice)) * 100;
+  }
+  
+  getRangePercent(): number {
+    return ((this.selectedMaxPrice - this.selectedMinPrice) / (this.maxPrice - this.minPrice)) * 100;
   }
   
   getPriceValue(price: any): number {
+    if (typeof price === 'number') return price;
     if (!price) return 0;
     const numStr = String(price).replace(/\./g, '');
     return parseInt(numStr) || 0;
@@ -374,11 +344,9 @@ export class Homepage implements OnInit, AfterViewInit, OnDestroy {
       queryParams.guests = this.guestCountFilter;
     }
     
-    const minPriceValue = this.getPriceValue(this.selectedMinPrice);
-    const maxPriceValue = this.getPriceValue(this.selectedMaxPrice);
-    
-    queryParams.minPrice = minPriceValue || this.minPrice;
-    queryParams.maxPrice = maxPriceValue || this.maxPrice;
+    // selectedMinPrice và selectedMaxPrice giờ là number, không cần convert
+    queryParams.minPrice = this.selectedMinPrice || this.minPrice;
+    queryParams.maxPrice = this.selectedMaxPrice || this.maxPrice;
     
     this.router.navigate(['/room-list'], { queryParams });
   }

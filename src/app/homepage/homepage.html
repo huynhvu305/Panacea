@@ -35,20 +35,32 @@
         <div class="sb-search-field-wrapper">
           <label class="sb-search-label">Khoảng giá</label>
           <div class="sb-search-field sb-price-range">
-            <div class="sb-price-controls">
-              <div class="sb-control sb-price-left">
-                <i class="bi bi-cash-coin" aria-hidden="true"></i>
-                <label for="price-min" class="sr-only">Giá tối thiểu</label>
-                <input type="text" id="price-min" class="sb-input" placeholder="Từ" [(ngModel)]="selectedMinPrice"
-                  (input)="onPriceInput($event, 'min')" (blur)="onPriceBlur($event, 'min')"
-                  (keydown)="onPriceKeyDown($event, 'min')" aria-label="Giá tối thiểu" />
+            <div class="sb-price-slider-container">
+              <div class="sb-price-display">
+                <span class="sb-price-value">{{ formatCurrency(selectedMinPrice) }}</span>
+                <span class="sb-price-separator">–</span>
+                <span class="sb-price-value">{{ formatCurrency(selectedMaxPrice) }}</span>
               </div>
-              <span class="sb-price-separator" aria-hidden="true">–</span>
-              <div class="sb-control sb-price-right">
-                <label for="price-max" class="sr-only">Giá tối đa</label>
-                <input type="text" id="price-max" class="sb-input" placeholder="Đến" [(ngModel)]="selectedMaxPrice"
-                  (input)="onPriceInput($event, 'max')" (blur)="onPriceBlur($event, 'max')"
-                  (keydown)="onPriceKeyDown($event, 'max')" aria-label="Giá tối đa" />
+              <div class="sb-range-slider-wrapper">
+                <input type="range" 
+                  class="sb-range-input sb-range-min" 
+                  [min]="minPrice" 
+                  [max]="maxPrice" 
+                  [(ngModel)]="selectedMinPrice"
+                  (input)="onPriceSliderChange('min')"
+                  id="price-slider-min"
+                  aria-label="Giá tối thiểu" />
+                <input type="range" 
+                  class="sb-range-input sb-range-max" 
+                  [min]="minPrice" 
+                  [max]="maxPrice" 
+                  [(ngModel)]="selectedMaxPrice"
+                  (input)="onPriceSliderChange('max')"
+                  id="price-slider-max"
+                  aria-label="Giá tối đa" />
+                <div class="sb-range-track">
+                  <div class="sb-range-progress" [style.left.%]="getMinPercent()" [style.width.%]="getRangePercent()"></div>
+                </div>
               </div>
             </div>
           </div>

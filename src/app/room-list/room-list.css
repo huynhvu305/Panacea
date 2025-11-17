@@ -687,6 +687,46 @@
   background-color: #f8f9ff;
 }
 
+/* Nút Chọn phòng - Gradient cam giống nút Tìm phòng */
+.room-card .btn-warning,
+.col-md-9 .btn-warning,
+.card-body .btn-warning {
+  border: none !important;
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%) !important;
+  border-radius: 8px;
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 14px rgba(255, 107, 53, 0.35);
+  letter-spacing: 0.3px;
+  cursor: pointer;
+}
+
+.room-card .btn-warning:hover,
+.col-md-9 .btn-warning:hover,
+.card-body .btn-warning:hover {
+  background: linear-gradient(135deg, #ff8c42 0%, #ff6b35 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.45);
+  color: #ffffff !important;
+}
+
+.room-card .btn-warning:active,
+.col-md-9 .btn-warning:active,
+.card-body .btn-warning:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 12px rgba(255, 107, 53, 0.35);
+}
+
+.room-card .btn-warning:focus,
+.col-md-9 .btn-warning:focus,
+.card-body .btn-warning:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.25), 0 4px 14px rgba(255, 107, 53, 0.35);
+}
+
 /* Cải thiện button trong filter */
 .filter-section .btn-link {
   color: #132FBA;
