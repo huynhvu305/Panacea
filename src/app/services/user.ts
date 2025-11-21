@@ -284,4 +284,66 @@ export class UserService {
     return of({ success: true, user: users[userIndex] });
   }
 
+  resetPassword(emailOrPhone: string, newPassword: string): Observable<any> {
+    const users = this.getAllUsers();
+    const normalizedInput = emailOrPhone.toLowerCase().trim();
+
+    // Tìm user theo email hoặc phone
+    const userIndex = users.findIndex(u => {
+      const normalizedEmail = this.normalizeEmail(u.email);
+      const normalizedPhone = this.normalizePhone(u.phone_number);
+      const normalizedInputPhone = this.normalizePhone(normalizedInput);
+
+      const emailMatch = normalizedEmail === normalizedInput;
+      const phoneMatch = normalizedPhone === normalizedInputPhone ||
+                        (normalizedInputPhone.startsWith('0') && normalizedPhone === '+84' + normalizedInputPhone.substring(1)) ||
+                        (normalizedPhone.startsWith('+84') && normalizedInputPhone === normalizedPhone.substring(3));
+
+      return emailMatch || phoneMatch;
+    });
+
+    if (userIndex === -1) {
+      return throwError(() => new Error('Không tìm thấy tài khoản với email/số điện thoại này'));
+    }
+
+    // Cập nhật mật khẩu
+    users[userIndex].password = newPassword;
+    localStorage.setItem('USERS', JSON.stringify(users));
+
+    // Nếu user đang đăng nhập, cập nhật CURRENT_USER
+    const currentUserString = localStorage.getItem('CURRENT_USER');
+    if (currentUserString) {
+      try {
+        const currentUser = JSON.parse(currentUserString);
+        if (currentUser.user_id === users[userIndex].user_id) {
+          localStorage.setItem('CURRENT_USER', JSON.stringify(users[userIndex]));
+        }
+      } catch (e) {
+        // Ignore
+      }
+    }
+
+    return of({ success: true, user: users[userIndex] });
+  }
+
+  findUserByEmailOrPhone(emailOrPhone: string): Observable<User | null> {
+    const users = this.getAllUsers();
+    const normalizedInput = emailOrPhone.toLowerCase().trim();
+
+    const user = users.find(u => {
+      const normalizedEmail = this.normalizeEmail(u.email);
+      const normalizedPhone = this.normalizePhone(u.phone_number);
+      const normalizedInputPhone = this.normalizePhone(normalizedInput);
+
+      const emailMatch = normalizedEmail === normalizedInput;
+      const phoneMatch = normalizedPhone === normalizedInputPhone ||
+                        (normalizedInputPhone.startsWith('0') && normalizedPhone === '+84' + normalizedInputPhone.substring(1)) ||
+                        (normalizedPhone.startsWith('+84') && normalizedInputPhone === normalizedPhone.substring(3));
+
+      return emailMatch || phoneMatch;
+    });
+
+    return of(user || null);
+  }
+
 }
